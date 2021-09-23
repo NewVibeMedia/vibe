@@ -1,0 +1,10 @@
+.card a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+#new-post-btn {
+    position: fixed !important;
+    top: 5rem !important;
+    right: 0px;
+}

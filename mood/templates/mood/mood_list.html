@@ -1,0 +1,17 @@
+{% extends "mood/base.html" %}
+{% block content %}
+  <h1>My Moods</h1>
+    <a  href="/moods/new"><button class="btn btn-success" id="new-mood-btn">New Mood</button></a>
+  {% for mood in moods %}
+    <div class="card">
+      <div class="card-body">
+        <a href="{% url 'post-detail' mood.id %}">
+          <h3 class="card-title">{{ mood.mood }}</h3>
+  <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+          <h4 class="card-subtitle">By {{ mood.author }} | {{ mood.date_posted|date:"D, M d, Y" }} </h4>
+        </a>
+      </div>
+    </div>
+      <br>
+  {% endfor%}
+{% endblock content %}

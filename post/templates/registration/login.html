@@ -1,0 +1,25 @@
+<!--
+  https://learndjango.com/tutorials/django-login-and-logout-tutorial
+  Default location that Django uses for the registration form is templates/registration.
+  Don't know how to change this.
+ -->
+
+{% extends "post/base.html" %}
+
+{% block content %}
+
+  <h1 class="text-secondary">User Login [WIP]</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>
+      <button type="submit">Log In</button>
+    </p>
+  </form>
+
+  <p>
+    <a href="/signup" class="nav-link">Create New Account</a>
+  </p>
+
+{% endblock content %}
