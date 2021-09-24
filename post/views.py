@@ -151,6 +151,7 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
+# TODO Success Message: https://stackoverflow.com/questions/47054538/django-loginview-send-success-message
 def login(request):
     return render(request, 'registration/login.html', {'title': 'User Login'})
 
