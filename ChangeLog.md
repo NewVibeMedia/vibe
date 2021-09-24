@@ -1,3 +1,6 @@
+v 0.2.2  24-Sep-2021
+* Changed wording of navbar
+
 v 0.2.1  24-Sep-2021
 * Moved CSS files to public/static to be accessed globally
 
