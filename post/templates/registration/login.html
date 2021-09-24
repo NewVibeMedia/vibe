@@ -9,14 +9,6 @@
 {% block content %}
 
   <h1 class="text-secondary">User Login [WIP]</h1>
-<!-- Display message if any exist (e.g. permission denied) -->
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
 
   <form method="post">
     {% csrf_token %}
