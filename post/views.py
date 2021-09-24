@@ -85,6 +85,8 @@ class PersonalPostListView(CustomLoginRequiredMixin, ListView):
 
 class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
+    login_url = '/login/'
+
 
 class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
