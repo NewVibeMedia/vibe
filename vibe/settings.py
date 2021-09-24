@@ -23,9 +23,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-a!4=5fei5k^vtlbr9btt67^05u^a2z%)t76&jzqu(lazlf_dd!'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+DJANGO_ENV = os.environ.get('DJANGO_ENV')
+if DJANGO_ENV == None:
+  DJANGO_ENV = "development"
+elif  DJANGO_ENV == "production":
+  DJANGO_ENV = "production"
+elif  DJANGO_ENV == "integration": # testing
+  DJANGO_ENV = "integration"
+else:
+  DJANGO_ENV = "development"       # default to development
+
+print("Django.env = " + DJANGO_ENV)
+
+
+if DJANGO_ENV == "development":
+  # SECURITY WARNING: don't run with debug turned on in production!
+  DEBUG = True
+else:
+  DEBUG = False
+  
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "149.28.187.96"]
 
 
@@ -92,7 +109,7 @@ WSGI_APPLICATION = 'vibe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db' / 'vibe_default.sqlite3',
+        'NAME': BASE_DIR / 'db' / "vibe_{}.sqlite3".format(DJANGO_ENV),
     }
 }
 
