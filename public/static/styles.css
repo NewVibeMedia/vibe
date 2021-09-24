@@ -8,3 +8,17 @@
     top: 5rem !important;
     right: 0px;
 }
+
+div.reg-block {
+  width: 350px;
+  padding: 20px;
+  padding-right: 40px;
+  margin: 60px auto;
+  background: #fff;
+  border-top: solid 2px #72c02c;
+}
+
+
+.margin-bottom-20 {
+margin-bottom: 20px;
+}
