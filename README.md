@@ -32,11 +32,9 @@ After initial database migration, the database is empty.
 
 For testing purposes, we usually like some test data. One way is using fixture files (under /db/fixtures).
 
-> python3 manage.py loaddata db/fixtures/users.json  
-> python3 manage.py loaddata db/fixtures/posts.json  
-> python3 manage.py loaddata db/fixtures/moods.json  
+> python3 manage.py loaddata db/fixtures/*.json
 
-To generate fixtures :
+To generate fixtures (only when needed, NOT ALWAYS):
 
 > python3 manage.py dumpdata mood > db/fixtures/moods.json  
 > python3 manage.py dumpdata post > db/fixtures/posts.json  
