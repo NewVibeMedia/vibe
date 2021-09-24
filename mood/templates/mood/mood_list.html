@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+<div>
+  <div style="float: right;">
+    <a  href="/moods/new"><button class="btn btn-success" id="new-mood-btn">
+			<i class="fa fa-lock"></i>New Mood</button></a>
+ </div>
   <h1>My Moods</h1>
-    <a  href="/moods/new"><button class="btn btn-success" id="new-mood-btn">New Mood</button></a>
+</div>
+		
   {% for mood in moods %}
     <div class="card">
       <div class="card-body">

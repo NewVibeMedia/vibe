@@ -106,5 +106,23 @@
       "groups": [],
       "user_permissions": []
     }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$ZyYLFVQnwBbWZEf29yHN2Q$wa8XY0iYZCOdpNoIGoKHTMGjIATQNYoZ2MDMRvpGhV0=",
+      "last_login": "2021-09-23T07:08:26.440Z",
+      "is_superuser": false,
+      "username": "stevie",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-09-23T07:08:24.015Z",
+      "groups": [],
+      "user_permissions": []
+    }
   }
 ]
