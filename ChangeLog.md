@@ -1,3 +1,6 @@
+v 0.3.1 24-Sep-2021
+* 
+
 v 0.3.0  24-Sep-2021
 * Deployment with NGINX webserver on port 80
 * Mood form adjusted

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import serializers
 from django.db.models import CharField, DateTimeField
@@ -64,7 +65,10 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
                              "Mood created successfully")
         return super().form_valid(form)
 
+@login_required
 def display(request):
+    login_url = '/login/'
+
     the_moods  = list(Mood.objects.filter(author=request.user).order_by('-date_posted'))
     values = [v.to_list() for v in the_moods]
     # unix time: date.replace(tzinfo=timezone.utc).timestamp()
