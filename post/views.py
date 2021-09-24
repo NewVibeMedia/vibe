@@ -81,7 +81,7 @@ class PersonalPostListView(CustomLoginRequiredMixin, ListView):
     ordering = ['-date_posted']
 
     def get_queryset(self):
-        return Post.objects.filter(post_type="Personal")
+        return Post.objects.filter(post_type="Personal").filter(author=self.request.user)
 
 class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post

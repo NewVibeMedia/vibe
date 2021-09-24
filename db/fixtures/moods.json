@@ -13,7 +13,7 @@
     "pk": 11,
     "fields": {
       "mood": "Very Negative",
-      "date_posted": "2021-09-20T10:42:52.368Z",
+      "date_posted": "2021-09-19T10:42:52.368Z",
       "author": 1
     }
   },
@@ -22,8 +22,8 @@
     "pk": 12,
     "fields": {
       "mood": "Very Negative",
-      "date_posted": "2021-09-20T10:49:19.496Z",
-      "author": 1
+      "date_posted": "2021-09-19T10:49:19.496Z",
+      "author": 2
     }
   },
   {
