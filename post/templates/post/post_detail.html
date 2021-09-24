@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
     <div class="card bordered md:w-auto">
-      <div class="card-body">
-        <h1 class="card-title">{{ object.title }}</h1>
-<!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
-        <h4 class="card-subtitle">By {{ object.author }} | {{ object.date_posted|date:"D, M d, Y" }} </h4>
-        <p class="card-text">{{ object.content }}</p>
-      </div>
+        <div class="card-body">
+            <h1 class="card-title">{{ object.title }}</h1>
+            <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+            <h4 class="card-subtitle">By {{ object.author }} | {{ object.date_posted|date:"D, M d, Y" }} </h4>
+            <p class="card-text">{{ object.content }}</p>
+        </div>
     </div>
 {% endblock content %}

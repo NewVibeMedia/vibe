@@ -130,6 +130,8 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.add_message(self.request, messages.SUCCESS,
+                             "Post created successfully")
         return super().form_valid(form)
 
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView):

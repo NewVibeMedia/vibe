@@ -44,6 +44,8 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.add_message(self.request, messages.SUCCESS,
+                             "Mood created successfully")
         return super().form_valid(form)
 
 def display(request):
