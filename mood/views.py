@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 from .models import Mood
 from django.views.generic import CreateView, DetailView, ListView
@@ -33,6 +34,7 @@ class MoodListView(CustomLoginRequiredMixin, ListView):
     def get_queryset(self):
         return Mood.objects.filter(author=self.request.user)
 
+# TODO convert to method: https://realpython.com/django-redirects/
 class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     model = Mood
     login_url = "login"
@@ -60,4 +62,15 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 def display(request):
-    return render(request, 'charts/display.html', {'title': 'Display'})
+    # mood_data = []
+    # # populate mood_data with mood's data
+    # mood_data.append(Mood.objects.first())
+    context = {
+        'title': 'Display',
+        'data': Mood.objects.first(), # works but only returns string value of mood
+
+        # NOT WORKING
+        # 'data': Mood.objects.get(1).mood,
+        # 'data': mark_safe(mood_data),
+    }
+    return render(request, 'charts/display.html', context)

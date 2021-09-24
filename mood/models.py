@@ -26,3 +26,7 @@ class Mood(models.Model):
 
     def get_absolute_url(self):
         return reverse('mood-detail', kwargs={'pk': self.pk})
+
+    def chart_data(self):
+        unix_time = self.date_posted.replace(tzinfo=timezone.utc).timestamp()
+        return [unix_time, self.mood]
