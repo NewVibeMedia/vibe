@@ -5,7 +5,7 @@
   {% for mood in moods %}
     <div class="card">
       <div class="card-body">
-        <a href="{% url 'post-detail' mood.id %}">
+        <a href="{% url 'mood-detail' mood.id %}">
           <h3 class="card-title">{{ mood.mood }}</h3>
   <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
           <h4 class="card-subtitle">By {{ mood.author }} | {{ mood.date_posted|date:"D, M d, Y" }} </h4>

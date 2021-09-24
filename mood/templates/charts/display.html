@@ -1,4 +1,82 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>My Past Moods</h1>
+
+    <main class="weekly-chart">
+    <script type="text/javascript">
+    var chart = null;
+
+    function mood_display(val) {
+      if (val == 1) {
+          return "Very Negative";
+      } else if (val == 2) {
+          return "Negative";
+      } else if (val == 3) {
+          return "Neutral";
+      } else if (val == 4) {
+          return "Positive";
+      }  else {
+          return "Very Positive";
+      }
+    }
+
+    $(document).ready(function () {
+
+        chart = new Highcharts.chart('project-chart', {
+            chart: {
+                backgroundColor: null,
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Mood Chart'
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    month: '%e. %b',
+                    year: '%b'
+                },
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                formatter: function () {
+                    return Highcharts.dateFormat('%A, %e %b', new Date(this.x)) + "<br/><b>" + mood_display(this.y) + "</b>";
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    marker: {
+                        enabled: false,
+                        radius: 4
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: [{
+                name: 'Mood',
+                data:   <%= raw @moods.collect{|x| [ x.date.to_time.to_i * 1000,  x.mood_value ]} %>
+            }]
+        });
+    });
+
+</script>
+
+
+
+    </main>
 {% endblock content %}

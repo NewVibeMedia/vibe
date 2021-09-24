@@ -21,13 +21,9 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
-def index(request):
-    return render(request, 'mood/mood.html', {})
-
 class MoodListView(CustomLoginRequiredMixin, ListView):
     model = Mood
     login_url = "login"
-    template_name = 'post/mood.html' # <app>/<model>_<viewtype>/html
     context_object_name = 'moods'
     ordering = ['-date_posted']
 

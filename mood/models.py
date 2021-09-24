@@ -8,11 +8,11 @@ from django.urls import reverse
 class Mood(models.Model):
     # has own table in db
     MOODS = (
-        ("Very Negative", '0'),
-        ("Negative", '1'),
-        ("Neutral", '2'),
-        ("Positive", '3'),
-        ("Very Positive", '4'),
+        ('0', "Very Negative"),
+        ('1', "Negative"),
+        ('2', "Neutral"),
+        ('3', "Positive"),
+        ('4', "Very Positive"),
     )
     mood = models.CharField(max_length=50, choices=MOODS)
     date_posted = models.DateTimeField(default=timezone.now)
