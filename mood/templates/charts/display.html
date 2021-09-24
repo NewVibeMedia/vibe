@@ -14,7 +14,7 @@
     <script type="text/javascript">
         var chart = null;
 
-        console.log({{ data }})
+        {#console.log({{ data }})#}
 
         function mood_display(val) {
             if (val == 1) {
@@ -79,7 +79,7 @@
                 },
                 series: [{
                     name: 'Mood',
-                    data: [[1631750400000, 1], [1632096000000, 5], [1632268800000, 4], [1632355200000, 3]]
+                    data: {{ data|safe }}
                 }]
             });
         });

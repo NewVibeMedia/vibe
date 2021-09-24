@@ -1,3 +1,8 @@
+v 0.3.0  24-Sep-2021
+* Deployment with NGINX webserver on port 80
+* Mood form adjusted
+* HighCharts mood chart now displays under Calendar
+
 v 0.2.2  24-Sep-2021
 * Changed wording of navbar
 

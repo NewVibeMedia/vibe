@@ -1,5 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import serializers
+from django.db.models import CharField, DateTimeField
+from django.db.models.functions import Cast, TruncSecond
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -62,15 +65,12 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 def display(request):
-    # mood_data = []
-    # # populate mood_data with mood's data
-    # mood_data.append(Mood.objects.first())
+    the_moods  = list(Mood.objects.filter(author=request.user).order_by('-date_posted'))
+    values = [v.to_list() for v in the_moods]
+    # unix time: date.replace(tzinfo=timezone.utc).timestamp()
+
     context = {
         'title': 'Display',
-        'data': Mood.objects.first(), # works but only returns string value of mood
-
-        # NOT WORKING
-        # 'data': Mood.objects.get(1).mood,
-        # 'data': mark_safe(mood_data),
+        'data': mark_safe(list(values)), # works but only returns string value of mood
     }
     return render(request, 'charts/display.html', context)

@@ -1,15 +1,28 @@
 {% extends "base.html" %}
+
 {% load crispy_forms_tags %}
 {% block content %}
+
     <div class="content-section">
+			
+			<legend>Enter Today's Mood</legend>
+			
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Mood</legend>
-                {{ form|crispy }}
+                <label class="border-bottom mb-4">Mood <span class="mandatory">*</span></label>
+								<select name="mood" class="select" style="padding: 3px; font-size: 1.1rem;" required="" id="id_mood">
+									 <option value="" selected="">---</option> 
+									 <option value="0">Very Negative</option> 
+									 <option value="1">Negative</option>
+									 <option value="2">Neutral</option>
+									 <option value="3">Positive</option> 
+									 <option value="4">Very Positive</option>
+								</select>
+								
             </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Mood</button>
+            <div class="form-group" style="margin-top: 10px;">
+                <button class="btn btn-primary" is="save-mood-btn" type="submit">Save</button>
             </div>
         </form>
         <!-- {{ form.as_p}} -->

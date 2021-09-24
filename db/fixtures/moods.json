@@ -4,7 +4,7 @@
     "pk": 10,
     "fields": {
       "mood": "0",
-      "date_posted": "2021-09-20T10:42:06.153Z",
+      "date_posted": "2021-09-20",
       "author": 1
     }
   },
@@ -13,7 +13,7 @@
     "pk": 11,
     "fields": {
       "mood": "0",
-      "date_posted": "2021-09-19T10:42:52.368Z",
+      "date_posted": "2021-09-19",
       "author": 1
     }
   },
@@ -22,7 +22,7 @@
     "pk": 12,
     "fields": {
       "mood": "0",
-      "date_posted": "2021-09-19T10:49:19.496Z",
+      "date_posted": "2021-09-19",
       "author": 2
     }
   },
@@ -31,7 +31,7 @@
     "pk": 13,
     "fields": {
       "mood": "2",
-      "date_posted": "2021-09-20T11:41:07.387Z",
+      "date_posted": "2021-09-20",
       "author": 5
     }
   }
