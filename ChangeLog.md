@@ -1,5 +1,6 @@
 v 0.3.1 24-Sep-2021
-* 
+* Login required for calendar
+* Reformat login page to be same as rails
 
 v 0.3.0  24-Sep-2021
 * Deployment with NGINX webserver on port 80
