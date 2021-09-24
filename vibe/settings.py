@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-a!4=5fei5k^vtlbr9btt67^05u^a2z%)t76&jzqu(lazlf_dd!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "149.28.187.96"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "149.28.187.96"]
 
 
 # Application definition
@@ -79,7 +79,7 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-    ("static")
+    ("public/static")
 ]
 
 WSGI_APPLICATION = 'vibe.wsgi.application'
