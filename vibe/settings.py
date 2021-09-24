@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     # For show_urls
     'django_extensions',
+    "django_static_fontawesome",
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
