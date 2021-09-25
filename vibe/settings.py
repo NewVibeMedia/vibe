@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     # For show_urls
     'django_extensions',
     "django_static_fontawesome",
+    # For reset database for development and integration env
+    'django_truncate',    
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

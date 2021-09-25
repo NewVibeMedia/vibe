@@ -1,7 +1,7 @@
 [
   {
     "model": "mood.mood",
-    "pk": 10,
+    "pk": 1,
     "fields": {
       "mood": 0,
       "date_posted": "2021-09-20",
@@ -10,16 +10,16 @@
   },
   {
     "model": "mood.mood",
-    "pk": 11,
+    "pk": 2,
     "fields": {
-      "mood": 0,
+      "mood": 4,
       "date_posted": "2021-09-19",
       "author": 1
     }
   },
   {
     "model": "mood.mood",
-    "pk": 12,
+    "pk": 3,
     "fields": {
       "mood": 0,
       "date_posted": "2021-09-19",
@@ -28,7 +28,7 @@
   },
   {
     "model": "mood.mood",
-    "pk": 13,
+    "pk": 4,
     "fields": {
       "mood": 2,
       "date_posted": "2021-09-20",

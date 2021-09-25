@@ -68,7 +68,6 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
         return result
 
     def form_invalid(self, form):
-        print("INVALIDE")
         messages.add_message(self.request, messages.WARNING,
                              "Problem adding moods")
         return HttpResponseRedirect('/moods')

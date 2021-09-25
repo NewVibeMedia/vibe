@@ -8,54 +8,59 @@
 
 {% block content %}
 
-<!-- Display message if any exist (e.g. permission denied) -->
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
+    <!-- Display message if any exist (e.g. permission denied) -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
 
-<div class="reg-block">
+    <div class="reg-block">
 
-<div class="reg-block-header" style="margin-bottom: 15px;">
-		    <h2 class="sign_in_heading">User Login [WIP] <span style="color: #333"></span></h2>
-		</div>
-		
-  <form method="post">
+        <div class="reg-block-header" style="margin-bottom: 15px;">
+            <h2 class="sign_in_heading">User Login [WIP] <span style="color: #333"></span></h2>
+        </div>
+
+        <form method="post">
             {% csrf_token %}
-						
-						
-						<div class="input-group margin-bottom-20">
-												  <div class="input-group-prepend">
+
+        <div class="alert alert-danger" role="alert">
+{% if form.errors %}
+    Username or password is incorrect
+{% endif %}
+
+        </div>
+            <div class="input-group margin-bottom-20">
+                <div class="input-group-prepend">
 												    <span class="input-group-text" id="basic-addon1">
 															<i class="fa fa-user fa-2x" style="padding:4px;"></i>
    													</span>
-												  </div>
-													<input class="form-control" autocomplete="off" id="id_username" maxlength="90" name="username" tabindex="1" type="text" style="font-size: 1.7rem" placeholder="username" value="">
-												</div>
-																								
-												<div class="input-group margin-bottom-20">
-																		  <div class="input-group-prepend">
-																		    <span class="input-group-text" id="basic-addon2">
-																					<i class="fa fa-lock fa-2x" style="padding:4px;"></i>																					
-																			</span>
-																		  </div>
-																			<input class="form-control" autocomplete="off" id="id_password" maxlength="20" name="password" tabindex="2" style="font-size: 1.7rem"  type="password" placeholder="Password">					      
-																		</div>
-																																		
-<div class="row" style="margin-bottom: 0.5rem;">
-					    <div class="col-md-12 col-sm-12">
-						   <input type="submit" value="Log In" id="sign_in_btn" class="btn btn-primary btn-block">		
-               &nbsp; 
-               <a href="/signup">Create New Account</a>
-             	</div>
-               
-					</div>
-					
-  </form>
-</div>
+                </div>
+                <input class="form-control" autocomplete="off" id="id_username" maxlength="90" name="username"
+                       tabindex="1" type="text" style="font-size: 1.7rem" placeholder="username" value="">
+            </div>
+
+            <div class="input-group margin-bottom-20">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon2"> <i class="fa fa-lock fa-2x" style="padding:4px;"></i></span>
+                </div>
+                <input class="form-control" autocomplete="off" id="id_password" maxlength="20" name="password"
+                       tabindex="2" style="font-size: 1.7rem" type="password" placeholder="Password">
+            </div>
+
+            <div class="row" style="margin-bottom: 0.5rem;">
+                <div class="col-md-12 col-sm-12">
+                    <input type="submit" value="Log In" id="sign_in_btn" class="btn btn-primary btn-block">
+                    &nbsp;
+                    <a href="/signup">Create New Account</a>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
 
 {% endblock content %}

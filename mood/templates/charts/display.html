@@ -17,16 +17,16 @@
         {#console.log({{ data }})#}
 
         function mood_display(val) {
-            if (val == 1) {
-                return "Very Negative";
-            } else if (val == 2) {
-                return "Negative";
-            } else if (val == 3) {
-                return "Neutral";
-            } else if (val == 4) {
-                return "Positive";
-            } else {
+            if (val == 4) {
                 return "Very Positive";
+            } else if (val == 3) {
+              return "Positive";
+            } else if (val == 2) {
+                return "Neutral";
+            } else if (val == 1) {
+              return "Negative";
+            } else {
+                return "Very Negative";
             }
         }
 

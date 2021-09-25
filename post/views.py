@@ -16,6 +16,9 @@ from django.views.generic import (
 from .models import Post
 from django.contrib.auth.models import User
 # from django.http import HttpResponse
+from django.core.management import call_command
+from django.db.models import Q
+import os
 
 # Routes
 def home(request):
@@ -113,7 +116,11 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
     def get_queryset(self):
         qs = super(PostDeleteView, self).get_queryset()
-        return qs.filter(author_id=self.request.user.id)
+        if self.request.user.is_superuser:
+          result = qs
+        else:
+          result = qs.filter(author_id=self.request.user.id)
+        return result
 
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
@@ -163,7 +170,8 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     fields = ['title', 'content']
     
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        if not self.request.user.is_superuser:
+          form.instance.author = self.request.user
         return super().form_valid(form)
 
 class SignUpView(CreateView):
@@ -182,3 +190,20 @@ def about(request):
     # return HttpResponse('<h1>Diary About</h1>')
     return render(request, 'post/about.html', {'title': 'About'})
 
+def search(request):
+    query = request.POST['search']
+    results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    print(len(results))
+    return render(request, 'post/search.html', {'title': 'Search', 'posts': results})
+
+def reset(request):
+    #
+    DJANGO_ENV = os.environ.get('DJANGO_ENV')
+    if DJANGO_ENV == "production":
+        raise ValueError("Unable to reset database in production")
+
+    print("reset db", DJANGO_ENV)
+    call_command("truncate", "--apps", "post", "mood")
+    call_command("loaddata", "db/fixtures/moods.json")
+    call_command("loaddata", "db/fixtures/posts.json")
+    return render(request, 'about.html', {'title': 'About'})

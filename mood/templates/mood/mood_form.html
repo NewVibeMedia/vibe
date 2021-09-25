@@ -21,10 +21,10 @@
                 </select>
 
             </fieldset>
-            {% if object.id %}
-                <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
-                <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date" name="date_posted"/>
-            {% endif %}
+            <fieldset class="form-group">
+              <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
+              <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date" name="date_posted"/>
+            </fieldset>
 
             <div class="form-group" style="margin-top: 10px;">
                 <button class="btn btn-primary" id="save-mood-btn" type="submit">Save</button>

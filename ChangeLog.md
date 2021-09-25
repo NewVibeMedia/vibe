@@ -1,10 +1,14 @@
+* [TODO] Public Post entry is limited 24 hours for public 
+
 * [TODO] delete post only for only own posts
 * [TODO] delete mood, for only own mood
 * [TODO] validate mood on the same date
-
-* [TODO] Login failed but without error message
 * [TODO] Sign up validation for max length 150 characters
-* [TODO] Public Post entry is limited 24 hours for public 
+* [TODO] Enter mood shall take input as date
+
+v0.4.2
+* Reset DB (/reset) works (for testing, only in development and integration mode)
+* When login failed error message is displayed
 
 v0.4.1
 

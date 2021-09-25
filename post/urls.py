@@ -6,7 +6,8 @@ from .views import (
     PostDetailView,
     PostCreateView,
     PostUpdateView,
-    PostDeleteView, SignUpView,
+    PostDeleteView,
+    SignUpView,
     GratitudePostListView, QuestionPostListView, PersonalPostListView)
 from . import views
 from django.contrib.auth import views as auth_views
@@ -27,4 +28,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     # path('logout/', auth_views.logout, {'template_name': 'logged_out.html'}, name='logout'),
 
+    path('search', views.search, name='search'),
+
+    path('reset', views.reset)
 ]
