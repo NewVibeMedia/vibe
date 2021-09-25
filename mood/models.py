@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.utils.dateformat import format
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -31,3 +33,14 @@ class Mood(models.Model):
 
     def get_absolute_url(self):
         return reverse('mood-detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        query = "select id FROM mood_mood WHERE author_id = {0} AND date_posted = '{1}'".format(self.author_id, self.date_posted.strftime('%Y-%m-%d'))
+        print("SQL: ", query)
+        result = Mood.objects.raw(query)
+        if (len(result) > 0):
+            print("result: ", len(result), self.date_posted.strftime('%Y-%m-%d'))
+            # TODO make it FormValidatorError
+            raise ValueError("Duplicate entry for the date '{0}'".format(self.date_posted.strftime('%Y-%m-%d')))
+        else:
+            super(Mood, self).save(*args, **kwargs)

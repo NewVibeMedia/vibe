@@ -110,6 +110,11 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     model = Post
     success_url = "/"
 
+    # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
+    def get_queryset(self):
+        qs = super(PostDeleteView, self).get_queryset()
+        return qs.filter(author_id=self.request.user.id)
+
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
     login_url = '/login/'

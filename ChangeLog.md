@@ -1,4 +1,4 @@
-* [TODO] delete post only  for only own posts
+* [TODO] delete post only for only own posts
 * [TODO] delete mood, for only own mood
 * [TODO] validate mood on the same date
 

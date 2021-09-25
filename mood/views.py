@@ -59,17 +59,19 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
     model = Mood
     fields = ['mood']
 
+    # The form has been already validated
     def form_valid(self, form):
         form.instance.author = self.request.user
         messages.add_message(self.request, messages.SUCCESS,
                              "Mood created successfully")
-        return super().form_valid(form)
+        result = super().form_valid(form)
+        return result
 
-    # def form_invalid(self, form):
-    #     print("INVALIDE")
-    #     messages.add_message(self.request, messages.WARNING,
-    #                          "Problem adding moods")
-    #     return HttpResponseRedirect('/moods')
+    def form_invalid(self, form):
+        print("INVALIDE")
+        messages.add_message(self.request, messages.WARNING,
+                             "Problem adding moods")
+        return HttpResponseRedirect('/moods')
 
 
 class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
