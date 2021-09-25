@@ -3,8 +3,14 @@
 * [TODO] validate mood on the same date
 
 * [TODO] Login failed but without error message
-* [TODO] Admin (is_super_user) can edit any user's posts
 * [TODO] Sign up validation for max length 150 characters
+* [TODO] Public Post entry is limited 24 hours for public 
+
+v0.4.1
+
+* Guest unable view Personal posts
+* Admin 'vibeadmin' (is_super_user) can edit any user's posts
+* Admin (is_super_user) can view other's personal posts
 
 v0.4 25-Sep-2021
 

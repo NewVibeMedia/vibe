@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
     <div>
 
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="float:right;">
@@ -20,9 +19,9 @@
         </div>
 
         {% if post_type != None %}
-            <h1>My {{ post_type }} Posts</h1>
+            <h1>{% if user.id %}My{% endif %} {{ post_type }} Posts</h1>
         {% else %}
-            <h1>My Posts</h1>
+            <h1>{% if user.id %}My{% endif %} Posts</h1>
         {% endif %}
 
     </div>
@@ -39,16 +38,35 @@
     </div>
 
     {% for post in posts %}
-        <div class="card">
-            <div class="card-body">
-                <a href="{% url 'post-detail' post.id %}">
-                    <h3 class="card-title">{{ post.title }}</h3>
-                    <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
-                    <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
-                    <p class="card-text">{{ post.content }}</p>
-                </a>
+
+        {% if user.is_superuser or post.post_type != "Personal" %}
+
+            <div class="card">
+                <div class="card-body">
+                    <a href="{% url 'post-detail' post.id %}">
+                        <h3 class="card-title">{{ post.title }}</h3>
+                        <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                        <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
+                        <p class="card-text">{{ post.content }}</p>
+                    </a>
+                </div>
             </div>
-        </div>
-        <br>
+            <br>
+
+        {% elif  post.post_type == "Personal" and user.id == post.author_id %}
+
+            <div class="card">
+                <div class="card-body">
+                    <a href="{% url 'post-detail' post.id %}">
+                        <h3 class="card-title">{{ post.title }}</h3>
+                        <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                        <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
+                        <p class="card-text">{{ post.content }}</p>
+                    </a>
+                </div>
+            </div>
+            <br>
+
+        {% endif %}
     {% endfor %}
 {% endblock content %}

@@ -2,7 +2,7 @@
 {% block content %}
 
     <div>
-    {% if user == object.author %}
+    {% if user == object.author or user.is_superuser %}
         <div class="post-actions">
             <!-- Precedence (a and b) or (a and c)-->
             <a id="edit-btn" class="btn btn-light btn-sm" href="{% url 'post-edit' object.id %}">Edit</a>
