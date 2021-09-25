@@ -2,6 +2,10 @@
 * [TODO] delete mood, for only own mood
 * [TODO] validate mood on the same date
 
+* [TODO] Login failed but without error message
+* [TODO] Admin (is_super_user) can edit any user's posts
+* [TODO] Sign up validation for max length 150 characters
+
 v0.4 25-Sep-2021
 
 * Run server in different mode (development,production) with different database, using DJANGO_ENV to control
