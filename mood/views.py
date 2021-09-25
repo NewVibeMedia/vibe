@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from .models import Mood
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 
 # Create your views here.
@@ -55,7 +55,7 @@ class MoodDetailView(CustomLoginRequiredMixin, DetailView):
 class MoodCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
     login_url = '/login/'
-
+    success_url = "/moods"
     model = Mood
     fields = ['mood']
 
@@ -64,6 +64,29 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
         messages.add_message(self.request, messages.SUCCESS,
                              "Mood created successfully")
         return super().form_valid(form)
+
+    # def form_invalid(self, form):
+    #     print("INVALIDE")
+    #     messages.add_message(self.request, messages.WARNING,
+    #                          "Problem adding moods")
+    #     return HttpResponseRedirect('/moods')
+
+
+class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+
+    model = Mood
+    fields = ['mood', 'date_posted']
+    success_url = "/moods"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
+    login_url = '/login/'
+    model = Mood
+    success_url = "/moods"
 
 @login_required
 def display(request):

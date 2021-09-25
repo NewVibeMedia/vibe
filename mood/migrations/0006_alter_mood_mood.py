@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='mood',
             name='mood',
-            field=models.CharField(choices=[('0', 'Very Negative'), ('1', 'Negative'), ('2', 'Neutral'), ('3', 'Positive'), ('4', 'Very Positive')], max_length=50),
+            field=models.PositiveSmallIntegerField(choices=[(0, 'Very Negative'), (1, 'Negative'), (2, 'Neutral'), (3, 'Positive'), (4, 'Very Positive')]),
         ),
     ]

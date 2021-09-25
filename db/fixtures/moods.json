@@ -3,7 +3,7 @@
     "model": "mood.mood",
     "pk": 10,
     "fields": {
-      "mood": "0",
+      "mood": 0,
       "date_posted": "2021-09-20",
       "author": 1
     }
@@ -12,7 +12,7 @@
     "model": "mood.mood",
     "pk": 11,
     "fields": {
-      "mood": "0",
+      "mood": 0,
       "date_posted": "2021-09-19",
       "author": 1
     }
@@ -21,7 +21,7 @@
     "model": "mood.mood",
     "pk": 12,
     "fields": {
-      "mood": "0",
+      "mood": 0,
       "date_posted": "2021-09-19",
       "author": 2
     }
@@ -30,7 +30,7 @@
     "model": "mood.mood",
     "pk": 13,
     "fields": {
-      "mood": "2",
+      "mood": 2,
       "date_posted": "2021-09-20",
       "author": 5
     }

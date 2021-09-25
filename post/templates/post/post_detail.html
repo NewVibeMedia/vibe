@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-    <div class="card bordered md:w-auto">
-        <div class="card-body">
-            <h1 class="card-title">{{ object.title }}</h1>
-            <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
-            <h4 class="card-subtitle">By {{ object.author }} | {{ object.date_posted|date:"D, M d, Y" }} </h4>
-            <p class="card-text">{{ object.content }}</p>
+    <div>
+    {% if user == object.author %}
+        <div class="post-actions">
+            <!-- Precedence (a and b) or (a and c)-->
+            <a id="edit-btn" class="btn btn-light btn-sm" href="{% url 'post-edit' object.id %}">Edit</a>
+            <a id="delete-btn" class="btn btn-danger  btn-sm" data-confirm="Are you sure you want to delete the post?"
+               rel="nofollow" data-method="delete" href="{% url 'post-delete' object.id %}">Delete</a>
         </div>
+    {% endif %}
+        <h2>{{ object.title }}</h2>
+        <p><i>By <b>{{ object.author }}</b> on {{ object.date_posted|date:"d/m/Y" }} </i></p>
+        <p>{{ object.content }}</p>
     </div>
+
 {% endblock content %}

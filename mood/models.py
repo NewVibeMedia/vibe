@@ -9,13 +9,14 @@ from django.urls import reverse
 class Mood(models.Model):
     # has own table in db
     MOODS = (
-        ('0', "Very Negative"),
-        ('1', "Negative"),
-        ('2', "Neutral"),
-        ('3', "Positive"),
-        ('4', "Very Positive"),
+        (0, "Very Negative"),
+        (1, "Negative"),
+        (2, "Neutral"),
+        (3, "Positive"),
+        (4, "Very Positive"),
     )
-    mood = models.CharField(max_length=50, choices=MOODS)
+    # mood = models.CharField(max_length=50, choices=MOODS)
+    mood = models.PositiveSmallIntegerField(choices=MOODS)
     date_posted = models.DateField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 

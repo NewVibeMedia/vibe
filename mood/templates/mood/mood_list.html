@@ -1,23 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
-<div>
-  <div style="float: right;">
-    <a  href="/moods/new"><button class="btn btn-success" id="new-mood-btn">
-			<i class="fa fa-lock"></i>New Mood</button></a>
- </div>
-  <h1>My Moods</h1>
-</div>
-		
-  {% for mood in moods %}
-    <div class="card">
-      <div class="card-body">
-        <a href="{% url 'mood-detail' mood.id %}">
-          <h3 class="card-title">{{ mood.mood }}</h3>
-  <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
-          <h4 class="card-subtitle">By {{ mood.author }} | {{ mood.date_posted|date:"D, M d, Y" }} </h4>
-        </a>
-      </div>
+    <div>
+        <div style="float: right;">
+            <a href="/moods/new" id="new-mood-link">
+                <button class="btn btn-success" id="new-mood-btn">
+                    <i class="fa fa-plus"></i> New Mood
+                </button>
+            </a>
+        </div>
+        <h1>My Moods</h1>
     </div>
-      <br>
-  {% endfor%}
+
+    <div>
+        <!-- Display message if any exist (e.g. permission denied) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Mood</th>
+            <th scope="col">Date</th>
+            <th scope="col" colspan="1"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for mood in moods %}
+            <tr>
+                {% if mood.mood == 0 %}
+                    <td>Very Negative</td>
+                {% elif mood.mood == 1 %}
+                    <td>Negative</td>
+                {% elif mood.mood == 2 %}
+                    <td>Neutral</td>
+                {% elif mood.mood == 3 %}
+                    <td>Positive</td>
+                {% elif mood.mood == 4 %}
+                    <td>Very Positive</td>
+                {% else %}
+                    <td>{{ mood.mood }}  </td>
+                {% endif %}
+                <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                <td>{{ mood.date_posted|date:"D, M d, Y" }}</td>
+                <td><a href="{% url 'mood-edit' mood.id %}" class="btn btn-light"><i class="fa fa-edit"></i></a>
+                    &nbsp;
+                    <a data-confirm="Are you sure?" class="btn" rel="nofollow" data-method="delete"
+                       href="{% url 'mood-delete' mood.id %}"><i class="fa fa-trash" style="color:red"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock content %}

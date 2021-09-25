@@ -1,4 +1,21 @@
-v 0.3.1 24-Sep-2021
+* [TODO] delete post only  for only own posts
+* [TODO] delete mood, for only own mood
+* [TODO] validate mood on the same date
+
+v0.4 25-Sep-2021
+
+* Run server in different mode (development,production) with different database, using DJANGO_ENV to control
+* Add date_posted on edit Post form, but not saved yet
+* Add date_posted on edit Mood form, but not saved yet
+* Edit mood (with date field)
+* After creating multiple posts, sign out, the login page displays multiple "Post created successfuly" alert messages
+* Display post type in heading, such "My Question Posts"
+* Delete post
+* Post options (delete, edit) only show for posts created by user
+* Delete mood
+
+
+* v 0.3.1 24-Sep-2021
 * Login required for calendar
 * Reformat login page to be same as rails
 

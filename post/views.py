@@ -2,8 +2,9 @@ import random
 
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -56,6 +57,11 @@ class GratitudePostListView(CustomLoginRequiredMixin, ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_type'] = "Gratitude"
+        return context
+
     def get_queryset(self):
         return Post.objects.filter(post_type="Gratitude")
 
@@ -66,6 +72,11 @@ class QuestionPostListView(CustomLoginRequiredMixin, ListView):
     template_name = 'post/home.html' # <app>/<model>_<viewtype>/html
     context_object_name = 'posts'
     ordering = ['-date_posted']
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_type'] = "Reflective Question"
+        return context
 
     def get_queryset(self):
         user_items = Post.objects.filter(post_type="Question").filter(author=self.request.user) #.values('title')
@@ -80,6 +91,11 @@ class PersonalPostListView(CustomLoginRequiredMixin, ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_type'] = "Personal Reflection"
+        return context
+
     def get_queryset(self):
         return Post.objects.filter(post_type="Personal").filter(author=self.request.user)
 
@@ -93,7 +109,6 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
 
     model = Post
     success_url = "/"
-
 
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
@@ -143,7 +158,7 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     fields = ['title', 'content']
     
     def form_valid(self, form):
-        form.instance.author = User.objects.get(id=1)
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 class SignUpView(CreateView):

@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+    <fieldset class="content-section">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Post</legend>
                 {{ form|crispy }}
             </fieldset>
+
+            {% if object.id %}
+                <div class="" style="margin-top: 10px;">
+                    <label for="id_date" class=" requiredField">
+                        Posted on<span class="asteriskField">*</span> </label>
+                    <input id="id_date_posted"
+                           value="{{ object.date_posted | date:'Y-m-d' }}T{{ object.date_posted | date:'H' }}:{{ object.date_posted | date:'i' }}"
+                           type="datetime-local" name="date_posted">
+                </div>
+            {% endif %}
+
             <div class="form-group" style="margin-top: 10px;">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
-								<a href="/" class="btn btn-light">Cancel</a>
+                <a href="/" id="cancel-btn" class="btn btn-light">Cancel</a>
+
             </div>
         </form>
         <!-- {{ form.as_p}} -->
-        
-    </div>
+
+        </div>
 {% endblock content %}

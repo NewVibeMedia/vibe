@@ -18,7 +18,16 @@ div.reg-block {
   border-top: solid 2px #72c02c;
 }
 
+div.post-actions {
+    float: right;
+    position: absolute;
+    right: 1%;
+}
 
+span.mandatory, span.asteriskField {
+    color: red;
+    margin-left: 3px;
+}
 .margin-bottom-20 {
 margin-bottom: 20px;
 }

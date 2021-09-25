@@ -4,26 +4,31 @@
 {% block content %}
 
     <div class="content-section">
-			
-			<legend>Enter Today's Mood</legend>
-			
+
+        <legend>Enter Today's Mood</legend>
+
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 <label class="border-bottom mb-4">Mood <span class="mandatory">*</span></label>
-								<select name="mood" class="select" style="padding: 3px; font-size: 1.1rem;" required="" id="id_mood">
-									 <option value="" selected="">---</option> 
-									 <option value="0">Very Negative</option> 
-									 <option value="1">Negative</option>
-									 <option value="2">Neutral</option>
-									 <option value="3">Positive</option> 
-									 <option value="4">Very Positive</option>
-								</select>
-								
+                <select name="mood" class="select" style="padding: 3px; font-size: 1.1rem;" required="" id="id_mood">
+                    <option value="">---</option>
+                    <option {% if object.mood == 0 %} selected="" {% endif %} value="0">Very Negative</option>
+                    <option {% if object.mood == 1 %} selected  {% endif %} value="1">Negative</option>
+                    <option {% if object.mood == 2 %} selected  {% endif %} value="2">Neutral</option>
+                    <option {% if object.mood == 3 %} selected  {% endif %} value="3">Positive</option>
+                    <option {% if object.mood == 4 %} selected  {% endif %} value="4">Very Positive</option>
+                </select>
+
             </fieldset>
+            {% if object.id %}
+                <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
+                <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date" name="date_posted"/>
+            {% endif %}
+
             <div class="form-group" style="margin-top: 10px;">
                 <button class="btn btn-primary" is="save-mood-btn" type="submit">Save</button>
-								<a href="/moods" class="btn btn-light">Cancel</a>
+                <a href="/moods" class="btn btn-light">Cancel</a>
             </div>
         </form>
         <!-- {{ form.as_p}} -->
