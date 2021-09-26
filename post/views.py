@@ -206,4 +206,4 @@ def reset(request):
     call_command("truncate", "--apps", "post", "mood")
     call_command("loaddata", "db/fixtures/moods.json")
     call_command("loaddata", "db/fixtures/posts.json")
-    return render(request, 'about.html', {'title': 'About'})
+    return render(request, 'reset.html', {'title': 'Reset DB'})

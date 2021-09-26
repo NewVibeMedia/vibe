@@ -25,19 +25,9 @@
         <tbody>
         {% for mood in moods %}
             <tr>
-                {% if mood.mood == 0 %}
-                    <td>Very Negative</td>
-                {% elif mood.mood == 1 %}
-                    <td>Negative</td>
-                {% elif mood.mood == 2 %}
-                    <td>Neutral</td>
-                {% elif mood.mood == 3 %}
-                    <td>Positive</td>
-                {% elif mood.mood == 4 %}
-                    <td>Very Positive</td>
-                {% else %}
-                    <td>{{ mood.mood }}  </td>
-                {% endif %}
+                <td>{{  mood.display }}</td>
+
+
                 <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
                 <td>{{ mood.date_posted|date:"D, M d, Y" }}</td>
                 <td><a href="{% url 'mood-edit' mood.id %}" class="btn btn-light"><i class="fa fa-edit"></i></a>

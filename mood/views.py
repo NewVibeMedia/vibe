@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe
 
 from .models import Mood
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from datetime import date
 
 
 # Create your views here.
@@ -29,6 +30,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
+
 class MoodListView(CustomLoginRequiredMixin, ListView):
     model = Mood
     login_url = "login"
@@ -38,6 +40,7 @@ class MoodListView(CustomLoginRequiredMixin, ListView):
     def get_queryset(self):
         return Mood.objects.filter(author=self.request.user)
 
+
 # TODO convert to method: https://realpython.com/django-redirects/
 class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     model = Mood
@@ -46,11 +49,12 @@ class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         objects_filter = Mood.objects.filter(author=self.request.user).filter(pk=pk)
-        if len(objects_filter) == 0: # not found
+        if len(objects_filter) == 0:  # not found
             messages.add_message(self.request, messages.WARNING,
                                  "You don't have permission to access that mood")
             # TODO redirect to mood list page
         return objects_filter
+
 
 class MoodCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
@@ -84,21 +88,52 @@ class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Mood
     success_url = "/moods"
 
+
 @login_required
 def display(request):
     login_url = '/login/'
 
-    the_moods  = list(Mood.objects.filter(author=request.user).order_by('-date_posted'))
+    the_moods = list(Mood.objects.filter(author=request.user).order_by('-date_posted'))
     values = [v.to_list() for v in the_moods]
     # unix time: date.replace(tzinfo=timezone.utc).timestamp()
 
     context = {
         'title': 'Display',
-        'data': mark_safe(list(values)), # works but only returns string value of mood
+        'data': mark_safe(list(values)),  # works but only returns string value of mood
     }
     return render(request, 'charts/display.html', context)
+
+
+def mood_new(request):
+    if not request.user.is_authenticated:
+        messages.add_message(request, messages.WARNING,
+                             'You have to be logged in to perform that action')
+        return redirect("/login");
+
+    if request.method == 'POST':
+        new_mood = Mood(request.POST)
+        new_mood.mood = int(request.POST["mood"])
+        new_mood.author_id = request.user.id
+        new_mood.id = None
+        if new_mood.is_valid():
+            new_mood.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 "Mood created successfully");
+            return redirect("/moods");
+        else:
+            messages.add_message(request, messages.WARNING,
+                                 "Only one mood is allowed for one day.")
+            return render(request, 'mood/mood_form.html', {"object": new_mood})
+
+    else:
+        new_mood = Mood()
+        new_mood.date_posted = date.today()
+        return render(request, 'mood/mood_form.html', {"object": new_mood})
+
+    # post

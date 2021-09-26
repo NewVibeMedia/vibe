@@ -34,13 +34,11 @@ class Mood(models.Model):
     def get_absolute_url(self):
         return reverse('mood-detail', kwargs={'pk': self.pk})
 
-    def save(self, *args, **kwargs):
+    def display(self):
+        return ["Very Negative", "Negative", "Neutral", "Positive", "Very Positive"][self.mood]
+
+    def is_valid(self):
         query = "select id FROM mood_mood WHERE author_id = {0} AND date_posted = '{1}'".format(self.author_id, self.date_posted.strftime('%Y-%m-%d'))
-        print("SQL: ", query)
-        result = Mood.objects.raw(query)
-        if (len(result) > 0):
-            print("result: ", len(result), self.date_posted.strftime('%Y-%m-%d'))
-            # TODO make it FormValidatorError
-            raise ValueError("Duplicate entry for the date '{0}'".format(self.date_posted.strftime('%Y-%m-%d')))
-        else:
-            super(Mood, self).save(*args, **kwargs)
+        print("Query => ", query)
+        results = Mood.objects.raw(query)
+        return len(results) == 0;

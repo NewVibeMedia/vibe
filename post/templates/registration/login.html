@@ -27,12 +27,12 @@
         <form method="post">
             {% csrf_token %}
 
-        <div class="alert alert-danger" role="alert">
 {% if form.errors %}
-    Username or password is incorrect
+        <div class="alert alert-danger" role="alert">
+            Username or password is incorrect
+        </div>
 {% endif %}
 
-        </div>
             <div class="input-group margin-bottom-20">
                 <div class="input-group-prepend">
 												    <span class="input-group-text" id="basic-addon1">
