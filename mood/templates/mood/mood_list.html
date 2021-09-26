@@ -11,7 +11,16 @@
         <h1>My Moods</h1>
     </div>
 
-
+    <div>
+        <!-- Display message if any exist (e.g. permission denied) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 
     <table class="table table-hover">
         <thead class="thead-light">
