@@ -26,7 +26,7 @@ class Mood(models.Model):
         unique_together = [['date_posted', 'author']]
 
     def __str__(self):
-        return "" + self.mood + " "
+        return str(self.mood)
 
     def to_list(self):
         return [int(format(self.date_posted, 'U')) * 1000, int(self.mood)]
@@ -41,4 +41,4 @@ class Mood(models.Model):
         query = "select id FROM mood_mood WHERE author_id = {0} AND date_posted = '{1}'".format(self.author_id, self.date_posted.strftime('%Y-%m-%d'))
         print("Query => ", query)
         results = Mood.objects.raw(query)
-        return len(results) == 0;
+        return len(results) == 0
