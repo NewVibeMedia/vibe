@@ -1,8 +1,10 @@
 TODO List:
 * [TODO] Public Post entry is limited 24 hours for public
-* [TODO] delete post only for only own posts
-* [TODO] delete mood, for only own mood
 * [TODO] Sign up validation for max length 150 characters
+
+v 0.4.5 26-Sep-2021
+* delete post only for only own posts
+* delete mood, for only own mood
 
 v 0.4.4 26-Sep-2021
 * Add user feedback for editing and deleting posts and moods

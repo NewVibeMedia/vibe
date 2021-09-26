@@ -21,7 +21,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
     messages framework by setting the ``permission_denied_message``
     attribute. """
     permission_denied_message = 'You have to be logged in to perform that action'
-    user_permission_denied_message = 'This is not your mood!'
+    user_permission_denied_message = 'You do not have permission to perform that action'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -89,7 +89,6 @@ class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
     def get_queryset(self):
         return get_mood_queryset(MoodUpdateView, self, self.user_permission_denied_message)
 
-
 class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Mood
@@ -109,7 +108,6 @@ def get_mood_queryset(MoodView, self, message):
         if len(result.filter(pk=pk)) == 0: # Mood does not belong to user
             messages.add_message(self.request, messages.ERROR, message)
             raise PermissionDenied
-
     return result
 
 @login_required

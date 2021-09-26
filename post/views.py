@@ -33,7 +33,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
     messages framework by setting the ``permission_denied_message``
     attribute. """
     permission_denied_message = 'You have to be logged in to perform that action'
-    user_permission_denied_message = 'You can only modify your own posts!'
+    user_permission_denied_message = 'You do not have permission to perform that action'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
