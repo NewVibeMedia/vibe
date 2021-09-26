@@ -33,6 +33,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
     messages framework by setting the ``permission_denied_message``
     attribute. """
     permission_denied_message = 'You have to be logged in to perform that action'
+    user_permission_denied_message = 'You can only modify your own posts!'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -115,12 +116,7 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
 
     # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
     def get_queryset(self):
-        qs = super(PostDeleteView, self).get_queryset()
-        if self.request.user.is_superuser:
-          result = qs
-        else:
-          result = qs.filter(author_id=self.request.user.id)
-        return result
+        return get_post_queryset(PostDeleteView, self)
 
 
     def delete(self, request, *args, **kwargs):
@@ -182,10 +178,28 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
                                "Post was successfully updated.")
         return super().form_valid(form)
 
+    def get_queryset(self):
+        return get_post_queryset(PostUpdateView, self)
+
 class SignUpView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
+# Used to determine if the user has edit/delete permissions for the post
+def get_post_queryset(PostView, self):
+    qs = super(PostView, self).get_queryset()
+    pk = self.kwargs.get('pk')
+    if self.request.user.is_superuser:
+        result = qs.filter(pk=pk)
+    else:
+        result = qs.filter(author_id=self.request.user.id).filter(pk=pk)
+        if len(result.filter(pk=pk)) == 0: # Post does not belong to user
+            messages.add_message(self.request, messages.ERROR,
+                                    self.user_permission_denied_message)
+            raise PermissionDenied
+
+    return result
 
 # TODO Success Message: https://stackoverflow.com/questions/47054538/django-loginview-send-success-message
 def login(request):

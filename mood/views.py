@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import serializers
+from django.core.exceptions import PermissionDenied
 from django.db.models import CharField, DateTimeField
 from django.db.models.functions import Cast, TruncSecond
 from django.http import HttpResponseRedirect
@@ -20,11 +21,12 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
     messages framework by setting the ``permission_denied_message``
     attribute. """
     permission_denied_message = 'You have to be logged in to perform that action'
+    user_permission_denied_message = 'This is not your mood!'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.add_message(request, messages.WARNING,
-                                 self.permission_denied_message)
+                                 self.user_permission_view_message)
             return self.handle_no_permission()
         return super(CustomLoginRequiredMixin, self).dispatch(
             request, *args, **kwargs
@@ -47,13 +49,7 @@ class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     login_url = "login"
 
     def get_queryset(self):
-        pk = self.kwargs.get('pk')
-        objects_filter = Mood.objects.filter(author=self.request.user).filter(pk=pk)
-        if len(objects_filter) == 0:  # not found
-            messages.add_message(self.request, messages.WARNING,
-                                 "You don't have permission to access that mood")
-            # TODO redirect to mood list page
-        return objects_filter
+        return get_mood_queryset(MoodDetailView, self, self.user_permission_denied_message)
 
 
 class MoodCreateView(CustomLoginRequiredMixin, CreateView):
@@ -90,17 +86,31 @@ class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
                                  "Mood was successfully updated.")
         return super().form_valid(form)
 
+    def get_queryset(self):
+        return get_mood_queryset(MoodUpdateView, self, self.user_permission_denied_message)
+
 
 class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Mood
     success_url = "/moods"
 
-    def delete(self, request, *args, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS,
-                                 "Mood was successfully deleted.")
-        return super(MoodDeleteView, self).delete(request, *args, **kwargs)
+    def get_queryset(self):
+        return get_mood_queryset(MoodDeleteView, self, self.user_permission_denied_message)
 
+# Used to determine if the user has edit/delete permissions for the mood
+def get_mood_queryset(MoodView, self, message):
+    qs = super(MoodView, self).get_queryset()
+    pk = self.kwargs.get('pk')
+    if self.request.user.is_superuser:
+        result = qs.filter(pk=pk)
+    else:
+        result = qs.filter(author_id=self.request.user.id).filter(pk=pk)
+        if len(result.filter(pk=pk)) == 0: # Mood does not belong to user
+            messages.add_message(self.request, messages.ERROR, message)
+            raise PermissionDenied
+
+    return result
 
 @login_required
 def display(request):
@@ -121,7 +131,7 @@ def mood_new(request):
     if not request.user.is_authenticated:
         messages.add_message(request, messages.WARNING,
                              'You have to be logged in to perform that action')
-        return redirect("/login");
+        return redirect("/login")
 
     if request.method == 'POST':
         new_mood = Mood(request.POST)
@@ -132,7 +142,7 @@ def mood_new(request):
             new_mood.save()
             messages.add_message(request, messages.SUCCESS,
                                  "Mood was successfully created.")
-            return redirect("/moods");
+            return redirect("/moods")
         else:
             messages.add_message(request, messages.WARNING,
                                  "Only one mood is allowed for one day.")
