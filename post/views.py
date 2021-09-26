@@ -122,6 +122,12 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
           result = qs.filter(author_id=self.request.user.id)
         return result
 
+
+    def delete(self, request, *args, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                                 "Post was successfully deleted.")
+        return super(PostDeleteView, self).delete(request, *args, **kwargs)
+
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
     login_url = '/login/'
@@ -172,6 +178,8 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         if not self.request.user.is_superuser:
           form.instance.author = self.request.user
+          messages.add_message(self.request, messages.SUCCESS,
+                               "Post was successfully updated.")
         return super().form_valid(form)
 
 class SignUpView(CreateView):

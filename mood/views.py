@@ -86,6 +86,8 @@ class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.add_message(self.request, messages.SUCCESS,
+                                 "Mood was successfully updated.")
         return super().form_valid(form)
 
 
@@ -93,6 +95,11 @@ class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Mood
     success_url = "/moods"
+
+    def delete(self, request, *args, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                                 "Mood was successfully deleted.")
+        return super(MoodDeleteView, self).delete(request, *args, **kwargs)
 
 
 @login_required
@@ -124,7 +131,7 @@ def mood_new(request):
         if new_mood.is_valid():
             new_mood.save()
             messages.add_message(request, messages.SUCCESS,
-                                 "Mood created successfully");
+                                 "Mood was successfully created.")
             return redirect("/moods");
         else:
             messages.add_message(request, messages.WARNING,
