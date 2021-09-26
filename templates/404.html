@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <!-- TODO: Style it and provide context -->
+    404 Error page.
+
+    <br/>
+
+    {% if not user.is_superuser %}
+        You may not have permission to access this page.
+    {% endif %}
+
+{% endblock content %}
