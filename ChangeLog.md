@@ -4,6 +4,9 @@ TODO List:
 * [TODO] delete mood, for only own mood
 * [TODO] Sign up validation for max length 150 characters
 
+v 0.4.4 26-Sep-2021
+* Add user feedback for editing and deleting posts and moods
+
 v 0.4.3
 * Validate mood on the same date,  using function instead class way to handle mood creation
 * Enter new mood shall take input as date, default to today, good for testing. 
