@@ -7,6 +7,7 @@ TODO List:
 v 0.4.3
 * Validate mood on the same date,  using function instead class way to handle mood creation
 * Enter new mood shall take input as date, default to today, good for testing. 
+* Search now working
 
 v0.4.2
 
