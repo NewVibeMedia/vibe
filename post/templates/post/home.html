@@ -37,6 +37,11 @@
         {% endif %}
     </div>
 
+    {% if post_type == "Reflective Question" and posts.count == 0 %}
+    <p>There are no posts to show. Answer a question to see what others have posted!</p>
+    {% endif %}
+
+
     {% for post in posts %}
 
         {% if user.is_superuser or post.post_type != "Personal" %}
