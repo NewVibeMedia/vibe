@@ -49,7 +49,8 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
 class RecentListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
         return queryset
 
 
