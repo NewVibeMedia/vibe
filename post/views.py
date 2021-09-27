@@ -1,5 +1,5 @@
 import random
-
+import datetime
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -18,6 +18,7 @@ from django.contrib.auth.models import User
 # from django.http import HttpResponse
 from django.core.management import call_command
 from django.db.models import Q
+from django.utils import timezone
 import os
 
 # Routes
@@ -44,7 +45,15 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
-class PostListView(ListView):
+
+class RecentListView(ListView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
+        return queryset
+
+
+class PostListView(RecentListView):
     model = Post
     login_url = '/login/'
     
@@ -53,7 +62,7 @@ class PostListView(ListView):
     ordering = ['-date_posted']
 
 
-class GratitudePostListView(CustomLoginRequiredMixin, ListView):
+class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
     login_url = '/login/'
 
@@ -67,9 +76,11 @@ class GratitudePostListView(CustomLoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Post.objects.filter(post_type="Gratitude")
+        queryset = super().get_queryset()
+        queryset = queryset.filter(post_type="Gratitude")
+        return queryset
 
-class QuestionPostListView(CustomLoginRequiredMixin, ListView):
+class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
     login_url = '/login/'
 
@@ -83,8 +94,9 @@ class QuestionPostListView(CustomLoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        user_items = Post.objects.filter(post_type="Question").filter(author=self.request.user) #.values('title')
-        items = Post.objects.filter(title__in=list(user_items))
+        queryset = super().get_queryset()
+        user_items = queryset.filter(post_type="Question").filter(author=self.request.user) #.values('title')
+        items = queryset.filter(title__in=list(user_items))
         return items
 
 class PersonalPostListView(CustomLoginRequiredMixin, ListView):
@@ -101,7 +113,9 @@ class PersonalPostListView(CustomLoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Post.objects.filter(post_type="Personal").filter(author=self.request.user)
+        queryset = super().get_queryset()
+        queryset = queryset.filter(post_type="Personal").filter(author=self.request.user)
+        return queryset
 
 class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
