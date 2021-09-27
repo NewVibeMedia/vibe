@@ -1,6 +1,7 @@
 import random
 import datetime
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
@@ -143,7 +144,7 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
     login_url = '/login/'
 
     model = Post
-    fields = ['title', 'content', 'post_type']
+    fields = ['title', 'content', 'post_type', 'date_posted']
 
     gratitude_question = "What are you grateful for today?"
     reflection_questions = [
@@ -226,10 +227,26 @@ def about(request):
     # return HttpResponse('<h1>Diary About</h1>')
     return render(request, 'post/about.html', {'title': 'About'})
 
+@login_required()
 def search(request):
     query = request.POST['search']
-    results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
-    print(len(results))
+    # print("QUERY>>", query)
+    # print("Objects;", Post.objects.all())
+    if not request.user.is_authenticated:
+        #TODO: add messages
+        return render(request, 'post/search.html', {'title': 'Search', 'posts': []})
+    if request.user.is_superuser:
+        # TODO: 24 hours
+        results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    else:
+        # is limited to its owns posts?
+        # Post.objects.filter(author_id = request.user.id)
+        criterion1 = Q(title__icontains=query)
+        criterion2 = Q(content__icontains=query)
+        criterion3 = Q(author_id=request.user.id)
+        results = Post.objects.filter( (criterion1 | criterion2)  & criterion3 )
+
+
     return render(request, 'post/search.html', {'title': 'Search', 'posts': results})
 
 def reset(request):
