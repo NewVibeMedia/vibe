@@ -3,6 +3,9 @@ TODO List:
 [TODO] Ability to hide post that user does not like
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.4.7 27-Sep-2021
+* Search only searches own posts
+
 v 0.4.6 27-Sep-2021
 * Public Post entry is limited 24 hours for public 
 * Sign up validation for max length 150 characters
