@@ -1,6 +1,11 @@
 TODO List:
-* [TODO] Public Post entry is limited 24 hours for public
-* [TODO] Sign up validation for max length 150 characters
+[TODO] Personal reflective post is combined with mood
+[TODO] Ability to hide post that user does not like
+[TODO] Add Pseudo Identifiers to posts
+
+v 0.4.6 27-Sep-2021
+* Public Post entry is limited 24 hours for public 
+* Sign up validation for max length 150 characters
 
 v 0.4.5 26-Sep-2021
 * delete post only for only own posts
