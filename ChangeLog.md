@@ -3,6 +3,9 @@ TODO List:
 [TODO] Ability to hide post that user does not like
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.4.8 27-Sep-2021
+* Fixed admin can now bypass 24 hour filter 
+
 v 0.4.7 27-Sep-2021
 * Search only searches own posts
 
