@@ -43,7 +43,7 @@ if DJANGO_ENV == "development":
 else:
   DEBUG = False
   
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "149.28.187.96", "www.newplayers.me"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "149.28.187.96", "www.newplayers.me", "newplayers.me"]
 
 
 # Application definition
