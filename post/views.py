@@ -189,9 +189,9 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     
     def form_valid(self, form):
         if not self.request.user.is_superuser:
-          form.instance.author = self.request.user
-          messages.add_message(self.request, messages.SUCCESS,
-                               "Post was successfully updated.")
+            form.instance.author = self.request.user
+        messages.add_message(self.request, messages.SUCCESS,
+                            "Post was successfully updated.")
         return super().form_valid(form)
 
     def get_queryset(self):
