@@ -3,6 +3,11 @@ TODO List:
 [TODO] Ability to hide post that user does not like
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.4.9 29-Sep-2021
+* Fixed mood deletion now displays success message
+* Fixed post edit now displays success message
+* Fixed users can no longer view other user's personal posts
+
 v 0.4.8 27-Sep-2021
 * Fixed admin can now bypass 24 hour filter 
 
