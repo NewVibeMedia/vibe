@@ -97,6 +97,11 @@ class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
     def get_queryset(self):
         return get_mood_queryset(MoodDeleteView, self, self.user_permission_denied_message)
 
+    def delete(self, request, *args, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                                 "Mood was successfully deleted.")
+        return super(MoodDeleteView, self).delete(request, *args, **kwargs)
+
 # Used to determine if the user has edit/delete permissions for the mood
 def get_mood_queryset(MoodView, self, message):
     qs = super(MoodView, self).get_queryset()
