@@ -8,7 +8,7 @@ from .views import (
     PostUpdateView,
     PostDeleteView,
     SignUpView,
-    GratitudePostListView, QuestionPostListView, PersonalPostListView)
+    GratitudePostListView, QuestionPostListView)
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -21,8 +21,6 @@ urlpatterns = [
     path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('gratitude/', GratitudePostListView.as_view(), name='post-gratitude'),
     path('question/', QuestionPostListView.as_view(), name='post-gratitude'),
-    path('personal/', PersonalPostListView.as_view(), name='post-gratitude'),
-
     path('about/', views.about, name='post-about'),
 
     path('signup/', SignUpView.as_view(), name='signup'),

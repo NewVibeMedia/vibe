@@ -101,24 +101,6 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
         items = queryset.filter(title__in=list(user_items))
         return items
 
-class PersonalPostListView(CustomLoginRequiredMixin, ListView):
-    model = Post
-    login_url = '/login/'
-
-    template_name = 'post/home.html' # <app>/<model>_<viewtype>/html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_type'] = "Personal Reflection"
-        return context
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(post_type="Personal").filter(author=self.request.user)
-        return queryset
-
 class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
