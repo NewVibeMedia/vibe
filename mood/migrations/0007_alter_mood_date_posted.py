@@ -16,4 +16,9 @@ class Migration(migrations.Migration):
             name='date_posted',
             field=models.DateField(default=django.utils.timezone.now),
         ),
+        migrations.AddField(
+            model_name='mood',
+            name='content',
+            field=models.TextField(default=''),
+        ),
     ]

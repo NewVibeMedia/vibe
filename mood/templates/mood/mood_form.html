@@ -7,26 +7,28 @@
 
     <div class="content-section">
 
-        {%  if mood.id %}
-        <legend>Editing Mood</legend>
-        {%  else  %}
-        <legend>Enter Today's Mood</legend>
-        {%  endif %}
-
-
-            <div>
-        <!-- Display message if any exist (e.g. permission denied) -->
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% if mood.id %}
+            <legend>Editing Mood</legend>
+        {% else %}
+            <legend>Enter Today's Mood</legend>
         {% endif %}
-    </div>
+
+
+        <div>
+            <!-- Display message if any exist (e.g. permission denied) -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
 
         <form method="POST">
             {% csrf_token %}
+
+            {# Mood Selection #}
             <fieldset class="form-group">
                 <label class="border-bottom mb-4">Mood <span class="mandatory">*</span></label>
                 <select name="mood" class="select" style="padding: 3px; font-size: 1.1rem;" required="" id="id_mood">
@@ -37,16 +39,25 @@
                     <option {% if object.mood == 3 %} selected  {% endif %} value="3">Positive</option>
                     <option {% if object.mood == 4 %} selected  {% endif %} value="4">Very Positive</option>
                 </select>
-
             </fieldset>
+
+            {# Date if editing only #}
+
+                <fieldset class="form-group">
+                    <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
+                    <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"
+                           name="date_posted"/>
+                </fieldset>
+
+            {# Daily Reflection #}
             <fieldset class="form-group">
-              <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
-              <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date" name="date_posted"/>
+                <label class="border-bottom mb-4">How are you feeling today?</label>
+                <textarea id="id_content" value="{{ object.content }}" name="content"/></textarea>
             </fieldset>
 
             <div class="form-group" style="margin-top: 10px;">
                 <button class="btn btn-primary" id="save-mood-btn" type="submit">Save</button>
-                <a href="/moods"  id="cancel-btn" class="btn btn-light">Cancel</a>
+                <a href="/moods" id="cancel-btn" class="btn btn-light">Cancel</a>
             </div>
         </form>
         <!-- {{ form.as_p}} -->

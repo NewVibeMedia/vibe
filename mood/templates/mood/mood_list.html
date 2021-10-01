@@ -27,6 +27,7 @@
         <tr>
             <th scope="col">Mood</th>
             <th scope="col">Date</th>
+            <th scope="col">Daily Reflection</th>
             <th scope="col" colspan="1"></th>
         </tr>
         </thead>
@@ -39,6 +40,7 @@
 
                 <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
                 <td>{{ mood.date_posted|date:"D, M d, Y" }}</td>
+                <td>{{ mood.content }}</td>
                 <td><a href="{% url 'mood-edit' mood.id %}" class="btn btn-light"><i class="fa fa-edit"></i></a>
                     &nbsp;
                     <a data-confirm="Are you sure?" class="btn" rel="nofollow" data-method="delete"

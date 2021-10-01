@@ -21,6 +21,7 @@ class Mood(models.Model):
     mood = models.PositiveSmallIntegerField(choices=MOODS)
     date_posted = models.DateField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(default="")
 
     class Meta:
         unique_together = [['date_posted', 'author']]

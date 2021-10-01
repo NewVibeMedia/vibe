@@ -1,7 +1,12 @@
 TODO List:
-[TODO] Personal reflective post is combined with mood
+[TODO] Fully remove personal reflective posts
 [TODO] Ability to hide post that user does not like
 [TODO] Add Pseudo Identifiers to posts
+
+v 0.5.0 01-Oct-2021
+* Mood now has a daily reflection associated with it
+* Fixed mood permission denied message error
+* Split Log In and Sign Up links on Navbar when unauthenticated
 
 v 0.4.9 29-Sep-2021
 * Fixed mood deletion now displays success message

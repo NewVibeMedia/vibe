@@ -13,7 +13,7 @@ from django.utils.safestring import mark_safe
 from .models import Mood
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from datetime import date
-
+from datetime import datetime
 
 # Create your views here.
 class CustomLoginRequiredMixin(LoginRequiredMixin):
@@ -38,10 +38,9 @@ class MoodListView(CustomLoginRequiredMixin, ListView):
     model = Mood
     login_url = "login"
     context_object_name = 'moods'
-    ordering = ['-date_posted']
 
     def get_queryset(self):
-        return Mood.objects.filter(author=self.request.user)
+        return Mood.objects.filter(author=self.request.user).order_by('-date_posted')
 
 
 # TODO convert to method: https://realpython.com/django-redirects/
@@ -56,9 +55,10 @@ class MoodDetailView(CustomLoginRequiredMixin, DetailView):
 class MoodCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
     login_url = '/login/'
-    success_url = "/moods"
+
     model = Mood
-    fields = ['mood']
+    fields = ['mood', 'date_posted']
+    success_url = "/moods"
 
     # The form has been already validated
     def form_valid(self, form):
@@ -68,17 +68,15 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
         result = super().form_valid(form)
         return result
 
-    def form_invalid(self, form):
-        messages.add_message(self.request, messages.WARNING,
-                             "Problem adding moods")
-        return HttpResponseRedirect('/moods')
+    def get_queryset(self):
+        return get_mood_queryset(MoodUpdateView, self, self.user_permission_denied_message)
 
 
 class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
     login_url = '/login/'
 
     model = Mood
-    fields = ['mood', 'date_posted']
+    fields = ['mood', 'date_posted', 'content']
     success_url = "/moods"
 
     def form_valid(self, form):
@@ -140,6 +138,9 @@ def mood_new(request):
     if request.method == 'POST':
         new_mood = Mood(request.POST)
         new_mood.mood = int(request.POST["mood"])
+        print("\n==>", request.POST["date_posted"] )
+        new_mood.date_posted = datetime.fromisoformat(request.POST["date_posted"])
+        new_mood.content = request.POST["content"]
         new_mood.author_id = request.user.id
         new_mood.id = None
         if new_mood.is_valid():
