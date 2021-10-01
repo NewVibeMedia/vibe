@@ -14,6 +14,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.landing, name='home'),
+    path('posts/', PostListView.as_view(), name='post-list'),
     path('posts/<int:pk>', PostDetailView.as_view(), name='post-detail'), #pk primary key, int integer
     path('posts/new/', PostCreateView.as_view(), name='post-create'),
     path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post-edit'),

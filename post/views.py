@@ -164,6 +164,7 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content', 'post_type', 'date_posted']
 
+
     gratitude_question = "What are you grateful for today?"
     reflection_questions = [
         "What would you do if you knew you could not fail?",
@@ -202,7 +203,7 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
 
     model = Post
     fields = ['title', 'content']
-    
+
     def form_valid(self, form):
         if not self.request.user.is_superuser:
             form.instance.author = self.request.user

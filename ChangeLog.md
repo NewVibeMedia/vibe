@@ -7,6 +7,8 @@ v 0.5.1
 * Made mood's reflection field mandatory
 * Removed link to create new personal post
 * Added landing page
+* Personal posts cannot be created
+* 
 
 v 0.5.0 01-Oct-2021
 * Mood now has a daily reflection associated with it
