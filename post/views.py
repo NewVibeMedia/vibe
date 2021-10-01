@@ -180,14 +180,13 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
         Post type sent through GET request (0 -> gratitude, 1 -> reflective, none -> personal entry)
         """
         initial = super(CreateView, self).get_initial()
+        question = False
         for k, v in self.request.GET.items():
-            if v == '0':  # gratitude post
-                initial.update({'title': self.gratitude_question})
-                initial.update({'post_type': "Gratitude"})
-            elif v == '1':  # reflective question
+            if v == '1':  # reflective question
                 initial.update({'title': random.choice(self.reflection_questions)})
                 initial.update({'post_type': "Question"})
-            else:
+                question = True
+        if not question:# gratitude post
                 initial.update({'title': self.gratitude_question})
                 initial.update({'post_type': "Gratitude"})
         return initial
