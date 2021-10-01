@@ -11,8 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
             crossorigin="anonymous"></script>
-    {% block style %}            
-     <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}" />
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}"/>
     {% endblock %}
 
     {% if title %}
@@ -75,6 +75,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Log In</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                    </li>
                 {% endif %}
             </ul>
             <form id="search_form" class="d-flex" action="/search" accept-charset="UTF-8" method="post">
@@ -94,9 +98,10 @@
 </div>
 </body>
 
-<div class="footer" class="container" style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
+<div class="footer" class="container"
+     style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
     <div class="">
-        Vibe v0.4.9 (Env: {{DJANGO_ENV}}, Powered by Django 3.2.5 (Python: 3.9.6))
+        Vibe v0.4.9 (Env: {{ DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
     </div>
 </div>
 
