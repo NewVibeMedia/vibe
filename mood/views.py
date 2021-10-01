@@ -43,7 +43,6 @@ class MoodListView(CustomLoginRequiredMixin, ListView):
         return Mood.objects.filter(author=self.request.user).order_by('-date_posted')
 
 
-# TODO convert to method: https://realpython.com/django-redirects/
 class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     model = Mood
     login_url = "login"
@@ -138,7 +137,6 @@ def mood_new(request):
     if request.method == 'POST':
         new_mood = Mood(request.POST)
         new_mood.mood = int(request.POST["mood"])
-        print("\n==>", request.POST["date_posted"] )
         new_mood.date_posted = datetime.fromisoformat(request.POST["date_posted"])
         new_mood.content = request.POST["content"]
         new_mood.author_id = request.user.id

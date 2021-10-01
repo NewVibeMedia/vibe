@@ -188,8 +188,8 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
                 initial.update({'title': random.choice(self.reflection_questions)})
                 initial.update({'post_type': "Question"})
             else:
-                initial.update({'title': ""})
-                initial.update({'post_type': "Personal"})
+                initial.update({'title': self.gratitude_question})
+                initial.update({'post_type': "Gratitude"})
         return initial
 
     def form_valid(self, form):
@@ -234,7 +234,6 @@ def get_post_queryset(PostView, self):
 
     return result
 
-# TODO Success Message: https://stackoverflow.com/questions/47054538/django-loginview-send-success-message
 def login(request):
     return render(request, 'registration/login.html', {'title': 'User Login'})
 
@@ -242,8 +241,10 @@ def logout(request):
     return render(request, 'registration/logout.html', {'title': 'User Logout'})
 
 def about(request):
-    # return HttpResponse('<h1>Diary About</h1>')
-    return render(request, 'post/about.html', {'title': 'About'})
+    return render(request, 'about.html', {'title': 'About'})
+
+def landing(request):
+    return render(request, 'landing.html', {'title': 'Home'})
 
 @login_required()
 def search(request):
@@ -251,10 +252,8 @@ def search(request):
     # print("QUERY>>", query)
     # print("Objects;", Post.objects.all())
     if not request.user.is_authenticated:
-        #TODO: add messages
         return render(request, 'post/search.html', {'title': 'Search', 'posts': []})
     if request.user.is_superuser:
-        # TODO: 24 hours
         results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
     else:
         # is limited to its owns posts?

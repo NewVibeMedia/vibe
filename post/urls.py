@@ -13,7 +13,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='post-home'),
+    path('', views.landing, name='home'),
     path('posts/<int:pk>', PostDetailView.as_view(), name='post-detail'), #pk primary key, int integer
     path('posts/new/', PostCreateView.as_view(), name='post-create'),
     path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post-edit'),

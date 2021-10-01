@@ -3,6 +3,11 @@ TODO List:
 [TODO] Ability to hide post that user does not like
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.5.1
+* Made mood's reflection field mandatory
+* Removed link to create new personal post
+* Added landing page
+
 v 0.5.0 01-Oct-2021
 * Mood now has a daily reflection associated with it
 * Fixed mood permission denied message error

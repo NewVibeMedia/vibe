@@ -3,8 +3,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-
-
     <div class="content-section">
 
         {% if mood.id %}
@@ -12,7 +10,6 @@
         {% else %}
             <legend>Enter Today's Mood</legend>
         {% endif %}
-
 
         <div>
             <!-- Display message if any exist (e.g. permission denied) -->
@@ -43,16 +40,17 @@
 
             {# Date if editing only #}
 
-                <fieldset class="form-group">
-                    <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
-                    <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"
-                           name="date_posted"/>
-                </fieldset>
+            <fieldset class="form-group">
+                <label class="border-bottom mb-4">Date <span class="mandatory">*</span></label>
+                <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"
+                       name="date_posted"/>
+            </fieldset>
 
             {# Daily Reflection #}
             <fieldset class="form-group">
-                <label class="border-bottom mb-4">How are you feeling today?</label>
-                <textarea id="id_content" value="{{ object.content }}" name="content"/></textarea>
+                <label for="id_content" class="border-bottom mb-4">How are you feeling today? <span class="mandatory">*</span></label>
+                <br/>
+                <textarea id="id_content" name="content" required>{{ object.content }}</textarea>
             </fieldset>
 
             <div class="form-group" style="margin-top: 10px;">
@@ -60,7 +58,5 @@
                 <a href="/moods" id="cancel-btn" class="btn btn-light">Cancel</a>
             </div>
         </form>
-        <!-- {{ form.as_p}} -->
-
     </div>
 {% endblock content %}
