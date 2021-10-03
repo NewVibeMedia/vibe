@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <!-- Display message if any exist (e.g. permission denied) -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div>
+        <div class="post-actions">
+            {% if post_type == "Save" %}
+                <a id="unsave-btn" class="btn btn-danger btn-sm" href="{% url 'post-option-edit' object.id option_type %}">Unsave</a>
+            {% else %}
+                <a id="unhide-btn" class="btn btn-danger btn-sm" href="{% url 'post-option-edit' object.id option_type %}">Unhide</a>
+            {% endif %}
+        </div>
+
+        <h2>{{ object.title }}</h2>
+        <p><i>By <b>{{ object.author }}</b> on {{ object.date_posted|date:"d/m/Y" }} </i></p>
+        <p>{{ object.content }}</p>
+    </div>
+
+{% endblock content %}

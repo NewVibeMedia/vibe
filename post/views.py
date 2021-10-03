@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -14,7 +14,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post
+from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
 # from django.http import HttpResponse
 from django.core.management import call_command
@@ -52,6 +52,9 @@ class RecentListView(ListView):
         queryset = super().get_queryset()
         if not self.request.user.is_superuser:
             queryset = queryset.filter(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
+            # yes, bad admin bad, no hiding
+            hide_set = UserPostOptions.objects.filter(user=self.request.user, option_type="Hide").values('post')
+            queryset = queryset.exclude(pk__in=hide_set)
         return queryset
 
 
@@ -101,6 +104,51 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
         items = queryset.filter(title__in=list(user_items))
         return items
 
+class SavePostListView(CustomLoginRequiredMixin, ListView):
+    model = UserPostOptions
+    login_url = '/login/'
+
+    template_name = 'post/post_options.html'
+    context_object_name = 'posts'
+    ordering = ['-date_created']
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['option_name'] = "Saved"
+        context['option_type'] = "Save"
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        saved_posts = queryset.filter(user=self.request.user, option_type="Save").values('post')
+        saved_posts = Post.objects.filter(pk__in=saved_posts)
+        for post in saved_posts:
+            print(post)
+        return saved_posts
+
+
+class HidePostListView(CustomLoginRequiredMixin, ListView):
+    model = UserPostOptions
+    login_url = '/login/'
+
+    template_name = 'post/post_options.html'
+    context_object_name = 'posts'
+    ordering = ['-date_created']
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['option_name'] = "Hid"
+        context['option_type'] = "Hide"
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        saved_posts = queryset.filter(user=self.request.user, option_type="Hide").values('post')
+        saved_posts = Post.objects.filter(pk__in=saved_posts)
+        for post in saved_posts:
+            print(post)
+        return saved_posts
+
 class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
@@ -122,6 +170,34 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
         
         return result
 
+class PostOptionView(CustomLoginRequiredMixin, DetailView):
+    model = Post
+    login_url = '/login/'
+    template_name = 'post/post_option_detail.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['option_type'] = self.kwargs.get('option')
+        return context
+
+    def get_queryset(self):
+        qs = super(PostOptionView, self).get_queryset()
+        pk = self.kwargs.get('pk')
+        result = qs.filter(pk=pk)
+        # if we can't find the post in saved or hid
+        if not UserPostOptions.objects.filter(post__in=result, option_type=self.kwargs.get('option')):
+            messages.add_message(self.request, messages.ERROR,
+                                    "Post not found")
+            raise ObjectDoesNotExist
+        return result
+
+def PostOptionEdit(request, pk, option):
+    model = UserPostOptions
+    user = User.objects.get(username=request.user.username)
+    post = Post.objects.get(pk=pk)
+    model.objects.filter(user=user, post=post, option_type=option).delete()
+
+    return redirect('/')  # redirect to a success page instead
 
 class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
@@ -180,6 +256,23 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
                              "Post created successfully")
         return super().form_valid(form)
 
+def UserPostSave(request, pk, user):
+    model = UserPostOptions
+    user = User.objects.get(username=user)
+    post = Post.objects.get(pk=pk)
+    model.create(user=user, post=post, option_type='Save')
+
+    return redirect('/') # redirect to a success page instead
+
+def UserPostHide(request, pk, user):
+    model = UserPostOptions
+    user = User.objects.get(username=user)
+    post = Post.objects.get(pk=pk)
+    model.create(user=user, post=post, option_type='Hide')
+
+    return redirect('/') # redirect to a success page instead
+
+
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     login_url = '/login/'
 
@@ -195,6 +288,7 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         return get_post_queryset(PostUpdateView, self)
+
 
 class SignUpView(CreateView):
     form_class = UserCreationForm

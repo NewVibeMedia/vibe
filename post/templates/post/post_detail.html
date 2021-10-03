@@ -19,6 +19,11 @@
             <a id="delete-btn" class="btn btn-danger  btn-sm" data-confirm="Are you sure you want to delete the post?"
                rel="nofollow" data-method="delete" href="{% url 'post-delete' object.id %}">Delete</a>
         </div>
+    {% else %}
+        <div class="post-actions">
+            <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' object.id user.username %}">Save</a>
+            <a id="hide-btn" class="btn btn-danger btn-sm" href="{% url 'post-hide' object.id user.username %}">Hide</a>
+        </div>
     {% endif %}
         <h2>{{ object.title }}</h2>
         <p><i>By <b>{{ object.author }}</b> on {{ object.date_posted|date:"d/m/Y" }} </i></p>

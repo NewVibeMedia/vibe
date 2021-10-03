@@ -1,7 +1,9 @@
 TODO List:
 [TODO] Fully remove personal reflective posts
-[TODO] Ability to hide post that user does not like
 [TODO] Add Pseudo Identifiers to posts
+
+v 0.5.2
+* Users can now save and hide posts (along with unsave and unhide)
 
 v 0.5.1
 * Made mood's reflection field mandatory
