@@ -203,7 +203,7 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
 
     model = Post
-    success_url = "/"
+    success_url = "/posts"
 
     # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
     def get_queryset(self):
