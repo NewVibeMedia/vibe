@@ -45,6 +45,9 @@ else:
   
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "149.28.187.96", "www.newplayers.me", "newplayers.me"]
 
+SETTINGS_EXPORT = [
+    "DJANGO_ENV",
+]
 
 # Application definition
 
@@ -93,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_settings_export.settings_export',
             ],
         },
     },

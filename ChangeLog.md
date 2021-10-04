@@ -2,7 +2,14 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
-v 0.5.2
+v 0.5.3 04-Oct-2021
+* Further remove personal reflective posts, only remains in logic-statements now
+* Success URL redirects to feed user was on for saving posts
+* Added shortcut to saving posts from list pages
+* Login required to view posts
+* Fixed footer so that DJANGO_ENV displays properly now
+
+v 0.5.2 03-Oct-2021
 * Users can now save and hide posts (along with unsave and unhide)
 
 v 0.5.1
@@ -10,7 +17,6 @@ v 0.5.1
 * Removed link to create new personal post
 * Added landing page
 * Personal posts cannot be created
-* 
 
 v 0.5.0 01-Oct-2021
 * Mood now has a daily reflection associated with it

@@ -12,7 +12,6 @@
                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <li><a class="dropdown-item" href="{% url 'post-create' %}?title=0">Gratitude Entry</a></li>
                     <li><a class="dropdown-item" href="{% url 'post-create' %}?title=1">Question Entry</a></li>
-                    {#                    <li><a class="dropdown-item" href="{% url 'post-create' %}">Personal Entry</a></li>#}
                 </ul>
             </div>
         </div>
@@ -50,7 +49,7 @@
                     <a href="{% url 'post-detail' post.id %}">
                         <h3 class="card-title">{{ post.title }}</h3>
                         <div class="save-btn-group">
-                            <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}"><i class="far fa-bookmark fa-3x"></i></a>
+                            <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}"><i class="far fa-bookmark fa-3x"></i></a>
                         </div>
 
                         <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->

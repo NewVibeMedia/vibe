@@ -1,12 +1,15 @@
 import random
 import datetime
+
+from django import template
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -14,6 +17,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+
+from vibe import settings
 from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
 # from django.http import HttpResponse
@@ -262,7 +267,7 @@ def UserPostSave(request, pk, user):
     post = Post.objects.get(pk=pk)
     model.create(user=user, post=post, option_type='Save')
 
-    return redirect('/') # redirect to a success page instead
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def UserPostHide(request, pk, user):
     model = UserPostOptions
@@ -270,8 +275,7 @@ def UserPostHide(request, pk, user):
     post = Post.objects.get(pk=pk)
     model.create(user=user, post=post, option_type='Hide')
 
-    return redirect('/') # redirect to a success page instead
-
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     login_url = '/login/'

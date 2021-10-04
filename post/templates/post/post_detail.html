@@ -15,9 +15,9 @@
     {% if user == object.author or user.is_superuser %}
         <div class="post-actions">
             <!-- Precedence (a and b) or (a and c)-->
-            <a id="edit-btn" class="btn btn-light btn-sm" href="{% url 'post-edit' object.id %}">Edit</a>
+            <a id="edit-btn" class="btn btn-light btn-sm" href="{% url 'post-edit' object.id %}?next={{ request.path|urlencode }}">Edit</a>
             <a id="delete-btn" class="btn btn-danger  btn-sm" data-confirm="Are you sure you want to delete the post?"
-               rel="nofollow" data-method="delete" href="{% url 'post-delete' object.id %}">Delete</a>
+               rel="nofollow" data-method="delete" href="{% url 'post-delete' object.id %}?next={{ request.path|urlencode }}">Delete</a>
         </div>
     {% else %}
         <div class="post-actions">

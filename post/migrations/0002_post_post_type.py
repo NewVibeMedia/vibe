@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='post_type',
-            field=models.CharField(choices=[('Gratitude', 'Gratitude'), ('Question', 'Question'), ('Personal', 'Personal')], default=('Personal', 'Personal'), max_length=20),
+            field=models.CharField(choices=[('Gratitude', 'Gratitude'), ('Question', 'Question')], default=('Gratitude', 'Gratitude'), max_length=20),
         ),
     ]
