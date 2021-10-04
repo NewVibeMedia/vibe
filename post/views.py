@@ -58,7 +58,7 @@ class RecentListView(ListView):
         return queryset
 
 
-class PostListView(RecentListView):
+class PostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
     login_url = '/login/'
     
