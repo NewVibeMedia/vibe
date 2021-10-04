@@ -12,7 +12,7 @@
                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <li><a class="dropdown-item" href="{% url 'post-create' %}?title=0">Gratitude Entry</a></li>
                     <li><a class="dropdown-item" href="{% url 'post-create' %}?title=1">Question Entry</a></li>
-{#                    <li><a class="dropdown-item" href="{% url 'post-create' %}">Personal Entry</a></li>#}
+                    {#                    <li><a class="dropdown-item" href="{% url 'post-create' %}">Personal Entry</a></li>#}
                 </ul>
             </div>
         </div>
@@ -37,7 +37,7 @@
     </div>
 
     {% if post_type == "Reflective Question" and posts.count == 0 %}
-    <p>There are no posts to show. Answer a question to see what others have posted!</p>
+        <p>There are no posts to show. Answer a question to see what others have posted!</p>
     {% endif %}
 
 
@@ -49,9 +49,15 @@
                 <div class="card-body">
                     <a href="{% url 'post-detail' post.id %}">
                         <h3 class="card-title">{{ post.title }}</h3>
+                        <div class="save-btn-group">
+                            <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}"><i class="far fa-bookmark fa-3x"></i></a>
+                        </div>
+
                         <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
                         <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
                         <p class="card-text">{{ post.content }}</p>
+
+
                     </a>
                 </div>
             </div>

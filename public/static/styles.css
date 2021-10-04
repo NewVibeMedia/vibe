@@ -31,3 +31,8 @@ span.mandatory, span.asteriskField {
 .margin-bottom-20 {
 margin-bottom: 20px;
 }
+
+.save-btn-group {
+    float: right;
+    margin-top: -3rem;
+}
