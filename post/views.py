@@ -1,7 +1,6 @@
 import random
 import datetime
 
-from django import template
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -18,23 +17,20 @@ from django.views.generic import (
     DeleteView
 )
 
-from vibe import settings
 from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
-# from django.http import HttpResponse
 from django.core.management import call_command
 from django.db.models import Q
 from django.utils import timezone
 import os
 
-# Routes
-def home(request):
-    # return HttpResponse('<h1>Diary Home</h1>')
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'post/home.html', context)
+# ==============HOME PAGE================
+# Landing Page
+def landing(request):
+    return render(request, 'landing.html', {'title': 'Home'})
 
+# ==============HELPER FUNCTIONS================
+# Helper class, requires login and displays Permission denied error
 class CustomLoginRequiredMixin(LoginRequiredMixin):
     """ The LoginRequiredMixin extended to add a relevant message to the
     messages framework by setting the ``permission_denied_message``
@@ -51,7 +47,6 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
-
 class RecentListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -62,21 +57,35 @@ class RecentListView(ListView):
             queryset = queryset.exclude(pk__in=hide_set)
         return queryset
 
+# Reset the DB
+def reset(request):
+    DJANGO_ENV = os.environ.get('DJANGO_ENV')
+    if DJANGO_ENV == "production":
+        raise ValueError("Unable to reset database in production")
 
+    print("reset db", DJANGO_ENV)
+    call_command("truncate", "--apps", "post", "mood")
+    call_command("loaddata", "db/fixtures/moods.json")
+    call_command("loaddata", "db/fixtures/posts.json")
+    return render(request, 'reset.html', {'title': 'Reset DB'})
+
+# ==============STANDARD POSTS LIST VIEW================
+# My Posts page, lists all recent posts
 class PostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
     login_url = '/login/'
-    
-    template_name = 'post/home.html' # <app>/<model>_<viewtype>/html
+
+    template_name = 'post/home.html'  # <app>/<model>_<viewtype>/html
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
 
+# My Gratitude Posts page, lists all recent gratitude type posts
 class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
     login_url = '/login/'
 
-    template_name = 'post/home.html' # <app>/<model>_<viewtype>/html
+    template_name = 'post/home.html'  # <app>/<model>_<viewtype>/html
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
@@ -90,11 +99,13 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
         queryset = queryset.filter(post_type="Gratitude")
         return queryset
 
+
+# My Reflective Question Posts page, lists all recent gratitude type posts
 class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
     login_url = '/login/'
 
-    template_name = 'post/home.html' # <app>/<model>_<viewtype>/html
+    template_name = 'post/home.html'  # <app>/<model>_<viewtype>/html
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
@@ -105,10 +116,12 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user_items = queryset.filter(post_type="Question").filter(author=self.request.user) #.values('title')
+        user_items = queryset.filter(post_type="Question").filter(author=self.request.user)  # .values('title')
         items = queryset.filter(title__in=list(user_items))
         return items
 
+
+# View all posts saved, not time limited
 class SavePostListView(CustomLoginRequiredMixin, ListView):
     model = UserPostOptions
     login_url = '/login/'
@@ -132,6 +145,7 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
         return actual_posts
 
 
+# View all hidden posts
 class HidePostListView(CustomLoginRequiredMixin, ListView):
     model = UserPostOptions
     login_url = '/login/'
@@ -154,6 +168,8 @@ class HidePostListView(CustomLoginRequiredMixin, ListView):
             print(post)
         return saved_posts
 
+
+# Show details about one post
 class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
@@ -170,63 +186,19 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
                 # If it is, also check if it belongs to user.
                 if len(result.filter(author_id=self.request.user.id)) == 0:
                     messages.add_message(self.request, messages.ERROR,
-                                            self.user_permission_denied_message)
+                                         self.user_permission_denied_message)
                     raise PermissionDenied
-        
+
         return result
 
-class PostOptionView(CustomLoginRequiredMixin, DetailView):
-    model = Post
-    login_url = '/login/'
-    template_name = 'post/post_option_detail.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['option_type'] = self.kwargs.get('option')
-        return context
-
-    def get_queryset(self):
-        qs = super(PostOptionView, self).get_queryset()
-        pk = self.kwargs.get('pk')
-        result = qs.filter(pk=pk)
-        # if we can't find the post in saved or hid
-        if not UserPostOptions.objects.filter(post__in=result, option_type=self.kwargs.get('option')):
-            messages.add_message(self.request, messages.ERROR,
-                                    "Post not found")
-            raise ObjectDoesNotExist
-        return result
-
-def PostOptionEdit(request, pk, option):
-    model = UserPostOptions
-    user = User.objects.get(username=request.user.username)
-    post = Post.objects.get(pk=pk)
-    model.objects.filter(user=user, post=post, option_type=option).delete()
-
-    return redirect('/')  # redirect to a success page instead
-
-class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
-    login_url = '/login/'
-
-    model = Post
-    success_url = "/posts"
-
-    # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
-    def get_queryset(self):
-        return get_post_queryset(PostDeleteView, self)
-
-
-    def delete(self, request, *args, **kwargs):
-        messages.add_message(self.request, messages.SUCCESS,
-                                 "Post was successfully deleted.")
-        return super(PostDeleteView, self).delete(request, *args, **kwargs)
-
+# ==============POST OPERATIONS================
+# Create a post
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
     login_url = '/login/'
 
     model = Post
     fields = ['title', 'content', 'post_type', 'date_posted']
-
 
     gratitude_question = "What are you grateful for today?"
     reflection_questions = [
@@ -250,9 +222,9 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
                 initial.update({'title': random.choice(self.reflection_questions)})
                 initial.update({'post_type': "Question"})
                 question = True
-        if not question:# gratitude post
-                initial.update({'title': self.gratitude_question})
-                initial.update({'post_type': "Gratitude"})
+        if not question:  # gratitude post
+            initial.update({'title': self.gratitude_question})
+            initial.update({'post_type': "Gratitude"})
         return initial
 
     def form_valid(self, form):
@@ -261,22 +233,25 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
                              "Post created successfully")
         return super().form_valid(form)
 
-def UserPostSave(request, pk, user):
-    model = UserPostOptions
-    user = User.objects.get(username=user)
-    post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Save')
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+# Delete a post
+class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
+    login_url = '/login/'
 
-def UserPostHide(request, pk, user):
-    model = UserPostOptions
-    user = User.objects.get(username=user)
-    post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Hide')
+    model = Post
+    success_url = "/posts"
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
+    def get_queryset(self):
+        return get_post_queryset(PostDeleteView, self)
 
+    def delete(self, request, *args, **kwargs):
+        messages.add_message(self.request, messages.SUCCESS,
+                             "Post was successfully deleted.")
+        return super(PostDeleteView, self).delete(request, *args, **kwargs)
+
+
+# Update a post
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     login_url = '/login/'
 
@@ -287,17 +262,62 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
         if not self.request.user.is_superuser:
             form.instance.author = self.request.user
         messages.add_message(self.request, messages.SUCCESS,
-                            "Post was successfully updated.")
+                             "Post was successfully updated.")
         return super().form_valid(form)
 
     def get_queryset(self):
         return get_post_queryset(PostUpdateView, self)
 
+# ==============SAVING AND HIDING POSTS================
+# Saving and Hiding Posts
+class PostOptionView(CustomLoginRequiredMixin, DetailView):
+    model = Post
+    login_url = '/login/'
+    template_name = 'post/post_option_detail.html'
 
-class SignUpView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['option_type'] = self.kwargs.get('option')
+        return context
+
+    def get_queryset(self):
+        qs = super(PostOptionView, self).get_queryset()
+        pk = self.kwargs.get('pk')
+        result = qs.filter(pk=pk)
+        # if we can't find the post in saved or hid
+        if not UserPostOptions.objects.filter(post__in=result, option_type=self.kwargs.get('option')):
+            messages.add_message(self.request, messages.ERROR,
+                                 "Post not found")
+            raise ObjectDoesNotExist
+        return result
+
+
+def PostOptionEdit(request, pk, option):
+    model = UserPostOptions
+    user = User.objects.get(username=request.user.username)
+    post = Post.objects.get(pk=pk)
+    model.objects.filter(user=user, post=post, option_type=option).delete()
+
+    return redirect('/')  # redirect to a success page instead
+
+
+def UserPostSave(request, pk, user):
+    model = UserPostOptions
+    user = User.objects.get(username=user)
+    post = Post.objects.get(pk=pk)
+    model.create(user=user, post=post, option_type='Save')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def UserPostHide(request, pk, user):
+    model = UserPostOptions
+    user = User.objects.get(username=user)
+    post = Post.objects.get(pk=pk)
+    model.create(user=user, post=post, option_type='Hide')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 # Used to determine if the user has edit/delete permissions for the post
 def get_post_queryset(PostView, self):
@@ -307,12 +327,19 @@ def get_post_queryset(PostView, self):
         result = qs.filter(pk=pk)
     else:
         result = qs.filter(author_id=self.request.user.id).filter(pk=pk)
-        if len(result.filter(pk=pk)) == 0: # Post does not belong to user
+        if len(result.filter(pk=pk)) == 0:  # Post does not belong to user
             messages.add_message(self.request, messages.ERROR,
-                                    self.user_permission_denied_message)
+                                 self.user_permission_denied_message)
             raise PermissionDenied
 
     return result
+
+
+# ==============AUTHENTICATION================
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/signup.html'
 
 def login(request):
     return render(request, 'registration/login.html', {'title': 'User Login'})
@@ -320,12 +347,7 @@ def login(request):
 def logout(request):
     return render(request, 'registration/logout.html', {'title': 'User Logout'})
 
-def about(request):
-    return render(request, 'about.html', {'title': 'About'})
-
-def landing(request):
-    return render(request, 'landing.html', {'title': 'Home'})
-
+# ==============SEARCH================
 @login_required()
 def search(request):
     query = request.POST['search']
@@ -341,19 +363,7 @@ def search(request):
         criterion1 = Q(title__icontains=query)
         criterion2 = Q(content__icontains=query)
         criterion3 = Q(author_id=request.user.id)
-        results = Post.objects.filter( (criterion1 | criterion2)  & criterion3 )
-
+        results = Post.objects.filter((criterion1 | criterion2) & criterion3)
 
     return render(request, 'post/search.html', {'title': 'Search', 'posts': results})
 
-def reset(request):
-    #
-    DJANGO_ENV = os.environ.get('DJANGO_ENV')
-    if DJANGO_ENV == "production":
-        raise ValueError("Unable to reset database in production")
-
-    print("reset db", DJANGO_ENV)
-    call_command("truncate", "--apps", "post", "mood")
-    call_command("loaddata", "db/fixtures/moods.json")
-    call_command("loaddata", "db/fixtures/posts.json")
-    return render(request, 'reset.html', {'title': 'Reset DB'})
