@@ -126,10 +126,10 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         saved_posts = queryset.filter(user=self.request.user, option_type="Save").values('post')
-        saved_posts = Post.objects.filter(pk__in=saved_posts)
+        actual_posts = []
         for post in saved_posts:
-            print(post)
-        return saved_posts
+            actual_posts.append(Post.objects.get(pk=post['post']))
+        return actual_posts
 
 
 class HidePostListView(CustomLoginRequiredMixin, ListView):
