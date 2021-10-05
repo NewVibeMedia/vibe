@@ -44,12 +44,6 @@
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'mood-display' %}active{% endif %}" href="/calendar">Calendar</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'post-saved' %}active{% endif %}" href="/saved">Saved</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'post-hid' %}active{% endif %}" href="/hid">Hid</a>
-                </li>
                 {% if user.is_authenticated %}
 
                     <li class="nav-item dropdown">
@@ -61,20 +55,49 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li class="nav-item">
                                 <a class="dropdown-item" href="/history">
-                                    <label class="dropdown-menu-icon"></label> 
-                                    <i class="fa fa-history" aria-hidden="true"></i> 
+                                    <label class="dropdown-menu-icon">
+                                        <i class="fa fa-history" aria-hidden="true"></i>
+                                    </label> 
                                     My Posts 
                                 </a>
                             </li>
-                            <li><a class="dropdown-item" href="/settings"><label class="dropdown-menu-icon"></label> <i
-                                    class="fa fa-unlock" aria-hidden="true"></i> Settings </a>
-
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/saved">
+                                    <label class="dropdown-menu-icon">
+                                        <i class="fa fa-star" aria-hidden="true"></i> 
+                                    </label> 
+                                    Saved Posts
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/hid">
+                                    <label class="dropdown-menu-icon">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                                    </label> 
+                                    Hidden Posts
+                                </a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}" id="logout-link"><label
-                                    class="dropdown-menu-icon"><i class="fa fa-sign-out-alt"
-                                                                  aria-hidden="true"></i></label> Sign Out </a></li>
+                            <li>
+                                <a class="dropdown-item" href="/settings">
+                                    <label class="dropdown-menu-icon">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </label> 
+                                    Settings 
+                                </a>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'logout' %}" id="logout-link">
+                                    <label class="dropdown-menu-icon">
+                                        <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+                                    </label> 
+                                    Sign Out 
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 {% else %}
