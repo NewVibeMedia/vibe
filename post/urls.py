@@ -11,6 +11,7 @@ from .views import (
     GratitudePostListView, QuestionPostListView,
     UserPostSave, UserPostHide, PostOptionEdit,
     SavePostListView, HidePostListView,
+    HistoryListView
 )
 from . import views
 from django.contrib.auth import views as auth_views
@@ -25,6 +26,7 @@ urlpatterns = [
     path('question/', QuestionPostListView.as_view(), name='post-question'),
     path('saved/', SavePostListView.as_view(), name='post-saved'),
     path('hid/', HidePostListView.as_view(), name='post-hid'),
+    path('history/', HistoryListView.as_view(), name='post-history'),
 
     # post viewing and operations
     path('posts/<int:pk>', PostDetailView.as_view(), name='post-detail'),  # pk primary key, int integer

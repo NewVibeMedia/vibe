@@ -120,6 +120,18 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
         items = queryset.filter(title__in=list(user_items))
         return items
 
+# User's history of posts
+class HistoryListView(CustomLoginRequiredMixin, ListView):
+    model = Post
+    login_url = '/login/'
+
+    template_name = 'post/home.html'  # <app>/<model>_<viewtype>/html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(author_id=self.request.user.id)
 
 # View all posts saved, not time limited
 class SavePostListView(CustomLoginRequiredMixin, ListView):
