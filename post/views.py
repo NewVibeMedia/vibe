@@ -308,6 +308,7 @@ def PostOptionEdit(request, pk, option):
     user = User.objects.get(username=request.user.username)
     post = Post.objects.get(pk=pk)
     model.objects.filter(user=user, post=post, option_type=option).delete()
+    messages.add_message(request,messages.SUCCESS, "Post was successfully removed from list.")
 
     return redirect('/')  # redirect to a success page instead
 
@@ -317,6 +318,7 @@ def UserPostSave(request, pk, user):
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
     model.create(user=user, post=post, option_type='Save')
+    messages.add_message(request, messages.SUCCESS, "Post was successfully saved.")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -326,6 +328,7 @@ def UserPostHide(request, pk, user):
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
     model.create(user=user, post=post, option_type='Hide')
+    messages.add_message(request, messages.SUCCESS, "Post was successfully hidden.")
 
 # TODO hide should return to feed, not continue showing the post detail page
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
