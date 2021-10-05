@@ -2,6 +2,13 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.5.7 05-Oct-2021
+* Added user post history page
+* Added feedback messages for save and hide buttons
+* Added unsave button on saved posts in the feed
+* Moved some navbar buttons into the user dropdown
+* Save and hide buttons redirect to appriopriate places
+
 v 0.5.6 05-Oct-2021
 * New Entry button is split for gratitude and question post list pages
 * Navbar highlighted correctly for page currently on

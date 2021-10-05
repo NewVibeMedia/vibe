@@ -316,11 +316,17 @@ def PostOptionEdit(request, pk, option):
     model.objects.filter(user=user, post=post, option_type=option).delete()
 
     if option == model.OPTION_TYPES[0][0]: # Save
-        messages.add_message(request,messages.SUCCESS, "Saved post was successfully removed from list.")
-        return redirect('/saved')
+        messages.add_message(request,messages.SUCCESS, "Saved post was successfully removed from list.")    
     else: # Hidden
         messages.add_message(request,messages.SUCCESS, "Hidden post was successfully removed from list.")
+
+    referer = request.META.get('HTTP_REFERER')
+    if "Save" in str(referer):
+        return redirect('/saved')
+    elif "Hide" in str(referer):
         return redirect('/hid')
+    else:
+        return redirect(referer)
 
 
 def UserPostSave(request, pk, user):
