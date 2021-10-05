@@ -3,6 +3,12 @@
 
     <div>
 
+    {% if post_type == "Gratitude" %}
+        <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button">New Entry</a>
+    {% elif post_type == "Reflective Question" %}
+        <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=1" role="button">New Entry</a>
+    {%  else %}
+{#        All Posts Page #}
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="float:right;">
             <div class="btn-group" role="group">
                 <button id="btnGroup" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown"
@@ -15,6 +21,8 @@
                 </ul>
             </div>
         </div>
+    {% endif %}
+
 
         {% if post_type != None %}
             <h2>{% if user.id %}My{% endif %} {{ post_type }} Posts</h2>

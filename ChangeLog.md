@@ -2,6 +2,12 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.5.6 05-Oct-2021
+* New Entry button is split for gratitude and question post list pages
+
+v 0.5.5 04-Oct-2021
+* Fixed post ordering for hidden and saved posts
+
 v 0.5.3 04-Oct-2021
 * Further remove personal reflective posts, only remains in logic-statements now
 * Success URL redirects to feed user was on for saving posts

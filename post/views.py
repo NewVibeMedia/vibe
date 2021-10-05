@@ -315,6 +315,7 @@ def UserPostHide(request, pk, user):
     post = Post.objects.get(pk=pk)
     model.create(user=user, post=post, option_type='Hide')
 
+# TODO hide should return to feed, not continue showing the post detail page
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
