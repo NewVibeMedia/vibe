@@ -4,6 +4,7 @@ TODO List:
 
 v 0.5.6 05-Oct-2021
 * New Entry button is split for gratitude and question post list pages
+* Navbar highlighted correctly for page currently on
 
 v 0.5.5 04-Oct-2021
 * Fixed post ordering for hidden and saved posts

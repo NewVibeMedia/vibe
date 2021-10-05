@@ -30,25 +30,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/gratitude">Gratitude</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'post-gratitude' %}active{% endif %}" href="/gratitude">Gratitude</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/question">Question</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'post-question' %}active{% endif %}" href="/question">Question</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/moods">Moods</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'mood-home' %}active{% endif %}" href="/moods">Moods</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/calendar">Calendar</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'mood-display' %}active{% endif %}" href="/calendar">Calendar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/saved">Saved</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'post-saved' %}active{% endif %}" href="/saved">Saved</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/hid">Hid</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'post-hid' %}active{% endif %}" href="/hid">Hid</a>
                 </li>
                 {% if user.is_authenticated %}
 

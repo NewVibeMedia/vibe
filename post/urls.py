@@ -22,7 +22,7 @@ urlpatterns = [
     # list views
     path('posts/', PostListView.as_view(), name='post-list'),
     path('gratitude/', GratitudePostListView.as_view(), name='post-gratitude'),
-    path('question/', QuestionPostListView.as_view(), name='post-gratitude'),
+    path('question/', QuestionPostListView.as_view(), name='post-question'),
     path('saved/', SavePostListView.as_view(), name='post-saved'),
     path('hid/', HidePostListView.as_view(), name='post-hid'),
 
