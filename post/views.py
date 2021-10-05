@@ -308,9 +308,13 @@ def PostOptionEdit(request, pk, option):
     user = User.objects.get(username=request.user.username)
     post = Post.objects.get(pk=pk)
     model.objects.filter(user=user, post=post, option_type=option).delete()
-    messages.add_message(request,messages.SUCCESS, "Post was successfully removed from list.")
 
-    return redirect('/')  # redirect to a success page instead
+    if option == model.OPTION_TYPES[0][0]: # Save
+        messages.add_message(request,messages.SUCCESS, "Saved post was successfully removed from list.")
+        return redirect('/saved')
+    else: # Hidden
+        messages.add_message(request,messages.SUCCESS, "Hidden post was successfully removed from list.")
+        return redirect('/hid')
 
 
 def UserPostSave(request, pk, user):
@@ -330,8 +334,10 @@ def UserPostHide(request, pk, user):
     model.create(user=user, post=post, option_type='Hide')
     messages.add_message(request, messages.SUCCESS, "Post was successfully hidden.")
 
-# TODO hide should return to feed, not continue showing the post detail page
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    if post.post_type == post.POST_TYPES[0][0]: # Gratitude
+        return redirect('/gratitude')
+    else: # Question
+        return redirect('/question')
 
 
 # Used to determine if the user has edit/delete permissions for the post
