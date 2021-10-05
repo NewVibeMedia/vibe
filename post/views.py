@@ -92,6 +92,9 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['post_type'] = "Gratitude"
+        # This chonker returns a tuple of post ids that the user has saved
+        context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
+        context['save_str'] = "Save"
         return context
 
     def get_queryset(self):
@@ -112,6 +115,9 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['post_type'] = "Reflective Question"
+        # This chonker returns a tuple of post ids that the user has saved
+        context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
+        context['save_str'] = "Save"
         return context
 
     def get_queryset(self):

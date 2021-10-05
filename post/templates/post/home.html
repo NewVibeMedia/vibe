@@ -56,9 +56,19 @@
                 <div class="card-body">
                     <a href="{% url 'post-detail' post.id %}">
                         <h3 class="card-title">{{ post.title }}</h3>
-                        <div class="save-btn-group">
-                            <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}"><i class="far fa-bookmark fa-3x"></i></a>
-                        </div>
+                        {% if post.id in saved_posts %}   
+                            <div class="save-btn-group">
+                                <a id="save-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
+                                    <i class="far fa-minus-square fa-3x"></i>
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="save-btn-group">
+                                <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
+                                    <i class="far fa-bookmark fa-3x"></i>
+                                </a>
+                            </div>
+                        {% endif %}
 
                         <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
                         <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
