@@ -41,9 +41,9 @@
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'mood-home' %}active{% endif %}" href="/moods">Moods</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'mood-display' %}active{% endif %}" href="/calendar">Calendar</a>
-                </li>
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link {% if request.resolver_match.url_name == 'mood-display' %}active{% endif %}" href="/calendar">Calendar</a>#}
+{#                </li>#}
                 {% if user.is_authenticated %}
 
                     <li class="nav-item dropdown">
