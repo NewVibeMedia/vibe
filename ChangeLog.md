@@ -2,6 +2,12 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+V 0.6.0 06-Oct-2021
+* Navbar links are no longer accessible to unauthenticated users (except login/sign up)
+* Renaming Question to Reflection
+* Mood calendar is now only linked from Mood page
+* Changed banner and background colour
+
 v 0.5.7 05-Oct-2021
 * Added user post history page
 * Added feedback messages for save and hide buttons

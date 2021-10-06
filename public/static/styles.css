@@ -1,17 +1,17 @@
 .card a {
-    text-decoration: none !important;
-    color: inherit !important;
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
 .container {
-    position: relative;
+  position: relative;
 }
 
 #new-post-btn {
-    position: absolute !important;
-    top: 0px;
-    right: 0px;
-    margin-right: 0.75rem;
+  position: absolute !important;
+  top: 0px;
+  right: 0px;
+  margin-right: 0.75rem;
 }
 
 div.reg-block {
@@ -24,20 +24,36 @@ div.reg-block {
 }
 
 div.post-actions {
-    float: right;
-    position: absolute;
-    right: 1%;
+  float: right;
+  position: absolute;
+  right: 1%;
 }
 
 span.mandatory, span.asteriskField {
-    color: red;
-    margin-left: 3px;
+  color: red;
+  margin-left: 3px;
 }
+
 .margin-bottom-20 {
-margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .save-btn-group {
-    float: right;
-    margin-top: -3rem;
+  float: right;
+  margin-top: -3rem;
 }
+
+/* General styling */
+body {
+  background-color: #e8ebe8 !important;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #2e5a3b;
+}
+.navbar .nav-link {
+  color: white !important;
+}
+
+/*# sourceMappingURL=styles.css.map */
