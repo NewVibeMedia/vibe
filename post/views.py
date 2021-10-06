@@ -336,8 +336,10 @@ def UserPostSave(request, pk, user):
     model.create(user=user, post=post, option_type='Save')
     messages.add_message(request, messages.SUCCESS, "Post was successfully saved.")
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
+    if post.post_type == post.POST_TYPES[0][0]: # Gratitude
+        return redirect('/gratitude')
+    else: # Question
+        return redirect('/question')
 
 def UserPostHide(request, pk, user):
     model = UserPostOptions
