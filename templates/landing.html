@@ -23,9 +23,8 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">Daily Tasks</h3>
-
                     <ul class="daily-task-list">
-                        {% if mood_today > 0 %}
+                        {% if mood_today %}
                             <a class="daily-task" href="/moods/new">
                                 <li><i class="fas fa-check-square"></i> Enter today's mood</li>
                             </a>
@@ -36,16 +35,20 @@
                         {% endif %}
 
                         {% if post_count > 0 %}
-                        <a class="daily-task" href="/question">
-                            <li><i class="fas fa-check-square"></i> Write a Reflection Entry</li>
-                        </a>
+                            <a class="daily-task" href="/question">
+                                <li><i class="fas fa-check-square"></i> Write a Reflection Entry</li>
+                            </a>
                         {% else %}
-                        <a class="daily-task" href="/question">
-                            <li><i class="far fa-square"></i> Write a Reflection Entry</li>
-                        </a>
+                            <a class="daily-task" href="/question">
+                                <li><i class="far fa-square"></i> Write a Reflection Entry</li>
+                            </a>
                         {% endif %}
                     </ul>
+                    {% if post_count > 0 and mood_today %}
+                        <p><i class="fas fa-star"></i> Congrats! You finished today's daily tasks</p>
+                    {% endif %}
                 </div>
+
                 <div class="card-footer">
                     Resets daily at 12AM
                 </div>
@@ -66,15 +69,47 @@
         </div>
     </div>
     <br>
-    <div>
+    <div class="row">
         {#        Mood #}
         <div class="mood-today col-sm-4">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">Today's Mood</h3>
+                    {% if mood_today %}
+                        <p class="text-center">{{ mood_today.display }}</p>
+                    {% else %}
+                        <p><a href="/moods/new">You haven't entered a mood today yet, why not drop by and add one?</a>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
+
+        {#        Guided Journal Entry #}
+        <div class="free-journalling col-sm-4">
+            <a href="/question">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Guided Journalling</h3>
+                        <p>Use prompts to guide your self-reflection</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        {#        Free Journal Entry #}
+        <div class="free-journalling col-sm-4">
+            <a href="/gratitude">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Free Journalling</h3>
+                        <p>Advanced journalling, write about your own thoughts without prompts!</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
     </div>
 
 {% endblock content %}

@@ -22,6 +22,7 @@ from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db.models import Q
+from mood.models import Mood
 from django.utils import timezone
 import os
 
@@ -29,7 +30,8 @@ import os
 # Landing Page
 def landing(request):
     number_of_posts = Post.objects.filter(date_posted__gt=timezone.now().date()).filter(author_id=request.user.id).count()
-    return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts})
+    entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
+    return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
 
 # ==============HELPER FUNCTIONS================
 # Helper class, requires login and displays Permission denied error
