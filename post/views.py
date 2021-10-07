@@ -405,7 +405,9 @@ def search(request):
         criterion1 = Q(title__icontains=query)
         criterion2 = Q(content__icontains=query)
         criterion3 = Q(author_id=request.user.id)
-        results = Post.objects.filter((criterion1 | criterion2) & criterion3)
+        criterion4 = Q(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
+
+        results = Post.objects.filter((criterion1 | criterion2) & criterion3 & criterion4)
 
     return render(request, 'post/search.html', {'title': 'Search', 'posts': results})
 
