@@ -224,7 +224,14 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
         "Are you letting things out of your control make you stressed?",
         "What did you achieve today?",
         "What inspires you?",
-        "I can't imagine living without..."
+        "I can't imagine living without...",
+        "Am I living true to myself?",
+        "Why do I matter?",
+        "What have I given up on?",
+        "Is it more important to love or be loved?",
+        "If I could talk to my younger self, I would tell them...",
+        "List 5 things that make you smile",
+
     ]  # https://positivepsychology.com/introspection-self-reflection/
 
     def get_initial(self):
