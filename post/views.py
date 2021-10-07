@@ -346,7 +346,7 @@ def UserPostSave(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Save')
+    model.objects.get_or_create(user=user, post=post, option_type='Save')
     messages.add_message(request, messages.SUCCESS, "Post was successfully saved.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
@@ -358,7 +358,7 @@ def UserPostHide(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Hide')
+    model.objects.get_or_create(user=user, post=post, option_type='Hide')
     messages.add_message(request, messages.SUCCESS, "Post was successfully hidden.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude

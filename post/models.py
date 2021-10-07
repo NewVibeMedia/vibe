@@ -36,8 +36,3 @@ class UserPostOptions(models.Model):
     def __str__(self):
         return f"{str(self.user.username)} [{self.option_type}] {str(self.post)} on {str(self.date_created)}"
 
-    @classmethod
-    def create(cls, user, post, option_type):
-        instance = cls(user=user, post=post, option_type=option_type)
-        instance.save()
-
