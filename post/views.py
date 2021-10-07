@@ -206,20 +206,11 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
         context['hide_str'] = "Hide" 
         return context
 
-    # Get post if it's not personal
+    # Get post
     def get_queryset(self):
         qs = super(PostDetailView, self).get_queryset()
         pk = self.kwargs.get('pk')
         result = qs.filter(pk=pk)
-
-        if not self.request.user.is_superuser:
-            # Check if post is personal
-            if len(result.filter(post_type="Personal")) != 0:
-                # If it is, also check if it belongs to user.
-                if len(result.filter(author_id=self.request.user.id)) == 0:
-                    messages.add_message(self.request, messages.ERROR,
-                                         self.user_permission_denied_message)
-                    raise PermissionDenied
 
         return result
 
