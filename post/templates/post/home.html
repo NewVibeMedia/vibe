@@ -70,6 +70,8 @@
                             </div>
                         {% endif %}
 
+                    <a name="hide-btn" href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}"><i class="far fa-eye-slash"></i> Hide</a>
+
                         <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
                         <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
                         <p class="card-text">{{ post.content }}</p>
