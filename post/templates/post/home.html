@@ -50,45 +50,42 @@
 
     {% for post in posts %}
 
-        {% if user.is_superuser or post.post_type != "Personal" %}
+        <div class="card">
+            <div class="card-body">
+                <a href="{% url 'post-detail' post.id %}">
+                    <h3 class="card-title">{{ post.title }}</h3>
+                    {% if post.id in saved_posts %}   
+                        <div class="save-btn-group">
+                            <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
+                                <i class="fas fa-bookmark fa-3x"></i>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="save-btn-group">
+                            <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
+                                <i class="far fa-bookmark fa-3x"></i>
+                            </a>
+                        </div>
+                    {% endif %}
 
-            <div class="card">
-                <div class="card-body">
-                    <a href="{% url 'post-detail' post.id %}">
-                        <h3 class="card-title">{{ post.title }}</h3>
-                        {% if post.id in saved_posts %}   
-                            <div class="save-btn-group">
-                                <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
-                                    <i class="fas fa-bookmark fa-3x"></i>
-                                </a>
-                            </div>
+                    <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                    <h4 class="card-subtitle">
+                        By
+                        {% if user.is_superuser or user == post.author %}
+                            <!-- May want to style the user differently -->
+                            <i>{{ post.author }}</i>
                         {% else %}
-                            <div class="save-btn-group">
-                                <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
-                                    <i class="far fa-bookmark fa-3x"></i>
-                                </a>
-                            </div>
+                            {{ rand_name|random }}  
                         {% endif %}
-
-                        <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
-                        <h4 class="card-subtitle">
-                            By
-                            {% if user.is_superuser or user == post.author %}
-                                <!-- May want to style the user differently -->
-                                <i>{{ post.author }}</i>
-                            {% else %}
-                                {{ rand_name|random }}  
-                            {% endif %}
-                            | {{ post.date_posted|date:"D, M d, Y" }} 
-                        </h4>
-                        <p class="card-text">{{ post.content }}</p>
+                        | {{ post.date_posted|date:"D, M d, Y" }} 
+                    </h4>
+                    <p class="card-text">{{ post.content }}</p>
 
 
-                    </a>
-                </div>
+                </a>
             </div>
-            <br>
+        </div>
+        <br>
 
-        {% endif %}
     {% endfor %}
 {% endblock content %}

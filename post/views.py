@@ -207,20 +207,11 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
         context['hide_str'] = "Hide" 
         return context
 
-    # Get post if it's not personal
+    # Get post
     def get_queryset(self):
         qs = super(PostDetailView, self).get_queryset()
         pk = self.kwargs.get('pk')
         result = qs.filter(pk=pk)
-
-        if not self.request.user.is_superuser:
-            # Check if post is personal
-            if len(result.filter(post_type="Personal")) != 0:
-                # If it is, also check if it belongs to user.
-                if len(result.filter(author_id=self.request.user.id)) == 0:
-                    messages.add_message(self.request, messages.ERROR,
-                                         self.user_permission_denied_message)
-                    raise PermissionDenied
 
         return result
 
@@ -356,7 +347,7 @@ def UserPostSave(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Save')
+    model.objects.get_or_create(user=user, post=post, option_type='Save')
     messages.add_message(request, messages.SUCCESS, "Post was successfully saved.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
@@ -368,7 +359,7 @@ def UserPostHide(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Hide')
+    model.objects.get_or_create(user=user, post=post, option_type='Hide')
     messages.add_message(request, messages.SUCCESS, "Post was successfully hidden.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
