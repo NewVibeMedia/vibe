@@ -58,13 +58,13 @@
                         <h3 class="card-title">{{ post.title }}</h3>
                         {% if post.id in saved_posts %}   
                             <div class="save-btn-group">
-                                <a id="save-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
+                                <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
                                     <i class="fas fa-bookmark fa-3x"></i>
                                 </a>
                             </div>
                         {% else %}
                             <div class="save-btn-group">
-                                <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
+                                <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
                                     <i class="far fa-bookmark fa-3x"></i>
                                 </a>
                             </div>
