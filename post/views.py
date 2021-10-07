@@ -28,7 +28,8 @@ import os
 # ==============HOME PAGE================
 # Landing Page
 def landing(request):
-    return render(request, 'landing.html', {'title': 'Home'})
+    number_of_posts = Post.objects.filter(date_posted__gt=timezone.now().date()).filter(author_id=request.user.id).count()
+    return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts})
 
 # ==============HELPER FUNCTIONS================
 # Helper class, requires login and displays Permission denied error

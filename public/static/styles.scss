@@ -58,9 +58,14 @@ body {
 
 /* Landing Page - Daily Tasks */
 .daily-task:hover {
-  color:grey !important;
+  color: grey !important;
 }
 
 .daily-task-list {
   list-style-type: none;
+}
+
+.card-footer {
+  font-style: italic;
+  color: grey !important;
 }

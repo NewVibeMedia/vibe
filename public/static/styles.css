@@ -63,7 +63,11 @@ body {
 
 .daily-task-list {
   list-style-type: none;
-  font-size: 1.25rem;
+}
+
+.card-footer {
+  font-style: italic;
+  color: grey !important;
 }
 
 /*# sourceMappingURL=styles.css.map */
