@@ -1,6 +1,7 @@
 import random
 import datetime
 
+import django.contrib.auth.models
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -29,8 +30,13 @@ import os
 # ==============HOME PAGE================
 # Landing Page
 def landing(request):
-    number_of_posts = Post.objects.filter(date_posted__gt=timezone.now().date()).filter(author_id=request.user.id).count()
-    entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
+    number_of_posts = 0
+    entered_mood_today = None
+    print("USER ", request.user)
+    if request.user.is_authenticated:
+        number_of_posts = Post.objects.filter(date_posted__gt=timezone.now().date()).filter(author_id=request.user.id).count()
+        entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
+
     return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
 
 # ==============HELPER FUNCTIONS================
