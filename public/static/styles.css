@@ -56,8 +56,14 @@ body {
   color: white !important;
 }
 
-.daily-tasks {
-  width: 80%;
+/* Landing Page - Daily Tasks */
+.daily-task:hover {
+  color: grey !important;
+}
+
+.daily-task-list {
+  list-style-type: none;
+  font-size: 1.25rem;
 }
 
 /*# sourceMappingURL=styles.css.map */
