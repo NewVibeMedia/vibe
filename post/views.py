@@ -17,6 +17,7 @@ from django.views.generic import (
     DeleteView
 )
 
+from .anonlist import rand_anon_author
 from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -48,6 +49,11 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
         )
 
 class RecentListView(ListView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["rand_name"] = rand_anon_author()
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset()
         if not self.request.user.is_superuser:

@@ -74,9 +74,10 @@
                         <h4 class="card-subtitle">
                             By
                             {% if user.is_superuser or user == post.author %}
-                                {{ post.author }}
+                                <!-- May want to style the user differently -->
+                                <i>{{ post.author }}</i>
                             {% else %}
-                                Anonymous  
+                                {{ rand_name|random }}  
                             {% endif %}
                             | {{ post.date_posted|date:"D, M d, Y" }} 
                         </h4>
