@@ -27,21 +27,21 @@
                     <ul class="daily-task-list">
                         {% if mood_today > 0 %}
                             <a class="daily-task" href="/moods/new">
-                                <li>&#9633; [COMPLETED] Enter today's mood</li>
+                                <li><i class="fas fa-check-square"></i> Enter today's mood</li>
                             </a>
                         {% else %}
                             <a class="daily-task" href="/moods/new">
-                                <li>&#9633; Enter today's mood</li>
+                                <li><i class="far fa-square"></i> Enter today's mood</li>
                             </a>
                         {% endif %}
 
                         {% if post_count > 0 %}
                         <a class="daily-task" href="/question">
-                            <li>&#9633; [COMPLETED] Write a Reflection Entry</li>
+                            <li><i class="fas fa-check-square"></i> Write a Reflection Entry</li>
                         </a>
                         {% else %}
                         <a class="daily-task" href="/question">
-                            <li>&#9633; Write a Reflection Entry</li>
+                            <li><i class="far fa-square"></i> Write a Reflection Entry</li>
                         </a>
                         {% endif %}
                     </ul>
