@@ -71,7 +71,15 @@
                         {% endif %}
 
                         <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
-                        <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
+                        <h4 class="card-subtitle">
+                            By
+                            {% if user.is_superuser or user == post.author %}
+                                {{ post.author }}
+                            {% else %}
+                                Anonymous  
+                            {% endif %}
+                            | {{ post.date_posted|date:"D, M d, Y" }} 
+                        </h4>
                         <p class="card-text">{{ post.content }}</p>
 
 
