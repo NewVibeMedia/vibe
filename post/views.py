@@ -191,6 +191,15 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # This chonker returns a tuple of post ids that the user has saved/hidden
+        context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
+        context['save_str'] = "Save"
+        context['hidden_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Hide").values_list('post', flat=True))
+        context['hide_str'] = "Hide" 
+        return context
+
     # Get post if it's not personal
     def get_queryset(self):
         qs = super(PostDetailView, self).get_queryset()

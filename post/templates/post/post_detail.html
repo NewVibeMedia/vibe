@@ -21,8 +21,18 @@
         </div>
     {% else %}
         <div class="post-actions">
-            <a id="save-btn" class="btn btn-sm" href="{% url 'post-save' object.id user.username %}">Save</a>
-            <a id="hide-btn" class="btn btn-danger btn-sm" href="{% url 'post-hide' object.id user.username %}">Hide</a>
+            {% if object.id in saved_posts %}
+                <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id save_str %}?next={{ request.path|urlencode }}">Unsave</a>
+            {% else %}
+                <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' object.id user.username %}">Save</a>
+            {% endif %}
+
+            {% if object.id in hidden_posts %}   
+                <a name="unhide-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id hide_str %}?next={{ request.path|urlencode }}">Unhide</a>
+            {% else %}
+                <a name="hide-btn" class="btn btn-danger btn-sm" href="{% url 'post-hide' object.id user.username %}">Hide</a>
+            {% endif %}
+                
         </div>
     {% endif %}
         <h2>{{ object.title }}</h2>

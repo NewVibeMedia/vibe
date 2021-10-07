@@ -2,6 +2,10 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.6.2 07-Oct-2021
+* Post detail page has unsave and unhide
+* Removed add entry button on my saved and hidden posts page
+
 v 0.6.1 07-Oct-2021
 * Convention, id should be unique and not repeated. Changed id to name for save-btn
 * Added edit and trash icons for post detail page to be like mood list icons
