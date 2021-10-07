@@ -2,6 +2,10 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.6.1 07-Oct-2021
+* Convention, id should be unique and not repeated. Changed id to name for save-btn
+* Added edit and trash icons for post detail page to be like mood list icons
+
 V 0.6.0 06-Oct-2021
 * Navbar links are no longer accessible to unauthenticated users (except login/sign up)
 * Renaming Question to Reflection
