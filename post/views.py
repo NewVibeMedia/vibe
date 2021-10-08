@@ -32,7 +32,6 @@ import os
 def landing(request):
     number_of_posts = 0
     entered_mood_today = None
-    print("USER ", request.user)
     if request.user.is_authenticated:
         number_of_posts = Post.objects.filter(date_posted__gt=timezone.now().date()).filter(author_id=request.user.id).count()
         entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
