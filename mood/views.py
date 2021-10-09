@@ -28,7 +28,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
-
+# List of moods
 class MoodListView(CustomLoginRequiredMixin, ListView):
     model = Mood
     login_url = "login"
@@ -37,7 +37,7 @@ class MoodListView(CustomLoginRequiredMixin, ListView):
     def get_queryset(self):
         return Mood.objects.filter(author=self.request.user).order_by('-date_posted')
 
-
+# View a mood
 class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     model = Mood
     login_url = "login"
@@ -45,7 +45,7 @@ class MoodDetailView(CustomLoginRequiredMixin, DetailView):
     def get_queryset(self):
         return get_mood_queryset(MoodDetailView, self, self.user_permission_denied_message)
 
-
+# Create a mood
 class MoodCreateView(CustomLoginRequiredMixin, CreateView):
     # Redirect if not authenticated
     login_url = '/login/'
@@ -65,7 +65,7 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView):
     def get_queryset(self):
         return get_mood_queryset(MoodUpdateView, self, self.user_permission_denied_message)
 
-
+# Update a mood
 class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
     login_url = '/login/'
 
@@ -82,6 +82,7 @@ class MoodUpdateView(CustomLoginRequiredMixin, UpdateView):
     def get_queryset(self):
         return get_mood_queryset(MoodUpdateView, self, self.user_permission_denied_message)
 
+# Delete a mood
 class MoodDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
     model = Mood
@@ -121,7 +122,7 @@ def display(request):
     }
     return render(request, 'charts/display.html', context)
 
-
+# Form for creating a mood
 def mood_new(request):
     if not request.user.is_authenticated:
         messages.add_message(request, messages.WARNING,

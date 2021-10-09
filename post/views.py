@@ -54,6 +54,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
+# Posts within 24 hours
 class RecentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -300,7 +301,7 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
         return get_post_queryset(PostUpdateView, self)
 
 # ==============SAVING AND HIDING POSTS================
-# Saving and Hiding Posts
+# Saving and Hiding posts
 class PostOptionView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
@@ -322,7 +323,7 @@ class PostOptionView(CustomLoginRequiredMixin, DetailView):
             raise ObjectDoesNotExist
         return result
 
-
+# Remove a post from Saved/Hidden posts
 def PostOptionEdit(request, pk, option):
     model = UserPostOptions
     user = User.objects.get(username=request.user.username)
@@ -342,7 +343,7 @@ def PostOptionEdit(request, pk, option):
     else:
         return redirect(referer)
 
-
+# Save a post
 def UserPostSave(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
@@ -355,6 +356,7 @@ def UserPostSave(request, pk, user):
     else: # Question
         return redirect('/question')
 
+# Hide a post
 def UserPostHide(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
