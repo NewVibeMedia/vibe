@@ -27,40 +27,32 @@
                         {# Mood task #}
                         {% if mood_today %}
                             {# Completed #}
-                            <a class="daily-task completed" href="/moods/new">
+                            <a class="daily-task completed" id="mood-task-complete" href="/">
                                 <li>
-                                    <span id="mood-task">
-                                        <i class="fas fa-check-square"></i> Enter today's mood
-                                    </span>
+                                    <i class="fas fa-check-square"></i> Enter today's mood
                                 </li>
                             </a>
                         {% else %}
                             {# Not Completed #}
-                            <a class="daily-task" href="/moods/new">
+                            <a class="daily-task" id="mood-task" href="/moods/new">
                                 <li>
-                                    <span id="mood-task">
-                                        <i class="far fa-square"></i> Enter today's mood
-                                    </span>
+                                    <i class="far fa-square"></i> Enter today's mood
                                 </li>
                             </a>
                         {% endif %}
 
                         {% if post_count > 0 %}
                             {# Completed #}
-                            <a class="daily-task completed" href="/question">
+                            <a class="daily-task completed" id="post-task-complete" href="/">
                                 <li>
-                                        <span id="post-task">
                                     <i class="fas fa-check-square"></i> Write a Reflection Entry
-                                        </span>
                                 </li>
                             </a>
                         {% else %}
                             {# Not Completed #}
-                            <a class="daily-task" href="/question">
+                            <a class="daily-task" id="post-task" href="/posts/new?title=1">
                                 <li>
-                                    <span id="post-task">
-                                        <i class="far fa-square"></i> Write a Reflection Entry
-                                    </span>
+                                    <i class="far fa-square"></i> Write a Reflection Entry
                                 </li>
                             </a>
                         {% endif %}
