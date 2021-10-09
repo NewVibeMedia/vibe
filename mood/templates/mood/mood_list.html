@@ -17,7 +17,7 @@
     </div>
 
     <div>
-        <!-- Display message if any exist (e.g. permission denied) -->
+        {# Display message if any exist (e.g. permission denied) #}
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -42,8 +42,7 @@
             <tr>
                 <td>{{  mood.display }}</td>
 
-
-                <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                    {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
                 <td>{{ mood.date_posted|date:"D, M d, Y" }}</td>
                 <td>{{ mood.content }}</td>
                 <td><a href="{% url 'mood-edit' mood.id %}" class="btn btn-light"><i class="fa fa-edit"></i></a>

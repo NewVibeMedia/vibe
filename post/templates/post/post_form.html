@@ -23,7 +23,7 @@
 {#                    {% if object.post_type == "Gratitude" %}#}
                     {% if form.post_type.value == "Gratitude" %}
                         <a href="{% url 'post-gratitude' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
-                    {% else %} <!-- Reflective Question -->
+                {% else %} {# Reflective Question #}
                         <a href="{% url 'post-question' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
                     {% endif %}
                 </div>
