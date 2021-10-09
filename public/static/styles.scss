@@ -1,3 +1,11 @@
+html {
+    font-size: 16px;
+}
+
+p {
+    font-size: 1rem;
+}
+
 .card a {
     text-decoration: none !important;
     color: inherit !important;
@@ -49,9 +57,9 @@ body {
 
 /* Navbar styling */
 .navbar {
-    background-color: #2e5a3b;
+    background-color: #9FD19F;
 
     .nav-link {
-        color: white !important;
+        color: black !important;
     }
 }

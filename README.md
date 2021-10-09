@@ -64,4 +64,5 @@ or
 
 In 'production', DEBUG is turned on.
 
-
+## For developing CSS
+Use the command: sass --watch .\public\static\styles.scss .\public\static\styles.css
