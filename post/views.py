@@ -268,7 +268,7 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         messages.add_message(self.request, messages.SUCCESS,
-                             "Post created successfully")
+                             "Post successfully created.")
         return super().form_valid(form)
 
 
@@ -285,7 +285,7 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.add_message(self.request, messages.SUCCESS,
-                             "Post was successfully deleted.")
+                             "Post successfully deleted.")
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
 
 
@@ -300,7 +300,7 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
         if not self.request.user.is_superuser:
             form.instance.author = self.request.user
         messages.add_message(self.request, messages.SUCCESS,
-                             "Post was successfully updated.")
+                             "Post successfully updated.")
         return super().form_valid(form)
 
     def get_queryset(self):
@@ -337,9 +337,9 @@ def PostOptionEdit(request, pk, option):
     model.objects.filter(user=user, post=post, option_type=option).delete()
 
     if option == model.OPTION_TYPES[0][0]: # Save
-        messages.add_message(request,messages.SUCCESS, "Saved post was successfully removed from list.")    
+        messages.add_message(request,messages.SUCCESS, "Saved post successfully removed from list.")    
     else: # Hidden
-        messages.add_message(request,messages.SUCCESS, "Hidden post was successfully removed from list.")
+        messages.add_message(request,messages.SUCCESS, "Hidden post successfully removed from list.")
 
     referer = request.META.get('HTTP_REFERER')
     if "Save" in str(referer):
@@ -355,7 +355,7 @@ def UserPostSave(request, pk, user):
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
     model.objects.get_or_create(user=user, post=post, option_type='Save')
-    messages.add_message(request, messages.SUCCESS, "Post was successfully saved.")
+    messages.add_message(request, messages.SUCCESS, "Post successfully saved.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
         return redirect('/gratitude')
@@ -367,7 +367,7 @@ def UserPostHide(request, pk, user):
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
     model.objects.get_or_create(user=user, post=post, option_type='Hide')
-    messages.add_message(request, messages.SUCCESS, "Post was successfully hidden.")
+    messages.add_message(request, messages.SUCCESS, "Post successfully hidden.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
         return redirect('/gratitude')
