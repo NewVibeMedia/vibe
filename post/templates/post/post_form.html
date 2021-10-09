@@ -20,7 +20,8 @@
             {% endif %}
                 <div class="form-group" style="margin-top: 10px;">
                     <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
-                    {% if object.post_type == "Gratitude" %}
+{#                    {% if object.post_type == "Gratitude" %}#}
+                    {% if form.post_type.value == "Gratitude" %}
                         <a href="{% url 'post-gratitude' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
                     {% else %} <!-- Reflective Question -->
                         <a href="{% url 'post-question' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
@@ -29,5 +30,5 @@
         </form>
         <!-- {{ form.as_p}} -->
 
-    </div>
+    </fieldset>
 {% endblock content %}
