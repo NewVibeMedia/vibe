@@ -1,6 +1,7 @@
 import random
 import datetime
 
+import django.contrib.auth.models
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -17,17 +18,25 @@ from django.views.generic import (
     DeleteView
 )
 
+from .anonlist import rand_anon_author
 from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db.models import Q
+from mood.models import Mood
 from django.utils import timezone
 import os
 
 # ==============HOME PAGE================
 # Landing Page
 def landing(request):
-    return render(request, 'landing.html', {'title': 'Home'})
+    number_of_posts = 0
+    entered_mood_today = None
+    if request.user.is_authenticated:
+        number_of_posts = Post.objects.filter(date_posted__gt=timezone.now().date()).filter(author_id=request.user.id).count()
+        entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
+
+    return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
 
 # ==============HELPER FUNCTIONS================
 # Helper class, requires login and displays Permission denied error
@@ -48,6 +57,11 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
         )
 
 class RecentListView(ListView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["rand_name"] = rand_anon_author()
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset()
         if not self.request.user.is_superuser:
@@ -191,20 +205,20 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
 
-    # Get post if it's not personal
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # This chonker returns a tuple of post ids that the user has saved/hidden
+        context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
+        context['save_str'] = "Save"
+        context['hidden_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Hide").values_list('post', flat=True))
+        context['hide_str'] = "Hide" 
+        return context
+
+    # Get post
     def get_queryset(self):
         qs = super(PostDetailView, self).get_queryset()
         pk = self.kwargs.get('pk')
         result = qs.filter(pk=pk)
-
-        if not self.request.user.is_superuser:
-            # Check if post is personal
-            if len(result.filter(post_type="Personal")) != 0:
-                # If it is, also check if it belongs to user.
-                if len(result.filter(author_id=self.request.user.id)) == 0:
-                    messages.add_message(self.request, messages.ERROR,
-                                         self.user_permission_denied_message)
-                    raise PermissionDenied
 
         return result
 
@@ -224,7 +238,14 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
         "Are you letting things out of your control make you stressed?",
         "What did you achieve today?",
         "What inspires you?",
-        "I can't imagine living without..."
+        "I can't imagine living without...",
+        "Am I living true to myself?",
+        "Why do I matter?",
+        "What have I given up on?",
+        "Is it more important to love or be loved?",
+        "If I could talk to my younger self, I would tell them...",
+        "List 5 things that make you smile",
+
     ]  # https://positivepsychology.com/introspection-self-reflection/
 
     def get_initial(self):
@@ -333,17 +354,19 @@ def UserPostSave(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Save')
+    model.objects.get_or_create(user=user, post=post, option_type='Save')
     messages.add_message(request, messages.SUCCESS, "Post was successfully saved.")
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
+    if post.post_type == post.POST_TYPES[0][0]: # Gratitude
+        return redirect('/gratitude')
+    else: # Question
+        return redirect('/question')
 
 def UserPostHide(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
     post = Post.objects.get(pk=pk)
-    model.create(user=user, post=post, option_type='Hide')
+    model.objects.get_or_create(user=user, post=post, option_type='Hide')
     messages.add_message(request, messages.SUCCESS, "Post was successfully hidden.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
@@ -396,7 +419,9 @@ def search(request):
         criterion1 = Q(title__icontains=query)
         criterion2 = Q(content__icontains=query)
         criterion3 = Q(author_id=request.user.id)
-        results = Post.objects.filter((criterion1 | criterion2) & criterion3)
+        criterion4 = Q(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
+
+        results = Post.objects.filter((criterion1 | criterion2) & criterion3 & criterion4)
 
     return render(request, 'post/search.html', {'title': 'Search', 'posts': results})
 
