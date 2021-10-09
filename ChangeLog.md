@@ -2,6 +2,10 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.6.5 09-Oct-2021
+* Standardised feedback messages
+* Cancel post button takes you to respective gratitude or reflective feed
+
 v 0.6.4 07-Oct-2021
 * Search is now limited to 24 hours and by the same author as the user
 * Landing page is no longer empty - has daily tasks and links to key page features
