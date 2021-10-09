@@ -61,7 +61,7 @@ To generate fixtures (only when needed, NOT ALWAYS):
 
 ## Development
 
-The project may work with any programmer editors such as TextMate and Visual Studio.  
+The project may work with any program editors such as TextMate and Visual Studio.  
 The project settings for JetBrains's PyCharm IDE is also included. 
 
 
@@ -78,4 +78,5 @@ or
 In 'production', DEBUG is turned OFF.
 
 ## For developing CSS
-Use the command: sass --watch .\public\static\styles.scss .\public\static\styles.css
+Use the command: 
+> sass --watch .\public\static\styles.scss .\public\static\styles.css
