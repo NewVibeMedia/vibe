@@ -17,7 +17,6 @@ class Mood(models.Model):
         (3, "Positive"),
         (4, "Very Positive"),
     )
-    # mood = models.CharField(max_length=50, choices=MOODS)
     mood = models.PositiveSmallIntegerField(choices=MOODS)
     date_posted = models.DateField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

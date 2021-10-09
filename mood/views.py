@@ -1,13 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core import serializers
 from django.core.exceptions import PermissionDenied
-from django.db.models import CharField, DateTimeField
-from django.db.models.functions import Cast, TruncSecond
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from .models import Mood
@@ -115,7 +110,6 @@ def get_mood_queryset(MoodView, self, message):
 
 @login_required
 def display(request):
-    login_url = '/login/'
 
     the_moods = list(Mood.objects.filter(author=request.user).order_by('-date_posted'))
     values = [v.to_list() for v in the_moods]

@@ -1,15 +1,13 @@
 import random
 import datetime
 
-import django.contrib.auth.models
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
