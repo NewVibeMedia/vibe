@@ -85,4 +85,22 @@ body {
 
 .card:hover {
    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-}
+} 
+
+.card-body{ 
+    background-color: #9FD19F;  
+    color: #45342C; 
+  
+  }  
+  .card-title{ 
+    font-size: 32px; 
+    font-weight: 600;
+  }
+  .card-subtitle{ 
+    font-size: 16px;
+  } 
+  #new-post-btn{ 
+    background-color: #3D5A80; 
+    border-color: transparent; 
+    
+  }
