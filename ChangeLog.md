@@ -2,6 +2,9 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.6.6 
+* Add new class identifiers
+
 v 0.6.5 09-Oct-2021
 * Standardised feedback messages
 * Cancel post button takes you to respective gratitude or reflective feed
