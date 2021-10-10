@@ -1,25 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div>
-        {% if user.id %}
-            <h2>My {{ option_name }} Posts</h2>
-        {% else %}
-            <h2>You must login to use this feature</h2>
-        {% endif %}
+    {% if user.id %}
+        <h2>My {{ option_name }} Posts</h2>
+    {% else %}
+        <h2>You must login to use this feature</h2>
+    {% endif %}
 
     {# Display message if any exist (e.g. permission denied) #}
-
-    <div>
+    {% if messages %}
+        {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     {# Display posts #}
     {% for post in posts %}

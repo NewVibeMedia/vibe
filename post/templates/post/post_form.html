@@ -12,21 +12,22 @@
             {% if object.id %}
                 <div class="" style="margin-top: 10px;">
                     <label for="id_date" class=" requiredField">
-                        Posted on<span class="asteriskField">*</span> </label>
+                        Posted on<span class="asteriskField">*</span> 
+                    </label>
                     <input id="id_date_posted"
                            value="{{ object.date_posted | date:'Y-m-d' }}T{{ object.date_posted | date:'H' }}:{{ object.date_posted | date:'i' }}"
                            type="datetime-local" name="date_posted">
+                    </input>
                 </div>
             {% endif %}
-                <div class="form-group" style="margin-top: 10px;">
-                    <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
-{#                    {% if object.post_type == "Gratitude" %}#}
-                    {% if form.post_type.value == "Gratitude" %}
-                        <a href="{% url 'post-gratitude' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
+            <div class="form-group" style="margin-top: 10px;">
+                <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
+                {% if form.post_type.value == "Gratitude" %}
+                    <a href="{% url 'post-gratitude' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
                 {% else %} {# Reflective Question #}
-                        <a href="{% url 'post-question' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
-                    {% endif %}
-                </div>
+                    <a href="{% url 'post-question' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
+                {% endif %}
+            </div>
         </form>
         <!-- {{ form.as_p}} -->
 

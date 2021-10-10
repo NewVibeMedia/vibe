@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 
-
 # Create your models here.
 class Mood(models.Model):
     # has own table in db

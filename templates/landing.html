@@ -1,21 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if user.is_authenticated %}
 
+    {% if user.is_authenticated %}
         <h1>Welcome, {{ user.username }}</h1>
     {% else %}
         <h1>Home</h1>
     {% endif %}
-    <div>
+
     {# Display message if any exist (e.g. permission denied) #}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <div class="row">
         {# Daily Tasks #}
@@ -81,7 +80,9 @@
             </div>
         </div>
     </div>
+
     <br>
+
     <div class="row">
         {# Mood #}
         <div class="mood-today col-sm-4">
@@ -121,8 +122,6 @@
                 </div>
             </a>
         </div>
-
-
     </div>
 
 {% endblock content %}

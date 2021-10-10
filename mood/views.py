@@ -149,5 +149,3 @@ def mood_new(request):
         new_mood = Mood()
         new_mood.date_posted = date.today()
         return render(request, 'mood/mood_form.html', {"object": new_mood})
-
-    # post

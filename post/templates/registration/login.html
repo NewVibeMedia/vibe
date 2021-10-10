@@ -27,17 +27,17 @@
         <form method="post">
             {% csrf_token %}
 
-{% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            Username or password is incorrect
-        </div>
-{% endif %}
+            {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Username or password is incorrect
+                    </div>
+            {% endif %}
 
             <div class="input-group margin-bottom-20">
                 <div class="input-group-prepend">
-												    <span class="input-group-text" id="basic-addon1">
-															<i class="fa fa-user fa-2x" style="padding:4px;"></i>
-   													</span>
+                    <span class="input-group-text" id="basic-addon1">
+                            <i class="fa fa-user fa-2x" style="padding:4px;"></i>
+                    </span>
                 </div>
                 <input class="form-control" autocomplete="off" id="id_username" maxlength="90" name="username"
                        tabindex="1" type="text" style="font-size: 1.7rem" placeholder="username" value="">
@@ -57,10 +57,9 @@
                     &nbsp;
                     <a href="/signup">Create New Account</a>
                 </div>
-
             </div>
-
         </form>
+        
     </div>
 
 {% endblock content %}

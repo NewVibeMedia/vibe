@@ -91,7 +91,6 @@ class PostListView(CustomLoginRequiredMixin, RecentListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
-
 # My Gratitude Posts page, lists all recent gratitude type posts
 class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
@@ -113,7 +112,6 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(post_type="Gratitude")
         return queryset
-
 
 # My Reflective Question Posts page, lists all recent gratitude type posts
 class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
@@ -173,7 +171,6 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
         for post in saved_posts:
             actual_posts.append(Post.objects.get(pk=post['post']))
         return actual_posts
-
 
 # View all hidden posts
 class HidePostListView(CustomLoginRequiredMixin, ListView):
@@ -269,7 +266,6 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
                              "Post successfully created.")
         return super().form_valid(form)
 
-
 # Delete a post
 class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
@@ -285,7 +281,6 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
         messages.add_message(self.request, messages.SUCCESS,
                              "Post successfully deleted.")
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
-
 
 # Update a post
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
@@ -372,7 +367,6 @@ def UserPostHide(request, pk, user):
     else: # Question
         return redirect('/question')
 
-
 # Used to determine if the user has edit/delete permissions for the post
 def get_post_queryset(PostView, self):
     qs = super(PostView, self).get_queryset()
@@ -387,7 +381,6 @@ def get_post_queryset(PostView, self):
             raise PermissionDenied
 
     return result
-
 
 # ==============AUTHENTICATION================
 class SignUpView(CreateView):
