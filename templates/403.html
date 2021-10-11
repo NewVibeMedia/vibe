@@ -4,8 +4,19 @@
     <!-- TODO: Style it -->
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
+            <!-- <div class="alert alert-{{ message.tags }}">
                 {{ message }}
+            </div> -->
+            <!--The display card for 404 page-->
+            <div id="error-card">
+                <h1>Forbidden Action</h1>
+                <section>
+                    <p>
+                        Sorry, but you do not have permission to access to the current page. 
+                        Return to the previous page or return to home page.
+                    </p>
+                    <a class="button home-button" href="/">Return Home</a>
+                </section>
             </div>
         {% endfor %}
     {% endif %}

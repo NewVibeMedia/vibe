@@ -48,11 +48,21 @@ input:focus {
 }
 
 .button {
-    padding: 0.4em;
+    padding: 0.6em;
+    color: black;
     border-color: transparent;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
+    transition: box-shadow 0.15s;
+}
+
+.button:visited {
+    color: inherit;
+}
+
+.button:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
 }
 
 /* Navbar styling */
@@ -94,10 +104,9 @@ input:focus {
     padding: 0.8em;
     background: #fff;
     border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06);
 
     h2 {
-        font-size: 24px;
         font-weight: 400;
         text-align: center;
     }
@@ -187,4 +196,33 @@ input:focus {
 #new-post-btn { 
     background-color: #3D5A80; 
     border-color: transparent; 
+}
+
+/* 404 Page Styling */
+#error-card {
+    padding: 0.5em;
+    // background: #fff;
+    // border-radius: 5px;
+    // box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
+
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home-button {
+        margin-top: 2em;
+        align-self: center;
+        background-color: #9FD19F;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #error-card {
+        padding: 0 20%;
+
+        * {
+            text-align: center;
+        }
+    }
 }
