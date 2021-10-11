@@ -1,9 +1,5 @@
-html {
-    font-size: 16px;
-}
-
 p {
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .card a {
@@ -22,15 +18,6 @@ p {
     margin-right: 0.75rem;
 }
 
-div.reg-block {
-  width: 350px;
-  padding: 20px;
-  padding-right: 40px;
-  margin: 60px auto;
-  background: #fff;
-  border-top: solid 2px #72c02c;
-}
-
 div.post-actions {
     float: right;
     position: absolute;
@@ -41,8 +28,9 @@ span.mandatory, span.asteriskField {
     color: red;
     margin-left: 3px;
 }
+
 .margin-bottom-20 {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .save-btn-group {
@@ -55,12 +43,113 @@ body {
     background-color: #e8ebe8 !important;
 }
 
+input:focus {
+    outline: none !important;
+}
+
+.button {
+    padding: 0.6em;
+    color: black;
+    border-color: transparent;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow 0.15s;
+}
+
+.button:visited {
+    color: inherit;
+}
+
+.button:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
+}
+
 /* Navbar styling */
 .navbar {
     background-color: #9FD19F;
 
     .nav-link {
         color: black !important;
+    }
+}
+
+/* Landing Page Styling */
+.landing-link .card {
+    height: 100%;
+}
+
+/* Login Styling */
+#login {
+    margin: 8vh 0;
+    display: flex;
+    flex-flow: column;
+}
+
+.vibe-intro{
+    display: none;
+
+    h1 {
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 400;
+    }
+}
+
+.reg-block {
+    padding: 0.8em;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06);
+
+    h2 {
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .input-group {
+        margin-bottom: 1.2em;
+    }
+}
+
+.login-buttons {
+    margin-top: 1em;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    * {
+        width: 100%;
+        margin-bottom: 0.8em;
+        text-align: center;
+    }
+
+    #sign_in_btn {
+        background-color: #9FD19F;
+    }
+
+    .signup-button {
+        color: black;
+        background-color: #e9ecef;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #login {
+        padding: 0 10vw;
+        flex-flow: row;
+        justify-content: space-around;
+    }
+
+    .vibe-intro {
+        max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 
@@ -83,24 +172,57 @@ body {
   color: black;
 }
 
+.card {
+    border: none !important;
+}
+
 .card:hover {
    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 } 
 
-.card-body{ 
+.card-body { 
     background-color: #9FD19F;  
     color: #45342C; 
-  
-  }  
-  .card-title{ 
+}  
+.card-title { 
     font-size: 32px; 
     font-weight: 600;
-  }
-  .card-subtitle{ 
+}
+
+.card-subtitle { 
     font-size: 16px;
-  } 
-  #new-post-btn{ 
+}
+
+#new-post-btn { 
     background-color: #3D5A80; 
     border-color: transparent; 
-    
-  }
+}
+
+/* 404 Page Styling */
+#error-card {
+    padding: 0.5em;
+    // background: #fff;
+    // border-radius: 5px;
+    // box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
+
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home-button {
+        margin-top: 2em;
+        align-self: center;
+        background-color: #9FD19F;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #error-card {
+        padding: 0 20%;
+
+        * {
+            text-align: center;
+        }
+    }
+}

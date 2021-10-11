@@ -85,22 +85,24 @@
 
     <div class="row">
         {# Mood #}
-        <div class="mood-today col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Today's Mood</h3>
-                    {% if mood_today %}
-                        <p class="text-center">{{ mood_today.display }}</p>
-                    {% else %}
-                        <p><a href="/moods/new">You haven't entered a mood today yet, why not drop by and add one?</a>
-                        </p>
-                    {% endif %}
+        <div class="landing-link mood-today col-sm-4">
+            <a href="/moods">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Today's Mood</h3>
+                        {% if mood_today %}
+                            <p class="text-center">{{ mood_today.display }}</p>
+                        {% else %}
+                            <p><a href="/moods/new">You haven't entered a mood today yet, why not drop by and add one?</a>
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         {# Guided Journal Entry #}
-        <div class="free-journalling landing col-sm-4">
+        <div class="landing-link free-journalling landing col-sm-4">
             <a href="/question">
                 <div class="card">
                     <div class="card-body">
@@ -112,7 +114,7 @@
         </div>
 
         {# Free Journal Entry #}
-        <div class="free-journalling landing col-sm-4">
+        <div class="landing-link free-journalling landing col-sm-4">
             <a href="/gratitude">
                 <div class="card">
                     <div class="card-body">

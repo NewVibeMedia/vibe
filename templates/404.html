@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <!-- TODO: Style it and provide context -->
-    This resource does not exist.
+    <!--The display card for 404 page-->
+    <div id="error-card">
+        <h1>Page Not Found</h1>
+        <section>
+            <p>
+                We cannot find the resource you are looking for. Try
+                returning the previous page or click the link below to return
+                home.
+            </p>
+            <a class="button home-button" href="/">Return Home</a>
+        </section>
+    </div>
 
 {% endblock content %}
