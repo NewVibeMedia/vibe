@@ -30,10 +30,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'post-gratitude' %}active{% endif %}" href="/gratitude">Gratitude</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post-gratitude' %}active{% endif %}" href="/gratitude">Free Journal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'post-question' %}active{% endif %}" href="/question">Reflection</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post-question' %}active{% endif %}" href="/question">Guided Journal</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'mood-home' %}active{% endif %}" href="/moods">Moods</a>
