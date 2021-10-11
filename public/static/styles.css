@@ -1,9 +1,5 @@
-html {
-  font-size: 16px;
-}
-
 p {
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .card a {
@@ -20,15 +16,6 @@ p {
   top: 0px;
   right: 0px;
   margin-right: 0.75rem;
-}
-
-div.reg-block {
-  width: 350px;
-  padding: 20px;
-  padding-right: 40px;
-  margin: 60px auto;
-  background: #fff;
-  border-top: solid 2px #72c02c;
 }
 
 div.post-actions {
@@ -56,6 +43,18 @@ body {
   background-color: #e8ebe8 !important;
 }
 
+input:focus {
+  outline: none !important;
+}
+
+.button {
+  padding: 0.4em;
+  border-color: transparent;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
 /* Navbar styling */
 .navbar {
   background-color: #9FD19F;
@@ -64,6 +63,73 @@ body {
   color: black !important;
 }
 
+/* Login Styling */
+#login {
+  margin: 8vh 0;
+  display: flex;
+  flex-flow: column;
+}
+
+.vibe-intro {
+  display: none;
+}
+.vibe-intro h1 {
+  font-size: 32px;
+  font-weight: 600;
+}
+.vibe-intro h2 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.reg-block {
+  padding: 0.8em;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+.reg-block h2 {
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+}
+.reg-block .input-group {
+  margin-bottom: 1.2em;
+}
+
+.login-buttons {
+  margin-top: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+.login-buttons * {
+  width: 100%;
+  margin-bottom: 0.8em;
+  text-align: center;
+}
+.login-buttons #sign_in_btn {
+  background-color: #9FD19F;
+}
+.login-buttons .signup-button {
+  color: black;
+  background-color: #e9ecef;
+}
+
+@media screen and (min-width: 600px) {
+  #login {
+    padding: 0 10vw;
+    flex-flow: row;
+    justify-content: space-around;
+  }
+
+  .vibe-intro {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 /* Landing Page - Daily Tasks */
 .daily-task:hover {
   color: grey !important;
