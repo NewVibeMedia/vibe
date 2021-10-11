@@ -1,33 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div>
-        {% if user.id %}
-            <h2>My {{ option_name }} Posts</h2>
-        {% else %}
-            <h2>You must login to use this feature</h2>
-        {% endif %}
+    {% if user.id %}
+        <h2>My {{ option_name }} Posts</h2>
+    {% else %}
+        <h2>You must login to use this feature</h2>
+    {% endif %}
 
-    </div>
+    {# Display message if any exist (e.g. permission denied) #}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-    <div>
-        <!-- Display message if any exist (e.g. permission denied) -->
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-
-    {# Display Posts #}
+    {# Display posts #}
     {% for post in posts %}
         <div class="card">
             <div class="card-body">
                 <a href="{% url 'post-option-detail' post.id option_type %}">
                     <h3 class="card-title">{{ post.title }}</h3>
-                    <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                    {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
                     <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
                     <p class="card-text">{{ post.content }}</p>
                 </a>

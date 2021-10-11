@@ -3,25 +3,25 @@
 
     <div>
 
-    {% if post_type == "Gratitude" %}
-        <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button"><i class="fas fa-plus"></i> New Entry</a>
-    {% elif post_type == "Reflective Question" %}
-        <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=1" role="button"><i class="fas fa-plus"></i> New Entry</a>
-    {%  else %}
-        <!-- All Posts Page -->
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="float:right;">
-            <div class="btn-group" role="group">
-                <button id="btnGroup" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    <i class="fas fa-plus"></i> New Entry
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <li><a class="dropdown-item" href="{% url 'post-create' %}?title=0">Gratitude Entry</a></li>
-                    <li><a class="dropdown-item" href="{% url 'post-create' %}?title=1">Question Entry</a></li>
-                </ul>
+        {% if post_type == "Gratitude" %}
+            <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button"><i class="fas fa-plus"></i> New Entry</a>
+        {% elif post_type == "Reflective Question" %}
+            <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=1" role="button"><i class="fas fa-plus"></i> New Entry</a>
+        {% else %}
+            {# All Posts Page #}
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="float:right;">
+                <div class="btn-group" role="group">
+                    <button id="btnGroup" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fas fa-plus"></i> New Entry
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item" href="{% url 'post-create' %}?title=0">Gratitude Entry</a></li>
+                        <li><a class="dropdown-item" href="{% url 'post-create' %}?title=1">Question Entry</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
 
 
         {% if post_type != None %}
@@ -33,7 +33,7 @@
     </div>
 
     <div>
-        <!-- Display message if any exist (e.g. permission denied) -->
+        {# Display message if any exist (e.g. permission denied) #}
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -47,9 +47,7 @@
         <p>There are no posts to show. Answer a question to see what others have posted!</p>
     {% endif %}
 
-
     {% for post in posts %}
-
         <div class="card">
             <div class="card-body">
                 <a href="{% url 'post-detail' post.id %}">
@@ -68,11 +66,11 @@
                         </div>
                     {% endif %}
 
-                    <!--Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+                    {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
                     <h4 class="card-subtitle">
                         By
                         {% if user.is_superuser or user == post.author %}
-                            <!-- May want to style the user differently -->
+                            {# May want to style the user differently #}
                             <i>{{ post.author }}</i>
                         {% else %}
                             {{ rand_name|random }}  
@@ -80,12 +78,11 @@
                         | {{ post.date_posted|date:"D, M d, Y" }} 
                     </h4>
                     <p class="card-text">{{ post.content }}</p>
-
-
                 </a>
             </div>
         </div>
-        <br>
 
+        <br>
     {% endfor %}
+
 {% endblock content %}

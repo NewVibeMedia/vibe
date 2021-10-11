@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.contrib.auth.views import LoginView
 from django.urls import path
 from .views import (
@@ -14,7 +13,6 @@ from .views import (
     HistoryListView
 )
 from . import views
-from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # landing page

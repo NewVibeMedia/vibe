@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if user.is_authenticated %}
 
+    {% if user.is_authenticated %}
         <h1>Welcome, {{ user.username }}</h1>
     {% else %}
         <h1>Home</h1>
     {% endif %}
-    <div>
-        <!-- Display message ifi any exist (e.g. permission denied) -->
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+
+    {# Display message if any exist (e.g. permission denied) #}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <div class="row">
-        {#    Daily Tasks #}
+        {# Daily Tasks #}
         <div class="daily-tasks col-sm-8">
             <div class="card">
                 <div class="card-body">
@@ -68,7 +67,7 @@
             </div>
         </div>
 
-        {#        Inspirational Quote #}
+        {# Inspirational Quote #}
         <div class="quote col-sm-4">
             <div class="card">
                 <div class="card-body">
@@ -81,9 +80,11 @@
             </div>
         </div>
     </div>
+
     <br>
+
     <div class="row">
-        {#        Mood #}
+        {# Mood #}
         <div class="mood-today col-sm-4">
             <div class="card">
                 <div class="card-body">
@@ -98,7 +99,7 @@
             </div>
         </div>
 
-        {#        Guided Journal Entry #}
+        {# Guided Journal Entry #}
         <div class="free-journalling landing col-sm-4">
             <a href="/question">
                 <div class="card">
@@ -110,7 +111,7 @@
             </a>
         </div>
 
-        {#        Free Journal Entry #}
+        {# Free Journal Entry #}
         <div class="free-journalling landing col-sm-4">
             <a href="/gratitude">
                 <div class="card">
@@ -121,8 +122,6 @@
                 </div>
             </a>
         </div>
-
-
     </div>
 
 {% endblock content %}

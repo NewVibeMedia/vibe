@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 
-
 # Create your models here.
 class Mood(models.Model):
     # has own table in db
@@ -17,7 +16,6 @@ class Mood(models.Model):
         (3, "Positive"),
         (4, "Very Positive"),
     )
-    # mood = models.CharField(max_length=50, choices=MOODS)
     mood = models.PositiveSmallIntegerField(choices=MOODS)
     date_posted = models.DateField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

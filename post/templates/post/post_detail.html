@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div>
-        <!-- Display message if any exist (e.g. permission denied) -->
+        {# Display message if any exist (e.g. permission denied) #}
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -14,7 +14,7 @@
     <div>
     {% if user == object.author or user.is_superuser %}
         <div class="post-actions">
-            <!-- Precedence (a and b) or (a and c)-->
+            {# Precedence (a and b) or (a and c) #}
             <a id="edit-btn" class="btn btn-light btn-sm" href="{% url 'post-edit' object.id %}?next={{ request.path|urlencode }}"><i class="fa fa-edit"></i> Edit</a>
             <a id="delete-btn" class="btn btn-danger  btn-sm" data-confirm="Are you sure you want to delete the post?"
                rel="nofollow" data-method="delete" href="{% url 'post-delete' object.id %}?next={{ request.path|urlencode }}"><i class="fa fa-trash"></i> Delete</a>

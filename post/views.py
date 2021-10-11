@@ -1,15 +1,13 @@
 import random
 import datetime
 
-import django.contrib.auth.models
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -56,6 +54,7 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
             request, *args, **kwargs
         )
 
+# Posts within 24 hours
 class RecentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -93,7 +92,6 @@ class PostListView(CustomLoginRequiredMixin, RecentListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
-
 # My Gratitude Posts page, lists all recent gratitude type posts
 class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
     model = Post
@@ -115,7 +113,6 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(post_type="Gratitude")
         return queryset
-
 
 # My Reflective Question Posts page, lists all recent gratitude type posts
 class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
@@ -175,7 +172,6 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
         for post in saved_posts:
             actual_posts.append(Post.objects.get(pk=post['post']))
         return actual_posts
-
 
 # View all hidden posts
 class HidePostListView(CustomLoginRequiredMixin, ListView):
@@ -271,7 +267,6 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
                              "Post successfully created.")
         return super().form_valid(form)
 
-
 # Delete a post
 class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
@@ -287,7 +282,6 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
         messages.add_message(self.request, messages.SUCCESS,
                              "Post successfully deleted.")
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
-
 
 # Update a post
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
@@ -307,7 +301,7 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
         return get_post_queryset(PostUpdateView, self)
 
 # ==============SAVING AND HIDING POSTS================
-# Saving and Hiding Posts
+# Saving and Hiding posts
 class PostOptionView(CustomLoginRequiredMixin, DetailView):
     model = Post
     login_url = '/login/'
@@ -329,7 +323,7 @@ class PostOptionView(CustomLoginRequiredMixin, DetailView):
             raise ObjectDoesNotExist
         return result
 
-
+# Remove a post from Saved/Hidden posts
 def PostOptionEdit(request, pk, option):
     model = UserPostOptions
     user = User.objects.get(username=request.user.username)
@@ -349,7 +343,7 @@ def PostOptionEdit(request, pk, option):
     else:
         return redirect(referer)
 
-
+# Save a post
 def UserPostSave(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
@@ -362,6 +356,7 @@ def UserPostSave(request, pk, user):
     else: # Question
         return redirect('/question')
 
+# Hide a post
 def UserPostHide(request, pk, user):
     model = UserPostOptions
     user = User.objects.get(username=user)
@@ -373,7 +368,6 @@ def UserPostHide(request, pk, user):
         return redirect('/gratitude')
     else: # Question
         return redirect('/question')
-
 
 # Used to determine if the user has edit/delete permissions for the post
 def get_post_queryset(PostView, self):
@@ -389,7 +383,6 @@ def get_post_queryset(PostView, self):
             raise PermissionDenied
 
     return result
-
 
 # ==============AUTHENTICATION================
 class SignUpView(CreateView):

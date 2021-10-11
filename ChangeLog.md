@@ -2,6 +2,9 @@ TODO List:
 [TODO] Fully remove personal reflective posts
 [TODO] Add Pseudo Identifiers to posts
 
+v 0.6.7 10-Oct-2021
+* Code cleanup
+
 v 0.6.6 
 * Add new class identifiers
 

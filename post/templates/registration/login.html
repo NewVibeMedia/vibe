@@ -1,14 +1,14 @@
-<!--
+{% extends "base.html" %}
+
+{% comment %}
   https://learndjango.com/tutorials/django-login-and-logout-tutorial
   Default location that Django uses for the registration form is templates/registration.
   Don't know how to change this.
- -->
-
-{% extends "base.html" %}
+{% endcomment %}
 
 {% block content %}
 
-    <!-- Display message if any exist (e.g. permission denied) -->
+    {# Display message if any exist (e.g. permission denied) #}
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
