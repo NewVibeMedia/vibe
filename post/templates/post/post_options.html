@@ -23,7 +23,16 @@
                 <a href="{% url 'post-option-detail' post.id option_type %}">
                     <h3 class="card-title">{{ post.title }}</h3>
                     {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
-                    <h4 class="card-subtitle">By {{ post.author }} | {{ post.date_posted|date:"D, M d, Y" }} </h4>
+                    <h4 class="card-subtitle">
+                        By
+                        {% if user.is_superuser or user == post.author %}
+                            {# May want to style the user differently #}
+                            <i>{{ post.author }}</i>
+                        {% else %}
+                            {{ rand_name|random }}  
+                        {% endif %}
+                            {{ post.date_posted|date:"D, M d, Y" }} 
+                    </h4>
                     <p class="card-text">{{ post.content }}</p>
                 </a>
             </div>

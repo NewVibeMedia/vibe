@@ -161,6 +161,7 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["rand_name"] = rand_anon_author()
         context['option_name'] = "Saved"
         context['option_type'] = "Save"
         return context
@@ -184,7 +185,8 @@ class HidePostListView(CustomLoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['option_name'] = "Hid"
+        context["rand_name"] = rand_anon_author()
+        context['option_name'] = "Hidden"
         context['option_type'] = "Hide"
         return context
 
