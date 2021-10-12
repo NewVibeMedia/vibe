@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import platform
 import mimetypes
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +38,8 @@ elif  DJANGO_ENV == "integration": # testing
 else:
   DJANGO_ENV = "development"       # default to development
 
+if "Linux" in platform.platform():
+    DJANGO_ENV = "production"
 print("Django.env = " + DJANGO_ENV)
 
 
