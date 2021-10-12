@@ -5,7 +5,7 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Post</legend>
+               <legend class="border-bottom mb-4" id = "post-title">New Entry</legend>
                 {{ form|crispy }}
             </fieldset>
 
@@ -23,9 +23,9 @@
             <div class="form-group" style="margin-top: 10px;">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
                 {% if form.post_type.value == "Gratitude" %}
-                    <a href="{% url 'post-gratitude' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
+                    <a href="{% url 'post-gratitude' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% else %} {# Reflective Question #}
-                    <a href="{% url 'post-question' %}" id="cancel-btn" class="btn btn-light">Cancel</a>
+                    <a href="{% url 'post-question' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% endif %}
             </div>
         </form>
