@@ -17,7 +17,7 @@ div.post-actions {
 }
 
 span.mandatory, span.asteriskField {
-    color: red;
+    color: #EE6C4D;
     margin-left: 3px;
 }
 
@@ -38,12 +38,36 @@ body {
     background-color: #e8ebe8 !important;
 }
 
+h1 {
+    font-size: 32px !important;
+    font-weight: 600 !important;
+}
+
+h2 {
+    font-size: 24px !important;
+}
+
 p {
     font-size: 16px;
 }
 
-input:focus {
-    outline: none !important;
+/* Common element styling */
+.alert {
+    margin: 0.4em 0;
+}
+
+.delete-warning {
+    color: #EE6C4D;
+}
+
+/* General form button styling */
+.edit-actions {
+    display: flex;
+    flex-flow: column;
+    
+    * {
+        margin-top: 0.8em;
+    }   
 }
 
 .button {
@@ -62,6 +86,15 @@ input:focus {
 
 .button:hover {
     box-shadow: 0 3px 6px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
+}
+
+.confirm-button {
+    background-color: #9FD19F !important;
+}
+
+.delete-button {
+    background-color: #EE6C4D !important;
+    color: #f8f9fa !important;
 }
 
 .container {
@@ -147,14 +180,11 @@ input:focus {
 @media screen and (min-width: 600px) {
     #login {
         width: 100%;
+        padding: 0 10%; 
         margin: 0;
+        margin-top: 2em;
         flex-flow: row;
         justify-content: space-around;
-        /* Centers the element in the container */
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translate(0, -50%);
     }
 
     .vibe-intro {
@@ -210,12 +240,114 @@ input:focus {
     border-color: transparent; 
 }
 
+/* Mood List Styling */
+.graph-button {
+    text-align: center;
+}
+
+.mood-list {
+    display: inline-flex;
+    flex-flow: row wrap;
+    margin-top: 1em;
+}
+
+#new-mood-link {
+    width: 100%;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 5px #9FD19F dashed;
+    transition: background-color 0.15s;
+
+    i {
+        font-size: 32px;
+    }
+}
+
+#new-mood-link:hover {
+    box-shadow: none;
+    background-color: #9FD19F;
+    border-style: solid;
+}
+
+.mood-entry {
+    width: 100%;
+    padding: 0.6em;
+    margin-bottom: 1em;
+    display: flex;
+    flex-flow: column;
+
+    .mood-content {
+        flex-grow: 1;
+    }
+
+    .mood-edit {
+        margin-right: 0.6em;
+    }
+
+    .mood-delete {
+        color: #EE6C4D !important;
+        background-color: #f8f9fa;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .mood-list >* {
+        width: 30%;
+        margin-right: 5%;
+    }
+
+    #new-mood-link {
+        width: 30%;
+    }
+
+    .mood-entry:nth-child(3) {
+        margin-right: 0%;
+    }
+}
+
+/* General mood page styling */
+#mood-form, .weekly-chart, #delete-mood {
+    padding: 0.8em;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06); 
+}
+
+/* Mood Form Styling */
+#mood-form {
+    .form-group {
+        margin-bottom: 0.8em;
+    }
+
+    #id_mood, #id_date {
+        font-size: 16px;
+    }
+
+    #id_content {
+        width: 100%;
+        min-height: 20vh;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #mood-form {
+        margin: 0 20%;
+    }
+
+    #delete-mood {
+        margin: 0 30%;
+    }
+}
+
+/* Mood Graph Styling*/
+.weekly-chart {
+    margin-top: 0.8em;
+}
+
 /* 404 Page Styling */
 #error-card {
-    // background: #fff;
-    // border-radius: 5px;
-    // box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.06);
-
     section {
         display: flex;
         flex-direction: column;

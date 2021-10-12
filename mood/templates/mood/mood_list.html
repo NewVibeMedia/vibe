@@ -2,18 +2,14 @@
 {% block content %}
 
     <div>
-        <div style="float: right;">
-            <a href="/moods/new" id="new-mood-link">
-                <button class="btn btn-success" id="new-mood-btn">
-                    <i class="fa fa-plus"></i> New Mood
-                </button>
-            </a>
-        </div>
         <h1>My Moods</h1>
     </div>
 
     <div>
-        <a class="btn btn-info" href="/calendar">Go to My Calendar</a>
+        <a class="btn btn-info" href="/calendar">
+            <i class="fa fa-chart-line"></i>
+            Go to Graph View
+        </a>
     </div>
 
     <div>
@@ -27,31 +23,30 @@
         {% endif %}
     </div>
 
-    <table class="table table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Mood</th>
-                <th scope="col">Date</th>
-                <th scope="col">Daily Reflection</th>
-                <th scope="col" colspan="1"></th>
-            </tr>
-        </thead>
+    <section class="mood-list">
+        <!-- Link to create new mood entry -->
+        <a href="/moods/new" id="new-mood-link" class="button">
+            <i class="fa fa-plus"></i> 
+            <p>Create New Mood Entry</p>
+        </a>
+        
+        <!-- Mood Entries -->
+        {% for mood in moods %}
+        <div class="card mood-entry">
+            <h2>{{  mood.display }}</h2>
 
-        <tbody>
-            {% for mood in moods %}
-                <tr>
-                    <td>{{  mood.display }}</td>
-
-                    {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
-                    <td>{{ mood.date_posted|date:"D, M d, Y" }}</td>
-                    <td>{{ mood.content }}</td>
-                    <td><a href="{% url 'mood-edit' mood.id %}" class="btn btn-light"><i class="fa fa-edit"></i></a>
-                        &nbsp;
-                        <a data-confirm="Are you sure?" class="btn" rel="nofollow" data-method="delete"
-                        href="{% url 'mood-delete' mood.id %}"><i class="fa fa-trash" style="color:red"></i></a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
+            <p>{{ mood.date_posted|date:"D, M d, Y" }}</p>
+            <p class="mood-content">{{ mood.content }}</p>
+            <nav class="mood-actions">
+                <!-- Edit button -->
+                <a href="{% url 'mood-edit' mood.id %}" class="btn btn-light mood-edit"><i class="fa fa-edit"></i>Edit</a>
+                <!-- Delete button -->
+                <a data-confirm="Are you sure?" class="btn mood-delete" rel="nofollow" data-method="delete"
+                href="{% url 'mood-delete' mood.id %}"><i class="fa fa-trash"></i>Delete</a>
+            </nav>
+        </div>
+        {% endfor %}
+    </section>
 
 {% endblock content %}
