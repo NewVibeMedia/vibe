@@ -17,6 +17,7 @@ from django.views.generic import (
 )
 
 from .anonlist import rand_anon_author
+from .forms import SignUpForm
 from .models import Post, UserPostOptions
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -387,10 +388,20 @@ def get_post_queryset(PostView, self):
     return result
 
 # ==============AUTHENTICATION================
-class SignUpView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+
+            return redirect('login')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
 
 def login(request):
     return render(request, 'registration/login.html', {'title': 'User Login'})
