@@ -2,21 +2,40 @@
 
 {% block title %}Sign Up{% endblock %}
 {% block content %}
-    <h1 class="text-secondary">User Sign Up</h1>
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                {% endfor %}
-            </p>
-        {% endfor %}
-        <button type="submit">Create Account</button>
-    </form>
+    <div class=" row">
+
+
+    <section id="signup">
+
+        <div class="reg-block col-12 col-md-5 align-self-end">
+
+            <h1 class="text-secondary">User Sign Up</h1>
+            <div class="sign-up-form">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <p>
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {#                    Don't display help text #}
+                            {#                        {% if field.help_text %}#}
+                            {#                            <br>#}
+                            {#                            <small style="color: grey">{{ field.help_text }}</small>#}
+                            {#                        {% endif %}#}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                                {# <p style="color: red"></p> #}
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
+                    <button type="submit" class="button create-account-btn">Create Account</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+    </div>
 {% endblock %}
