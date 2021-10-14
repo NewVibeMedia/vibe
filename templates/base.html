@@ -32,10 +32,10 @@
                 {% if user.is_authenticated %}
                     <!-- Links to main pages -->
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'post-question' %}active{% endif %}" href="{% url 'post-question' %}">Guided Journal</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post-guided-journal' %}active{% endif %}" href="{% url 'post-guided-journal' %}">Guided Journal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'post-gratitude' %}active{% endif %}" href="{% url 'post-gratitude' %}">Free Journal</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post-free-journal' %}active{% endif %}" href="{% url 'post-free-journal' %}">Free Journal</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'mood-home' %}active{% endif %}" href="{% url 'mood-home' %}">Moods</a>

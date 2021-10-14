@@ -354,9 +354,9 @@ def UserPostSave(request, pk, user):
     messages.add_message(request, messages.SUCCESS, "Post successfully saved.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
-        return redirect('post-gratitude')
+        return redirect('post-free-journal')
     else: # Question
-        return redirect('post-question')
+        return redirect('post-guided-journal')
 
 # Hide a post
 def UserPostHide(request, pk, user):
@@ -367,9 +367,9 @@ def UserPostHide(request, pk, user):
     messages.add_message(request, messages.SUCCESS, "Post successfully hidden.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
-        return redirect('post-gratitude')
+        return redirect('post-free-journal')
     else:  # Question
-        return redirect('post-question')
+        return redirect('post-guided-journal')
 
 # Used to determine if the user has edit/delete permissions for the post
 def get_post_queryset(PostView, self):
