@@ -1,6 +1,15 @@
 TODO List:
-[TODO] Fully remove personal reflective posts
-[TODO] Add Pseudo Identifiers to posts
+[TODO] Interface customisability
+[TODO] Mood Calendar View
+
+v 0.6.9 13-Oct-2021
+* Sign Up page is no longer based on crispy forms
+* Basic styling for sign up page
+* Prod on server
+
+v 0.6.8 12-Oct-2021
+* Fixed saved/hidden posts not anonymising users
+* More page styling
 
 v 0.6.7 10-Oct-2021
 * Code cleanup

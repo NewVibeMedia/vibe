@@ -6,7 +6,6 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
-    SignUpView,
     GratitudePostListView, QuestionPostListView,
     UserPostSave, UserPostHide, PostOptionEdit,
     SavePostListView, HidePostListView,
@@ -39,7 +38,7 @@ urlpatterns = [
     path('posts/<int:pk>/<str:user>/hide/', UserPostHide, name='post-hide'),
 
     # registration
-    path('signup/', SignUpView.as_view(), name='signup'),
+    path('signup/', views.signup, name='signup'),
     path('login/', LoginView.as_view(), name='login'),
 
     # search posts

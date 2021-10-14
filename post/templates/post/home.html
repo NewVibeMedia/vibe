@@ -75,8 +75,13 @@
                         {% else %}
                             {{ rand_name|random }}  
                         {% endif %}
+<<<<<<< HEAD
                         | {{ post.date_posted|date:"D, M d, Y" }} 
                     </p>
+=======
+                            {{ post.date_posted|date:"D, M d, Y" }} 
+                    </h4>
+>>>>>>> 6a932286848efd5e49e4e9d8b943d12258fb2a6b
                     <p class="card-text">{{ post.content }}</p>
                 </a>
             </div>
