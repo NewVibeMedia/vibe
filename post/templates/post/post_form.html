@@ -1,35 +1,79 @@
 {% extends "base.html" %}
+
 {% load crispy_forms_tags %}
 {% block content %}
-    <fieldset class="content-section">
+
+    <div id="post-form" class="content-selection">
+
+        {# Display Warning messages #}
+        <div>
+            {# Display message if any exist (e.g. permission denied) #}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {# Title display for different modes #}
+        {% if post.id %}
+            <legend>Editing Entry</legend>
+        {% else %}
+            <legend>New Entry</legend>
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}
+                
             <fieldset class="form-group">
-               <legend class="border-bottom mb-4" id = "post-title">New Entry</legend>
-                {{ form|crispy }}
+                <label class="">Title <span class="mandatory">*</span></label>
+                <div id="id_title">{{ form.title }}</div>
             </fieldset>
 
-            {% if object.id %}
-                <div class="" style="margin-top: 10px;">
-                    <label for="id_date" class=" requiredField">
-                        Posted on<span class="asteriskField">*</span> 
-                    </label>
-                    <input id="id_date_posted"
-                           value="{{ object.date_posted | date:'Y-m-d' }}T{{ object.date_posted | date:'H' }}:{{ object.date_posted | date:'i' }}"
-                           type="datetime-local" name="date_posted">
-                    </input>
+            <fieldset class="form-group">
+                <label class="">Content <span class="mandatory">*</span></label>
+                {# post.content is empty if this is a new post #}
+                <textarea id="id_content" name="content">{{ post.content }}</textarea>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <label class="">Post type <span class="mandatory">*</span></label>
+                <div id="id_post_type">
+                    {% if post.id %}
+                        {{ post.post_type }}
+                    {% else %}
+                        {{ form.post_type }}
+                    {% endif %}
                 </div>
-            {% endif %}
-            <div class="form-group" style="margin-top: 10px;">
+            </fieldset>
+
+            <fieldset class="form-group">
+                <label class="">Date <span class="mandatory">*</span></label>
+                <div id="id_date">
+                    {% if post.id %}
+                        <input value="{{ object.date_posted | date:'Y-m-d' }}T{{ object.date_posted | date:'H' }}:{{ object.date_posted | date:'i' }}" 
+                            type="datetime-local"
+                            name="date_posted"/>
+                        </input>
+                    {% else %}
+                        {{ form.date_posted }}
+                    {% endif %}
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
                 {% if form.post_type.value == "Gratitude" %}
                     <a href="{% url 'post-free-journal' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% else %} {# Reflective Question #}
                     <a href="{% url 'post-guided-journal' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% endif %}
-            </div>
-        </form>
-        <!-- {{ form.as_p}} -->
+            </fieldset>
 
-    </fieldset>
+        </form>
+
+    </div>
+    
 {% endblock content %}

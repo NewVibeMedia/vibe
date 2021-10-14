@@ -111,25 +111,30 @@ p {
   color: black !important;
 }
 
-.nav-item .active{ 
-  background-color:#f8f9fa; 
-  border-radius: 12px;   
-  font-weight: 600; 
-  color:#2e5a3b; 
-
-}  
-.nav-item:hover{ 
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06); 
-  border-radius: 12px;
-}  
-.nav-item{ 
-  margin-right: 0.5em; 
-  margin-left: 1em;
-  margin-top: 2%;
-}     
+.navbar {
+  background-color: #9FD19F;
+}
 
 .navbar .nav-link {
   color: black !important;
+}
+
+.nav-item .active {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #2e5a3b;
+}
+
+.nav-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.nav-item {
+  margin-right: 0.5em;
+  margin-top: 2%;
+  margin-left: 1em;
 }
 
 #profile_dropdown {
@@ -261,8 +266,8 @@ p {
 }
 
 .card {
-  border: none!important; 
-} 
+  border: none !important;
+}
 
 .card:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
@@ -350,7 +355,7 @@ p {
   }
 }
 /* General mood page styling */
-#mood-form, .weekly-chart, #delete-mood {
+#mood-form, #post-form, .weekly-chart, #delete-mood {
   padding: 0.8em;
   background: #fff;
   border-radius: 5px;
@@ -358,19 +363,19 @@ p {
 }
 
 /* Mood Form Styling */
-#mood-form .form-group {
+#mood-form .form-group, #post-form .form-group {
   margin-bottom: 0.8em;
 }
-#mood-form #id_mood, #mood-form #id_date {
+#mood-form #id_mood, #post-form #id_mood, #mood-form #id_date, #post-form #id_date {
   font-size: 16px;
 }
-#mood-form #id_content {
+#mood-form #id_content, #post-form #id_content {
   width: 100%;
   min-height: 20vh;
 }
 
 @media screen and (min-width: 600px) {
-  #mood-form {
+  #mood-form, #post-form {
     margin: 0 20%;
   }
 
@@ -381,6 +386,11 @@ p {
 /* Mood Graph Styling*/
 .weekly-chart {
   margin-top: 0.8em;
+}
+
+/* Post Form Styling*/
+#post-form #id_title {
+  width: 100%;
 }
 
 /* 404 Page Styling */

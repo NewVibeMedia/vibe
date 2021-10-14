@@ -410,6 +410,19 @@ p {
     margin-top: 0.8em;
 }
 
+/* Post Form Styling*/
+#post-form {
+    @extend #mood-form;
+
+    #id_title {
+        width: 100%;
+    }
+
+    // #id_content {
+    //
+    //}
+}
+
 /* 404 Page Styling */
 #error-card {
     section {
