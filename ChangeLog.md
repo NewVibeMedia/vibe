@@ -1,6 +1,8 @@
 TODO List:
 [TODO] Interface customisability
-[TODO] Mood Calendar View
+
+v 0.6.11 14-Oct-2021
+* Deleting post redirects to respective feed instead of default post feed
 
 v 0.6.10 13-Oct-2021
 * Removed hardcoded routing

@@ -275,7 +275,12 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
 
     model = Post
-    success_url = "/posts" #TODO Redirection on Delete
+
+    def get_success_url(self): # Called before delete
+        if self.object.post_type == "Gratitude":
+            return "/free"
+        else:
+            return "/guided"
 
     def get_queryset(self):
         return get_post_queryset(PostDeleteView, self)
