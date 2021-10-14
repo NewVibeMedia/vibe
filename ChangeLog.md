@@ -2,6 +2,10 @@ TODO List:
 [TODO] Interface customisability
 [TODO] Mood Calendar View
 
+v 0.6.10 13-Oct-2021
+* Removed hardcoded routing
+* Renamed urls 'gratitude'/'question' to free/guided
+
 v 0.6.9 13-Oct-2021
 * Sign Up page is no longer based on crispy forms
 * Basic styling for sign up page
