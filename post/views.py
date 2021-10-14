@@ -275,9 +275,8 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
     login_url = '/login/'
 
     model = Post
-    success_url = "/posts"
+    success_url = "/posts" #TODO Redirection on Delete
 
-    # https://stackoverflow.com/questions/5531258/example-of-django-class-based-deleteview
     def get_queryset(self):
         return get_post_queryset(PostDeleteView, self)
 
@@ -355,9 +354,9 @@ def UserPostSave(request, pk, user):
     messages.add_message(request, messages.SUCCESS, "Post successfully saved.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
-        return redirect('/gratitude')
+        return redirect('post-free-journal')
     else: # Question
-        return redirect('/question')
+        return redirect('post-guided-journal')
 
 # Hide a post
 def UserPostHide(request, pk, user):
@@ -368,9 +367,9 @@ def UserPostHide(request, pk, user):
     messages.add_message(request, messages.SUCCESS, "Post successfully hidden.")
 
     if post.post_type == post.POST_TYPES[0][0]: # Gratitude
-        return redirect('/gratitude')
-    else: # Question
-        return redirect('/question')
+        return redirect('post-free-journal')
+    else:  # Question
+        return redirect('post-guided-journal')
 
 # Used to determine if the user has edit/delete permissions for the post
 def get_post_queryset(PostView, self):

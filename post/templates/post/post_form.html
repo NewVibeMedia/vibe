@@ -23,9 +23,9 @@
             <div class="form-group" style="margin-top: 10px;">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
                 {% if form.post_type.value == "Gratitude" %}
-                    <a href="{% url 'post-gratitude' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
+                    <a href="{% url 'post-free-journal' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% else %} {# Reflective Question #}
-                    <a href="{% url 'post-question' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
+                    <a href="{% url 'post-guided-journal' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% endif %}
             </div>
         </form>

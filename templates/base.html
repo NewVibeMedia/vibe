@@ -32,13 +32,13 @@
                 {% if user.is_authenticated %}
                     <!-- Links to main pages -->
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'post-question' %}active{% endif %}" href="/question">Guided Journal</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post-guided-journal' %}active{% endif %}" href="{% url 'post-guided-journal' %}">Guided Journal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'post-gratitude' %}active{% endif %}" href="/gratitude">Free Journal</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post-free-journal' %}active{% endif %}" href="{% url 'post-free-journal' %}">Free Journal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'mood-home' %}active{% endif %}" href="/moods">Moods</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'mood-home' %}active{% endif %}" href="{% url 'mood-home' %}">Moods</a>
                     </li>
                     <!-- Account Specific Options -->
                     <li class="nav-item dropdown">
@@ -49,7 +49,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li class="nav-item">
-                                <a class="dropdown-item" href="/history">
+                                <a class="dropdown-item" href="{% url 'post-history' %}">
                                     <label class="dropdown-menu-icon">
                                         <i class="fa fa-history" aria-hidden="true"></i>
                                     </label> 
@@ -57,7 +57,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="dropdown-item" href="/saved">
+                                <a class="dropdown-item" href="{% url 'post-saved' %}">
                                     <label class="dropdown-menu-icon">
                                         <i class="fa fa-star" aria-hidden="true"></i> 
                                     </label> 
@@ -65,7 +65,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="dropdown-item" href="/hid">
+                                <a class="dropdown-item" href="{% url 'post-hid' %}">
                                     <label class="dropdown-menu-icon">
                                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
                                     </label> 
@@ -127,7 +127,7 @@
 <div class="footer" class="container"
      style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
     <div class="">
-        Vibe v0.6.9 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
+        Vibe v0.6.10 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
     </div>
 </div>
 

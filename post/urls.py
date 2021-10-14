@@ -19,8 +19,8 @@ urlpatterns = [
 
     # list views
     path('posts/', PostListView.as_view(), name='post-list'),
-    path('gratitude/', GratitudePostListView.as_view(), name='post-gratitude'),
-    path('question/', QuestionPostListView.as_view(), name='post-question'),
+    path('free/', GratitudePostListView.as_view(), name='post-free-journal'),
+    path('guided/', QuestionPostListView.as_view(), name='post-guided-journal'),
     path('saved/', SavePostListView.as_view(), name='post-saved'),
     path('hid/', HidePostListView.as_view(), name='post-hid'),
     path('history/', HistoryListView.as_view(), name='post-history'),
