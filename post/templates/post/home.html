@@ -66,6 +66,12 @@
                         </div>
                     {% endif %}
 
+                    <div class="hide-btn-group">
+                        <a name="hide-btn" class="btn btn-sm" href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}">
+                            <i class="far fa-eye-slash fa-3x"></i>
+                        </a>
+                    </div>
+
                     {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
                     <h4 class="card-subtitle">
                         By

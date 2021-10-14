@@ -2,6 +2,7 @@ TODO List:
 [TODO] Interface customisability
 
 v 0.6.11 14-Oct-2021
+* Hide button now on feed
 * Deleting post redirects to respective feed instead of default post feed
 
 v 0.6.10 13-Oct-2021
