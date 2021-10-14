@@ -111,7 +111,6 @@ p {
   color: black !important;
 }
 
-<<<<<<< HEAD
 .nav-item .active{ 
   background-color:#f8f9fa; 
   border-radius: 12px;   
@@ -125,35 +124,12 @@ p {
 }  
 .nav-item{ 
   margin-right: 0.5em; 
-  margin-top:2%; 
   margin-left: 1em;
+  margin-top: 2%;
 }     
-=======
-.navbar {
-  background-color: #9FD19F;
-}
->>>>>>> 5f4f11eca98f5c9d92fce05a09615360477472cc
 
 .navbar .nav-link {
   color: black !important;
-}
-
-.nav-item .active {
-  background-color: #f8f9fa;
-  border-radius: 12px;
-  font-weight: 600;
-  color: #2e5a3b;
-}
-
-.nav-item:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
-}
-
-.nav-item {
-  margin-right: 0.5em;
-  padding-top: 2%;
-  margin-left: 1em;
 }
 
 #profile_dropdown {
