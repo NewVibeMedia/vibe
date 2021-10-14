@@ -77,7 +77,7 @@
                         {% endif %}
                             {{ post.date_posted|date:"D, M d, Y" }} 
                     </h4>
-                    <p class="card-text">{{ post.content }}</p>
+                    <p class="card-text">{{ post.content|truncatewords:50 }}</p>
                 </a>
             </div>
         </div>

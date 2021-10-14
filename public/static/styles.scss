@@ -443,3 +443,17 @@ p {
 .sign-up-block {
   background-color: white !important;
 }
+
+.help-block {
+    padding: 0.8em;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06);
+}
+
+.sign-up-form-content {
+  width: 100%;
+  input {
+    width: 100%;
+  }
+}
