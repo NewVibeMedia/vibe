@@ -29,8 +29,6 @@
 
             {% if object.id in hidden_posts %}   
                 <a name="unhide-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id hide_str %}?next={{ request.path|urlencode }}">Unhide</a>
-            {% else %}
-                <a name="hide-btn" class="btn btn-danger btn-sm" href="{% url 'post-hide' object.id user.username %}">Hide</a>
             {% endif %}
                 
         </div>

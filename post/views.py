@@ -34,8 +34,9 @@ def landing(request):
     if request.user.is_authenticated:
         number_of_posts = Post.objects.filter(date_posted__day=timezone.now().day).filter(author_id=request.user.id).count()
         entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
-
-    return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
+        return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
+    else:
+        return login(request)
 
 # ==============HELPER FUNCTIONS================
 # Helper class, requires login and displays Permission denied error
