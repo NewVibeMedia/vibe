@@ -107,35 +107,22 @@ p {
 .navbar {
   background-color: #9FD19F;
 }
+.navbar .navbar-brand {
+  padding: 0;
+}
 .navbar .nav-link {
   color: black !important;
 }
-
-.nav-item .active{ 
-  background-color:#f8f9fa; 
-  border-radius: 12px;   
-  font-weight: 600; 
-  color:#2e5a3b; 
-
-}  
-.nav-item:hover{ 
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06); 
+.navbar .nav-item .active {
+  background-color: #f8f9fa;
   border-radius: 12px;
-}  
-.nav-item{ 
-  margin-right: 0.5em; 
-  padding-top:2%; 
-  margin-left: 1em;
-}     
-
-
-#profile_dropdown{
-  background-color: #58AE58; 
+  font-weight: 600;
+  color: #2e5a3b;
+}
+.navbar #profile_dropdown {
+  background-color: #58AE58;
   border-color: transparent;
 }
-
-
-
 
 /* Landing Page Styling */
 .landing-link .card {
@@ -192,37 +179,32 @@ p {
 .login-buttons .signup-button {
   color: black;
   background-color: #e9ecef;
-} 
+}
 
-/**Post**/ 
-#post-title{ 
-  font-size: 36px; 
-  font-weight:600;
-} 
+#post-title {
+  font-size: 36px;
+  font-weight: 600;
+}
 
-.content-section{ 
-  background-color: #fff; 
-  border-radius: 12px; 
+.content-section {
+  background-color: #fff;
+  border-radius: 12px;
   padding-left: 5em;
-  padding-right: 5em;  
+  padding-right: 5em;
   padding-bottom: 5%;
-  padding-top: 0.5; 
-  margin-left: 25%; 
-  margin-right: 25%;
-} 
+}
 
-#post-cancel-btn{ 
-  margin-top:1em;  
+#post-cancel-btn {
+  margin-top: 1em;
   border-color: transparent;
-  padding-right: 45%; 
-  padding-left: 45%; 
+  padding-right: 45%;
+  padding-left: 45%;
+}
 
-} 
-
-#save-btn{ 
-  padding-left: 46%; 
-  padding-right: 47%; 
-  background-color:#9FD19F; 
+#save-btn {
+  padding-left: 46%;
+  padding-right: 47%;
+  background-color: #9FD19F;
   border-color: transparent;
 }
 
@@ -335,8 +317,7 @@ p {
 .mood-entry .mood-delete {
   color: #EE6C4D !important;
   background-color: #f8f9fa;
-} 
-
+}
 
 @media screen and (min-width: 600px) {
   .mood-list > * {
@@ -348,7 +329,7 @@ p {
     width: 30%;
   }
 
-  .mood-entry:nth-child(3) {
+  .mood-entry:nth-child(3n) {
     margin-right: 0%;
   }
 }
@@ -395,9 +376,7 @@ p {
   margin-top: 2em;
   align-self: center;
   background-color: #9FD19F;
-} 
-
-
+}
 
 @media screen and (min-width: 600px) {
   #error-card {
@@ -411,8 +390,10 @@ p {
   #error-card * {
     text-align: center;
   }
-} 
-
-
+}
+/* Sign up */
+.sign-up-block {
+  background-color: white !important;
+}
 
 /*# sourceMappingURL=styles.css.map */
