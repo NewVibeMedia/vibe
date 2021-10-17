@@ -66,6 +66,12 @@
                         </div>
                     {% endif %}
 
+                    <div class="hide-btn-group">
+                        <a name="hide-btn" class="btn btn-sm" href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}">
+                            <i class="far fa-eye-slash fa-3x"></i>
+                        </a>
+                    </div>
+
                     {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
                     <p class="card-subtitle">
                         By
@@ -75,9 +81,9 @@
                         {% else %}
                             {{ rand_name|random }}  
                         {% endif %}
-                        | {{ post.date_posted|date:"D, M d, Y" }} 
-                    </p>
-                    <p class="card-text">{{ post.content }}</p>
+                            {{ post.date_posted|date:"D, M d, Y" }} 
+                    </h4>
+                    <p class="card-text">{{ post.content|truncatewords:50 }}</p>
                 </a>
             </div>
         </div>

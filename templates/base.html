@@ -13,7 +13,10 @@
             crossorigin="anonymous"></script>
     {% block style %}
         <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}"/>
-    {% endblock %}
+    {% endblock %} 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&display=swap" rel="stylesheet"> 
 
     <title>Vibe</title>
 </head>
@@ -21,7 +24,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><b style="color: #f6d3a7; font-size:32px; margin-left:10%;">Vibe</b></a>
+        <a class="navbar-brand" href="/"><b style="color:#fff; font-size:32px; margin-left:10%; font-family: 'Abril Fatface', cursive;
+            font-family: 'Archivo Black', sans-serif;">vibe</b></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -62,14 +66,6 @@
                                         <i class="fa fa-star" aria-hidden="true"></i> 
                                     </label> 
                                     Saved Posts
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="dropdown-item" href="{% url 'post-hid' %}">
-                                    <label class="dropdown-menu-icon">
-                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
-                                    </label> 
-                                    Hidden Posts
                                 </a>
                             </li>
                             <li>
@@ -127,7 +123,7 @@
 <div class="footer" class="container"
      style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
     <div class="">
-        Vibe v0.6.10 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
+        Vibe v0.6.11 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
     </div>
 </div>
 

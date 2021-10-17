@@ -120,15 +120,24 @@ p {
         background-color:#f8f9fa; 
         border-radius: 12px;   
         font-weight: 600; 
-        color:#2e5a3b; 
-    }
-    
+        color:#2e5a3b;
+    }  
+    .nav-item:hover{ 
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06); 
+        border-radius: 12px;
+    }  
+    .nav-item{ 
+        margin-right: 0.5em; 
+        margin-top:2%; 
+        margin-left: 1em;
+    }     
+
+
     #profile_dropdown{
         background-color: #58AE58; 
         border-color: transparent;
     }
 }
-  
   
 
 /* Landing Page Styling */
@@ -271,6 +280,7 @@ p {
 .card-body { 
     background-color: #9FD19F;  
     color: #45342C; 
+    border-radius: 5px; 
 }  
 .card-title { 
     font-size: 32px; 
@@ -392,6 +402,15 @@ p {
     margin-top: 0.8em;
 }
 
+/* Post Form Styling*/
+#post-form {
+    @extend #mood-form;
+
+    #id_title {
+        width: 100%;
+    }
+}
+
 /* 404 Page Styling */
 #error-card {
     section {
@@ -424,4 +443,18 @@ p {
 /* Sign up */
 .sign-up-block {
   background-color: white !important;
+}
+
+.help-block {
+    padding: 0.8em;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06);
+}
+
+.sign-up-form-content {
+  width: 100%;
+  input {
+    width: 100%;
+  }
 }

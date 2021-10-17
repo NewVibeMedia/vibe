@@ -119,6 +119,15 @@ p {
   font-weight: 600;
   color: #2e5a3b;
 }
+.navbar .nav-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+.navbar .nav-item {
+  margin-right: 0.5em;
+  margin-top: 2%;
+  margin-left: 1em;
+}
 .navbar #profile_dropdown {
   background-color: #58AE58;
   border-color: transparent;
@@ -255,6 +264,7 @@ p {
 .card-body {
   background-color: #9FD19F;
   color: #45342C;
+  border-radius: 5px;
 }
 
 .card-title {
@@ -334,7 +344,7 @@ p {
   }
 }
 /* General mood page styling */
-#mood-form, .weekly-chart, #delete-mood {
+#mood-form, #post-form, .weekly-chart, #delete-mood {
   padding: 0.8em;
   background: #fff;
   border-radius: 5px;
@@ -342,19 +352,19 @@ p {
 }
 
 /* Mood Form Styling */
-#mood-form .form-group {
+#mood-form .form-group, #post-form .form-group {
   margin-bottom: 0.8em;
 }
-#mood-form #id_mood, #mood-form #id_date {
+#mood-form #id_mood, #post-form #id_mood, #mood-form #id_date, #post-form #id_date {
   font-size: 16px;
 }
-#mood-form #id_content {
+#mood-form #id_content, #post-form #id_content {
   width: 100%;
   min-height: 20vh;
 }
 
 @media screen and (min-width: 600px) {
-  #mood-form {
+  #mood-form, #post-form {
     margin: 0 20%;
   }
 
@@ -365,6 +375,11 @@ p {
 /* Mood Graph Styling*/
 .weekly-chart {
   margin-top: 0.8em;
+}
+
+/* Post Form Styling*/
+#post-form #id_title {
+  width: 100%;
 }
 
 /* 404 Page Styling */
@@ -394,6 +409,20 @@ p {
 /* Sign up */
 .sign-up-block {
   background-color: white !important;
+}
+
+.help-block {
+  padding: 0.8em;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.sign-up-form-content {
+  width: 100%;
+}
+.sign-up-form-content input {
+  width: 100%;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -22,7 +22,6 @@ urlpatterns = [
     path('free/', GratitudePostListView.as_view(), name='post-free-journal'),
     path('guided/', QuestionPostListView.as_view(), name='post-guided-journal'),
     path('saved/', SavePostListView.as_view(), name='post-saved'),
-    path('hid/', HidePostListView.as_view(), name='post-hid'),
     path('history/', HistoryListView.as_view(), name='post-history'),
 
     # post viewing and operations
@@ -35,7 +34,6 @@ urlpatterns = [
     path('posts/opt/<int:pk>/<str:option>/', PostOptionView.as_view(), name='post-option-detail'),
     path('posts/optdel/<int:pk>/<str:option>/', PostOptionEdit, name='post-option-edit'),
     path('posts/<int:pk>/<str:user>/save/', UserPostSave, name='post-save'),
-    path('posts/<int:pk>/<str:user>/hide/', UserPostHide, name='post-hide'),
 
     # registration
     path('signup/', views.signup, name='signup'),
