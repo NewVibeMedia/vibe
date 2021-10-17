@@ -51,7 +51,7 @@
         <div class="card">
             <div class="card-body">
                 <a href="{% url 'post-detail' post.id %}">
-                    <h3 class="card-title">{{ post.title }}</h3>
+                    <h2 class="card-title">{{ post.title }}</h2>
                     {% if post.id in saved_posts %}   
                         <div class="save-btn-group">
                             <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
@@ -73,7 +73,7 @@
                     </div>
 
                     {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
-                    <h4 class="card-subtitle">
+                    <p class="card-subtitle">
                         By
                         {% if user.is_superuser or user == post.author %}
                             {# May want to style the user differently #}
