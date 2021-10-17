@@ -1,5 +1,4 @@
 TODO List:
-[TODO] Interface customisability - Font Choices
 [TODO] Interface customisability - REM issues
 
 v 0.6.14 17-Oct-2021
