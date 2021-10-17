@@ -34,6 +34,7 @@ urlpatterns = [
     path('posts/opt/<int:pk>/<str:option>/', PostOptionView.as_view(), name='post-option-detail'),
     path('posts/optdel/<int:pk>/<str:option>/', PostOptionEdit, name='post-option-edit'),
     path('posts/<int:pk>/<str:user>/save/', UserPostSave, name='post-save'),
+    path('posts/<int:pk>/<str:user>/hide/', UserPostHide, name='post-hide'),
 
     # registration
     path('signup/', views.signup, name='signup'),
