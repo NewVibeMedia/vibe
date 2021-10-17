@@ -68,13 +68,16 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     # For Mood
     'mood.apps.MoodConfig',
+    # For Customizer
+    'customizer.apps.CustomizerConfig',
     # For Crispy Forms
     'crispy_forms',
     # For show_urls
     'django_extensions',
     "django_static_fontawesome",
     # For reset database for development and integration env
-    'django_truncate',    
+    'django_truncate',
+    'mathfilters'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

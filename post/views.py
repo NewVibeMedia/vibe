@@ -23,6 +23,7 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db.models import Q
 from mood.models import Mood
+from customizer.models import Customizer
 from django.utils import timezone
 import os
 
@@ -34,7 +35,16 @@ def landing(request):
     if request.user.is_authenticated:
         number_of_posts = Post.objects.filter(date_posted__day=timezone.now().day).filter(author_id=request.user.id).count()
         entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
-        return render(request, 'landing.html', {'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
+        context = dict()
+        setting = Customizer.objects.filter(user=request.user)
+        if setting:
+            setting = setting[0]
+            context.update({"nav_color": setting.theme_nav,
+                            "bg_color": setting.theme_background,
+                            "font_size": setting.font_size,
+                            "font_style": setting.font_style})
+        context.update({'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
+        return render(request, 'landing.html', context)
     else:
         return login(request)
 
@@ -72,6 +82,18 @@ class RecentListView(ListView):
             queryset = queryset.exclude(pk__in=hide_set)
         return queryset
 
+class CustomizerLoader():
+    def get_context_data(self):
+        context = dict()
+        setting = Customizer.objects.filter(user=self.request.user)
+        if setting:
+            setting = setting[0]
+            context.update({"nav_color": setting.theme_nav,
+                            "bg_color": setting.theme_background,
+                            "font_size": setting.font_size,
+                            "font_style": setting.font_style})
+        return context
+
 # Reset the DB
 def reset(request):
     DJANGO_ENV = os.environ.get('DJANGO_ENV')
@@ -86,7 +108,7 @@ def reset(request):
 
 # ==============STANDARD POSTS LIST VIEW================
 # My Posts page, lists all recent posts
-class PostListView(CustomLoginRequiredMixin, RecentListView):
+class PostListView(CustomLoginRequiredMixin, RecentListView, CustomizerLoader):
     model = Post
     login_url = '/login/'
 
@@ -94,8 +116,12 @@ class PostListView(CustomLoginRequiredMixin, RecentListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+    def get_context_data(self, **kwargs):
+        context = CustomizerLoader.get_context_data(self)
+        return context
+
 # My Gratitude Posts page, lists all recent gratitude type posts
-class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
+class GratitudePostListView(CustomLoginRequiredMixin, RecentListView, CustomizerLoader):
     model = Post
     login_url = '/login/'
 
@@ -109,6 +135,7 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
         # This chonker returns a tuple of post ids that the user has saved
         context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
         context['save_str'] = "Save"
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -117,7 +144,7 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView):
         return queryset
 
 # My Reflective Question Posts page, lists all recent gratitude type posts
-class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
+class QuestionPostListView(CustomLoginRequiredMixin, RecentListView, CustomizerLoader):
     model = Post
     login_url = '/login/'
 
@@ -131,6 +158,7 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
         # This chonker returns a tuple of post ids that the user has saved
         context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
         context['save_str'] = "Save"
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -140,7 +168,7 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView):
         return items
 
 # User's history of posts
-class HistoryListView(CustomLoginRequiredMixin, ListView):
+class HistoryListView(CustomLoginRequiredMixin, ListView, CustomizerLoader):
     model = Post
     login_url = '/login/'
 
@@ -148,12 +176,17 @@ class HistoryListView(CustomLoginRequiredMixin, ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+    def get_context_data(self, **kwargs):
+        context = CustomizerLoader.get_context_data(self)
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(author_id=self.request.user.id)
 
+
 # View all posts saved, not time limited
-class SavePostListView(CustomLoginRequiredMixin, ListView):
+class SavePostListView(CustomLoginRequiredMixin, ListView, CustomizerLoader):
     model = UserPostOptions
     login_url = '/login/'
 
@@ -166,6 +199,7 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
         context["rand_name"] = rand_anon_author()
         context['option_name'] = "Saved"
         context['option_type'] = "Save"
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -177,7 +211,7 @@ class SavePostListView(CustomLoginRequiredMixin, ListView):
         return actual_posts
 
 # View all hidden posts
-class HidePostListView(CustomLoginRequiredMixin, ListView):
+class HidePostListView(CustomLoginRequiredMixin, ListView, CustomizerLoader):
     model = UserPostOptions
     login_url = '/login/'
 
@@ -190,6 +224,7 @@ class HidePostListView(CustomLoginRequiredMixin, ListView):
         context["rand_name"] = rand_anon_author()
         context['option_name'] = "Hidden"
         context['option_type'] = "Hide"
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -201,7 +236,7 @@ class HidePostListView(CustomLoginRequiredMixin, ListView):
         return actual_posts
 
 # Show details about one post
-class PostDetailView(CustomLoginRequiredMixin, DetailView):
+class PostDetailView(CustomLoginRequiredMixin, DetailView, CustomizerLoader):
     model = Post
     login_url = '/login/'
 
@@ -211,7 +246,8 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
         context['saved_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Save").values_list('post', flat=True))
         context['save_str'] = "Save"
         context['hidden_posts'] = list(UserPostOptions.objects.filter(user=self.request.user, option_type="Hide").values_list('post', flat=True))
-        context['hide_str'] = "Hide" 
+        context['hide_str'] = "Hide"
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     # Get post
@@ -224,7 +260,7 @@ class PostDetailView(CustomLoginRequiredMixin, DetailView):
 
 # ==============POST OPERATIONS================
 # Create a post
-class PostCreateView(CustomLoginRequiredMixin, CreateView):
+class PostCreateView(CustomLoginRequiredMixin, CreateView, CustomizerLoader):
     # Redirect if not authenticated
     login_url = '/login/'
 
@@ -247,6 +283,10 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
         "List 5 things that make you smile",
 
     ]  # https://positivepsychology.com/introspection-self-reflection/
+
+    def get_context_data(self, **kwargs):
+        context = CustomizerLoader.get_context_data(self)
+        return context
 
     def get_initial(self):
         """
@@ -272,7 +312,7 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 # Delete a post
-class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
+class PostDeleteView(CustomLoginRequiredMixin, DeleteView, CustomizerLoader):
     login_url = '/login/'
 
     model = Post
@@ -291,8 +331,12 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView):
                              "Post successfully deleted.")
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
 
+    # def get_context_data(self, **kwargs):
+    #     context = CustomizerLoader.get_context_data(self)
+    #     return context
+
 # Update a post
-class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
+class PostUpdateView(CustomLoginRequiredMixin, UpdateView, CustomizerLoader):
     login_url = '/login/'
 
     model = Post
@@ -308,9 +352,13 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView):
     def get_queryset(self):
         return get_post_queryset(PostUpdateView, self)
 
+    def get_context_data(self, **kwargs):
+        context = CustomizerLoader.get_context_data(self)
+        return context
+
 # ==============SAVING AND HIDING POSTS================
 # Saving and Hiding posts
-class PostOptionView(CustomLoginRequiredMixin, DetailView):
+class PostOptionView(CustomLoginRequiredMixin, DetailView, CustomizerLoader):
     model = Post
     login_url = '/login/'
     template_name = 'post/post_option_detail.html'
@@ -318,6 +366,7 @@ class PostOptionView(CustomLoginRequiredMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['option_type'] = self.kwargs.get('option')
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):

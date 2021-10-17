@@ -1,5 +1,9 @@
 TODO List:
-[TODO] Interface customisability
+[TODO] Interface customisability - Font Choices
+[TODO] Interface customisability - REM issues
+
+v 0.6.12 17-Oct-2021
+* Interface customisability now saves and applies to all pages
 
 v 0.6.11 14-Oct-2021
 * Hide button now on feed

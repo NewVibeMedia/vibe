@@ -22,6 +22,15 @@
 </head>
 
 <body>
+<style>
+    .navbar {background-color: {{ nav_color }} !important;}
+    {% load mathfilters %}
+    body {
+        background-color: {{ bg_color }} !important;
+        font-size: {{ font_size|div:16 }}rem;
+        font-family: "{{ font_style }}";
+    }
+</style>
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><b style="color:#fff; font-size:32px; margin-left:10%; font-family: 'Abril Fatface', cursive;
@@ -123,7 +132,7 @@
 <div class="footer" class="container"
      style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
     <div class="">
-        Vibe v0.6.11 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
+        Vibe v0.6.12 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
     </div>
 </div>
 
