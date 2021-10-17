@@ -61,7 +61,8 @@ class MoodDetailView(CustomLoginRequiredMixin, DetailView, CustomizerLoader):
     login_url = "login"
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = DetailView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -85,7 +86,8 @@ class MoodCreateView(CustomLoginRequiredMixin, CreateView, CustomizerLoader):
         return result
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = CreateView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -106,7 +108,8 @@ class MoodUpdateView(CustomLoginRequiredMixin, UpdateView, CustomizerLoader):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = UpdateView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -118,8 +121,9 @@ class MoodDeleteView(CustomLoginRequiredMixin, DeleteView, CustomizerLoader):
     model = Mood
     success_url = "/moods"
 
-    def get_context_date(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+    def get_context_data(self, **kwargs):
+        context = DeleteView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
