@@ -165,7 +165,7 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView, CustomizerL
     def get_queryset(self):
         queryset = super().get_queryset()
         user_items = queryset.filter(post_type="Question").filter(author=self.request.user)  # .values('title')
-        items = queryset.filter(title__in=list(user_items))
+        items = queryset.filter(title__in=list(user_items)).filter(post_type="Question")
         return items
 
 # User's history of posts
