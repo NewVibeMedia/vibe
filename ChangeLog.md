@@ -1,6 +1,10 @@
 TODO List:
 [TODO] Interface customisability - REM issues
 
+v 0.6.15 17-Oct-2021
+* Fixed hide-post button
+* Fixed question filtering on feed
+
 v 0.6.14 17-Oct-2021
 * Fonts are now imported from google api and can be changed in settings
 

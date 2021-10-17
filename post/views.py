@@ -141,9 +141,7 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView, Customizer
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        print("HERE")
         items = queryset.filter(post_type="Gratitude")
-        print(queryset)
         return items
 
 # My Reflective Question Posts page, lists all recent gratitude type posts
