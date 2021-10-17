@@ -13,7 +13,7 @@ After installing Python3 and PIP, install the following libraries
 > pip install django-crispy-forms  
 > pip install django-static-fontawesome  
 > pip install django-truncate  
-> pip install django-settings-export
+> pip install django-settings-export  
 > pip install django-mathfilters
 
 ## Migrate database
