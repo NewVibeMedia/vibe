@@ -229,8 +229,41 @@ p {
     padding-right: 47%; 
     background-color:#9FD19F; 
     border-color: transparent;
+} 
+
+.setting{  
+    margin:2.5em; 
+    padding: 0.8em;  
+    background-color: #fff;   
+    border-radius: 5px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06);
+    h1{ 
+        padding:0.1em;
+    }
+    
+    h2{ 
+        display: inline-flex; 
+        text-align: right;  
+        padding:1.2em;
+    
+    }   
+}  
+.save-button{ 
+    text-align: center;
+} 
+
+input[type=submit]{ 
+    background-color: #9FD19F; 
+    border-radius: 5px; 
+    border-color: transparent; 
+   
+} 
+
+input[type=submit]:hover{  
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    
 }
-  
+
 
 @media screen and (min-width: 600px) {
     #login {
