@@ -302,9 +302,10 @@ input[type=submit]:hover{
   color: black;
 }
 
-.card {
-    border: none !important;
-}
+.card { 
+    border: none!important;  
+
+   }
 
 .card:hover {
    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
@@ -312,8 +313,8 @@ input[type=submit]:hover{
 
 .card-body { 
     background-color: #9FD19F;  
-    color: #45342C; 
-    border-radius: 5px; 
+    color: #45342C;    
+    border-radius: 3px; 
 }  
 .card-title { 
     font-size: 32px; 

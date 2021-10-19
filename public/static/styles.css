@@ -361,7 +361,7 @@ input[type=submit]:hover {
 .card-body {
   background-color: #9FD19F;
   color: #45342C;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .card-title {
