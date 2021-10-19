@@ -30,7 +30,6 @@
 
             {# Date if editing only #}
             {% if settings.DJANGO_ENV == "development" %}
-
                 <fieldset class="form-group">
                     <label class="">Date <span class="mandatory">*</span></label>
                     <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"

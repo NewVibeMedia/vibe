@@ -1,6 +1,9 @@
 TODO List:
 [TODO] Interface customisability - REM issues
 
+v 0.7.0 19-Oct-2021
+* Development and production have different forms
+
 v 0.6.15 17-Oct-2021
 * Fixed hide-post button
 * Fixed question filtering on feed
