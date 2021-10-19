@@ -26,7 +26,7 @@
 
         <form method="POST">
             {% csrf_token %}
-                
+
             <fieldset class="form-group">
                 <label class="">Title <span class="mandatory">*</span></label>
                 <div id="id_title">{{ form.title }}</div>
@@ -38,30 +38,32 @@
                 <textarea id="id_content" name="content">{{ post.content }}</textarea>
             </fieldset>
 
-            <fieldset class="form-group">
-                <label class="">Post type <span class="mandatory">*</span></label>
-                <div id="id_post_type">
-                    {% if post.id %}
-                        {{ post.post_type }}
-                    {% else %}
-                        {{ form.post_type }}
-                    {% endif %}
-                </div>
-            </fieldset>
+            {% if settings.DJANGO_ENV == "development" %}
+                <fieldset class="form-group">
+                    <label class="">Post type <span class="mandatory">*</span></label>
+                    <div id="id_post_type">
+                        {% if post.id %}
+                            {{ post.post_type }}
+                        {% else %}
+                            {{ form.post_type }}
+                        {% endif %}
+                    </div>
+                </fieldset>
 
-            <fieldset class="form-group">
-                <label class="">Date <span class="mandatory">*</span></label>
-                <div id="id_date">
-                    {% if post.id %}
-                        <input value="{{ object.date_posted | date:'Y-m-d' }}T{{ object.date_posted | date:'H' }}:{{ object.date_posted | date:'i' }}" 
-                            type="datetime-local"
-                            name="date_posted"/>
-                        </input>
-                    {% else %}
-                        {{ form.date_posted }}
-                    {% endif %}
-                </div>
-            </fieldset>
+                <fieldset class="form-group">
+                    <label class="">Date <span class="mandatory">*</span></label>
+                    <div id="id_date">
+                        {% if post.id %}
+                            <input value="{{ object.date_posted | date:'Y-m-d' }}T{{ object.date_posted | date:'H' }}:{{ object.date_posted | date:'i' }}"
+                                   type="datetime-local"
+                                   name="date_posted"/>
+                            </input>
+                        {% else %}
+                            {{ form.date_posted }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+            {% endif %}
 
             <fieldset class="form-group">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
@@ -75,5 +77,5 @@
         </form>
 
     </div>
-    
+
 {% endblock content %}

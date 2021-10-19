@@ -29,17 +29,18 @@
             {% csrf_token %}
 
             {# Date if editing only #}
+            {% if settings.DJANGO_ENV == "development" %}
 
-            <fieldset class="form-group">
-                <label class="">Date <span class="mandatory">*</span></label>
-                <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"
-                       name="date_posted"/>
-            </fieldset>
-
+                <fieldset class="form-group">
+                    <label class="">Date <span class="mandatory">*</span></label>
+                    <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"
+                           name="date_posted"/>
+                </fieldset>
+            {% endif %}
             {# Mood Selection #}
             <fieldset class="form-group">
                 <label class="">Mood <span class="mandatory">*</span></label>
-                <select id="id_mood" name="mood" class="select"  required="">
+                <select id="id_mood" name="mood" class="select" required="">
                     <option value="">---</option>
                     <option {% if object.mood == 0 %} selected="" {% endif %} value="0">Very Negative</option>
                     <option {% if object.mood == 1 %} selected  {% endif %} value="1">Negative</option>
