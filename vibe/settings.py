@@ -39,7 +39,7 @@ else:
   DJANGO_ENV = "development"       # default to development
 
 if "Linux" in platform.platform():
-    DJANGO_ENV = "development"
+    DJANGO_ENV = "production"
 print("Django.env = " + DJANGO_ENV)
 
 
