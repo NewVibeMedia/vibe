@@ -33,8 +33,8 @@ def landing(request):
     number_of_posts = 0
     entered_mood_today = None
     if request.user.is_authenticated:
-        number_of_posts = Post.objects.filter(date_posted__day=timezone.now().day).filter(author_id=request.user.id).count()
-        entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
+        number_of_posts = Post.objects.filter(date_posted__date=timezone.now()).filter(author_id=request.user.id).count()
+        entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__exact=timezone.now()).first
         context = dict()
         setting = Customizer.objects.filter(user=request.user)
         if setting:

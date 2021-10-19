@@ -1,6 +1,9 @@
 TODO List:
 [TODO] Interface customisability - REM issues
 
+v 0.7.1 19-Oct-2021
+* Fixed date error with landing page daily tasks
+
 v 0.7.0 19-Oct-2021
 * Development and production have different forms
 
