@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div>
+    <div id="feed-header">
+        <!-- Header for the type of feed -->
+        {% if post_type != None %}
+            {% if post_type == "Gratitude" %}
+                <h1>{% if user.id %}{% endif %} Free Journaling Entries</h1>
+            {% else %}
+                <h1>{% if user.id %}{% endif %} Guided Journaling Entries</h1>
+            {% endif %}
+        {% else %}
+            <h1>{% if user.id %}My{% endif %} Posts</h1>
+        {% endif %}
+
+        <!-- Button to create new post -->
         {% if post_type == "Gratitude" %}
             <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button"><i class="fas fa-plus"></i> New Entry</a>
         {% elif post_type == "Reflective Question" %}
@@ -20,17 +32,6 @@
                     </ul>
                 </div>
             </div>
-        {% endif %}
-
-
-        {% if post_type != None %}
-            {% if post_type == "Gratitude" %}
-                <h1>{% if user.id %}{% endif %} Free Journaling Entries</h1>
-            {% else %}
-                <h1>{% if user.id %}{% endif %} Guided Journaling Entries</h1>
-            {% endif %}
-        {% else %}
-            <h1>{% if user.id %}My{% endif %} Posts</h1>
         {% endif %}
     </div>
 

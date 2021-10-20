@@ -11,45 +11,50 @@
         {% endif %}
     </div>
 
-    <div>
-    {% if user == object.author or user.is_superuser %}
+    <div id="post-details">
+        <!-- Contents of the post -->
+        <article>
+            <h2>{{ object.title }}</h2>
+            <p>
+                <i>
+                    By 
+                    <b>
+                        {% if user.is_superuser or user == object.author %}
+                            {{ object.author }}
+                        {% else %}
+                            Anonymous
+                        {% endif %}
+                    </b>
+                    on {{ object.date_posted|date:"d/m/Y" }} 
+                </i>
+            </p>
+            <p>{{ object.content }}</p>
+        </article>
+
+        <!-- Buttons representing user actions -->
+        {% if user == object.author or user.is_superuser %}
         <div class="post-actions">
             {# Precedence (a and b) or (a and c) #}
-            <a id="edit-btn" class="btn btn-light btn-sm" href="{% url 'post-edit' object.id %}?next={{ request.path|urlencode }}"><i class="fa fa-edit"></i> Edit</a>
-            <a id="delete-btn" class="btn btn-danger  btn-sm" data-confirm="Are you sure you want to delete the post?"
+            <a id="edit-btn" class="btn btn-light" href="{% url 'post-edit' object.id %}?next={{ request.path|urlencode }}"><i class="fa fa-edit"></i> Edit</a>
+            <a id="delete-btn" class="btn btn-light post-delete" data-confirm="Are you sure you want to delete the post?"
                rel="nofollow" data-method="delete" href="{% url 'post-delete' object.id %}?next={{ request.path|urlencode }}"><i class="fa fa-trash"></i> Delete</a>
         </div>
-    {% else %}
-        <div class="post-actions">
-            {% if object.id in saved_posts %}
-                <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id save_str %}?next={{ request.path|urlencode }}">Unsave</a>
-            {% else %}
-                <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' object.id user.username %}">Save</a>
-            {% endif %}
+        {% else %}
+            <div class="post-actions">
+                {% if object.id in saved_posts %}
+                    <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id save_str %}?next={{ request.path|urlencode }}">Unsave</a>
+                {% else %}
+                    <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' object.id user.username %}">Save</a>
+                {% endif %}
 
-            {% if object.id in hidden_posts %}   
-                <a name="unhide-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id hide_str %}?next={{ request.path|urlencode }}">Unhide</a>
-            {% else %}
-                <a name="hide-btn" class="btn btn-danger btn-sm" href="{% url 'post-hide' object.id user.username %}">Hide</a>
-            {% endif %}
-                
-        </div>
-    {% endif %}
-        <h2>{{ object.title }}</h2>
-        <p>
-            <i>
-                By 
-                <b>
-                    {% if user.is_superuser or user == object.author %}
-                        {{ object.author }}
-                    {% else %}
-                        Anonymous
-                    {% endif %}
-                </b>
-                on {{ object.date_posted|date:"d/m/Y" }} 
-            </i>
-        </p>
-        <p>{{ object.content }}</p>
+                {% if object.id in hidden_posts %}   
+                    <a name="unhide-btn" class="btn btn-sm" href="{% url 'post-option-edit' object.id hide_str %}?next={{ request.path|urlencode }}">Unhide</a>
+                {% else %}
+                    <a name="hide-btn" class="btn btn-danger btn-sm" href="{% url 'post-hide' object.id user.username %}">Hide</a>
+                {% endif %}
+                    
+            </div>
+        {% endif %}
     </div>
 
 {% endblock content %}
