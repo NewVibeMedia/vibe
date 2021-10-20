@@ -3,14 +3,17 @@
 
     <div>
         {% if post_type == "Gratitude" %}
-            <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button"><i class="fas fa-plus"></i> New Entry</a>
+            <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button"><i
+                    class="fas fa-plus"></i> New Entry</a>
         {% elif post_type == "Reflective Question" %}
-            <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=1" role="button"><i class="fas fa-plus"></i> New Entry</a>
+            <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=1" role="button"><i
+                    class="fas fa-plus"></i> New Entry</a>
         {% else %}
             {# All Posts Page #}
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="float:right;">
                 <div class="btn-group" role="group">
-                    <button id="btnGroup" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown"
+                    <button id="btnGroup" type="button" class="btn btn-success dropdown-toggle"
+                            data-bs-toggle="dropdown"
                             aria-expanded="false">
                         <i class="fas fa-plus"></i> New Entry
                     </button>
@@ -46,7 +49,9 @@
     </div>
 
     {% if post_type == "Reflective Question" and posts.count == 0 %}
-        <p>There are no posts to show. Answer a question to see what others have posted!</p>
+        <p>There are no posts here yet. Answer a question to see what others have posted!</p>
+        {% else %}
+        <p>There are no posts here yet. Share your experiences with others!</p>
     {% endif %}
 
     {% for post in posts %}
@@ -61,29 +66,32 @@
                             {# May want to style the user differently #}
                             <i>{{ post.author }}</i>
                         {% else %}
-                            {{ rand_name|random }}  
+                            {{ rand_name|random }}
                         {% endif %}
-                            {{ post.date_posted|date:"D, M d, Y" }} 
+                        {{ post.date_posted|date:"D, M d, Y" }}
                     </p>
                     <p class="card-text">{{ post.content|truncatewords:50 }}</p>
                 </article>
                 <nav>
-                    {% if post.id in saved_posts %}   
+                    {% if post.id in saved_posts %}
                         <div class="save-btn-group">
-                            <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
+                            <a name="unsave-btn" class="btn btn-sm"
+                               href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
                                 <i class="fas fa-bookmark"></i>
                             </a>
                         </div>
                     {% else %}
                         <div class="save-btn-group">
-                            <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
+                            <a name="save-btn" class="btn btn-sm"
+                               href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
                                 <i class="far fa-bookmark"></i>
                             </a>
                         </div>
                     {% endif %}
 
                     <div class="hide-btn-group">
-                        <a name="hide-btn" class="btn btn-sm" href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}">
+                        <a name="hide-btn" class="btn btn-sm"
+                           href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}">
                             <i class="far fa-eye-slash"></i>
                         </a>
                     </div>
