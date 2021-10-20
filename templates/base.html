@@ -144,7 +144,7 @@
 <div class="footer" class="container"
      style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
     <div class="">
-        Vibe v0.7.1 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
+        Vibe v0.7.1{% if settings.DJANGO_ENV == "development" %} (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6)) {% endif %}
     </div>
 
 </html>
