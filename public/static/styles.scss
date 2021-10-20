@@ -3,19 +3,6 @@
     color: inherit !important;
 }
 
-#new-post-btn {
-    position: absolute !important;
-    top: 0px;
-    right: 0px;
-    margin-right: 0.75rem;
-}
-
-div.post-actions {
-    float: right;
-    position: absolute;
-    right: 1%;
-}
-
 span.mandatory, span.asteriskField {
     color: #EE6C4D;
     margin-left: 3px;
@@ -123,6 +110,10 @@ p {
     .nav-link {
         color: black !important;
     }
+
+    .nav-item {
+        margin-left: 0.6em;
+    }
   
     .nav-item .active { 
         background-color:#f8f9fa; 
@@ -130,7 +121,7 @@ p {
         font-weight: 600; 
         color:#2e5a3b;
     }
-
+    
     .nav-item:hover { 
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06); 
         border-radius: 5px;
@@ -152,6 +143,11 @@ p {
             display: none;
             margin: 0;
         }
+    }
+
+    .dropdown-menu[data-bs-popper] {
+        left: unset;
+        right: 0 !important;
     }
 }
 
@@ -374,6 +370,10 @@ input[type=submit]:hover{
 }
 
 /* Post feed Styling */
+#feed-header {
+    margin-bottom: 0.8em;
+}
+
 .feed-card {
     padding: 0.8em;
     flex-direction: row !important;
@@ -396,6 +396,18 @@ input[type=submit]:hover{
 
 .feed-card:hover {
     cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+    #feed-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        * {
+            margin: 0;
+        }
+    }
 }
 
 /* Mood List Styling */
@@ -465,8 +477,35 @@ input[type=submit]:hover{
     }
 }
 
+/* Post detail styling */
+#post-details {
+    padding: 0.8em;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 3px 6px rgba(0,0,0,.06);
+    display: flex;
+    flex-direction: column;
+
+    .post-delete {
+        color: #EE6C4D !important;
+        background-color: #f8f9fa;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #post-details {
+        min-height: 40vh;
+        margin: 0 20%;
+    }
+
+    article {
+        flex-grow: 1;
+    }
+}
+
 /* General mood page styling */
-#mood-form, .weekly-chart, #delete-mood {
+#mood-form, .weekly-chart, #delete-mood,
+{
     padding: 0.8em;
     background: #fff;
     border-radius: 5px;
@@ -474,8 +513,9 @@ input[type=submit]:hover{
 }
 
 .mood-link {
-    background-color: #9fbbd0 !important;
-    border-color: #9fbbd0 !important;
+    color: white !important;
+    background-color: #3D5A80 !important;
+    border-color: #3D5A80 !important;
 }
 
 /* Mood Form Styling */
