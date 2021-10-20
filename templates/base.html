@@ -44,6 +44,7 @@
             <div id="nav-padder"></div>
 
             <!-- Account Specific Options -->
+            {% if user.is_authenticated %}
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle btn btn-info" href="#" id="profile_dropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -90,6 +91,7 @@
                     </li>
                 </ul>
             </div>
+            {% endif %}
 
             <!-- Toggler for navbar -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

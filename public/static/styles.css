@@ -239,26 +239,6 @@ p {
   border-color: transparent;
 }
 
-.setting {
-  margin: 2.5em;
-  padding: 0.8em;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
-}
-.setting h1 {
-  padding: 0.1em;
-}
-.setting h2 {
-  display: inline-flex;
-  text-align: right;
-  padding: 1.2em;
-}
-
-.save-button {
-  text-align: center;
-}
-
 input[type=submit] {
   background-color: #9FD19F;
   border-radius: 5px;
@@ -545,6 +525,26 @@ input[type=submit]:hover {
 }
 .sign-up-form-content input {
   width: 100%;
+}
+
+/* Setting styling */
+.setting {
+  margin: 2.5em;
+  padding: 0.8em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+.setting h1 {
+  padding: 0.1em;
+}
+.setting h2 {
+  display: inline-flex;
+  padding: 0.8em 0;
+}
+
+.save-button {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */
