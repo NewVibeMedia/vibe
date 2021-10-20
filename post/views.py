@@ -33,8 +33,8 @@ def landing(request):
     number_of_posts = 0
     entered_mood_today = None
     if request.user.is_authenticated:
-        number_of_posts = Post.objects.filter(date_posted__day=timezone.now().day).filter(author_id=request.user.id).count()
-        entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__day=timezone.now().day).first
+        number_of_posts = Post.objects.filter(date_posted__date=timezone.now()).filter(author_id=request.user.id).count()
+        entered_mood_today = Mood.objects.filter(author=request.user).filter(date_posted__exact=timezone.now()).first
         context = dict()
         setting = Customizer.objects.filter(user=request.user)
         if setting:
@@ -46,7 +46,7 @@ def landing(request):
         context.update({'title': 'Home', 'post_count': number_of_posts, 'mood_today': entered_mood_today})
         return render(request, 'landing.html', context)
     else:
-        return login(request)
+        return redirect('login')
 
 # ==============HELPER FUNCTIONS================
 # Helper class, requires login and displays Permission denied error
@@ -117,7 +117,8 @@ class PostListView(CustomLoginRequiredMixin, RecentListView, CustomizerLoader):
     ordering = ['-date_posted']
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = RecentListView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
 # My Gratitude Posts page, lists all recent gratitude type posts
@@ -140,8 +141,8 @@ class GratitudePostListView(CustomLoginRequiredMixin, RecentListView, Customizer
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(post_type="Gratitude")
-        return queryset
+        items = queryset.filter(post_type="Gratitude")
+        return items
 
 # My Reflective Question Posts page, lists all recent gratitude type posts
 class QuestionPostListView(CustomLoginRequiredMixin, RecentListView, CustomizerLoader):
@@ -164,7 +165,7 @@ class QuestionPostListView(CustomLoginRequiredMixin, RecentListView, CustomizerL
     def get_queryset(self):
         queryset = super().get_queryset()
         user_items = queryset.filter(post_type="Question").filter(author=self.request.user)  # .values('title')
-        items = queryset.filter(title__in=list(user_items))
+        items = queryset.filter(title__in=list(user_items)).filter(post_type="Question")
         return items
 
 # User's history of posts
@@ -177,7 +178,8 @@ class HistoryListView(CustomLoginRequiredMixin, ListView, CustomizerLoader):
     ordering = ['-date_posted']
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = ListView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_queryset(self):
@@ -285,7 +287,8 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView, CustomizerLoader):
     ]  # https://positivepsychology.com/introspection-self-reflection/
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = CreateView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
     def get_initial(self):
@@ -331,9 +334,10 @@ class PostDeleteView(CustomLoginRequiredMixin, DeleteView, CustomizerLoader):
                              "Post successfully deleted.")
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
 
-    # def get_context_data(self, **kwargs):
-    #     context = CustomizerLoader.get_context_data(self)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = DeleteView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
+        return context
 
 # Update a post
 class PostUpdateView(CustomLoginRequiredMixin, UpdateView, CustomizerLoader):
@@ -353,7 +357,8 @@ class PostUpdateView(CustomLoginRequiredMixin, UpdateView, CustomizerLoader):
         return get_post_queryset(PostUpdateView, self)
 
     def get_context_data(self, **kwargs):
-        context = CustomizerLoader.get_context_data(self)
+        context = UpdateView.get_context_data(self, **kwargs)
+        context.update(CustomizerLoader.get_context_data(self))
         return context
 
 # ==============SAVING AND HIDING POSTS================
@@ -469,8 +474,17 @@ def search(request):
     query = request.POST['search']
     # print("QUERY>>", query)
     # print("Objects;", Post.objects.all())
+    context = dict()
+    setting = Customizer.objects.filter(user=request.user)
+    if setting:
+        setting = setting[0]
+        context.update({"nav_color": setting.theme_nav,
+                        "bg_color": setting.theme_background,
+                        "font_size": setting.font_size,
+                        "font_style": setting.font_style})
     if not request.user.is_authenticated:
-        return render(request, 'post/search.html', {'title': 'Search', 'posts': []})
+        context.update({'title': 'Search', 'posts': []})
+        return render(request, 'post/search.html', context)
     if request.user.is_superuser:
         results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
     else:
@@ -482,6 +496,6 @@ def search(request):
         criterion4 = Q(date_posted__gt=timezone.now() - datetime.timedelta(days=1))
 
         results = Post.objects.filter((criterion1 | criterion2) & criterion3 & criterion4)
-
-    return render(request, 'post/search.html', {'title': 'Search', 'posts': results})
+    context.update({'title': 'Search', 'posts': results})
+    return render(request, 'post/search.html', context)
 

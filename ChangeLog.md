@@ -1,6 +1,22 @@
 TODO List:
-[TODO] Interface customisability - Font Choices
 [TODO] Interface customisability - REM issues
+
+v 0.7.1 19-Oct-2021
+* Fixed date error with landing page daily tasks
+
+v 0.7.0 19-Oct-2021
+* Development and production have different forms
+
+v 0.6.15 17-Oct-2021
+* Fixed hide-post button
+* Fixed question filtering on feed
+
+v 0.6.14 17-Oct-2021
+* Fonts are now imported from google api and can be changed in settings
+
+v 0.6.13 17-Oct-2021
+* Interface customisability now works on all pages (previously missed search)
+* Users can now logging properly by being redirected to `/login`
 
 v 0.6.12 17-Oct-2021
 * Interface customisability now saves and applies to all pages

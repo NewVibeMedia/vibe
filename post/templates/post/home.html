@@ -2,7 +2,6 @@
 {% block content %}
 
     <div>
-
         {% if post_type == "Gratitude" %}
             <a id="new-post-btn" class="btn btn-success" href="{% url 'post-create' %}?title=0" role="button"><i class="fas fa-plus"></i> New Entry</a>
         {% elif post_type == "Reflective Question" %}
@@ -25,11 +24,14 @@
 
 
         {% if post_type != None %}
-            <h2>{% if user.id %}{% endif %} {{ post_type }} Entries</h2>
+            {% if post_type == "Gratitude" %}
+                <h1>{% if user.id %}{% endif %} Free Journaling Entries</h1>
+            {% else %}
+                <h1>{% if user.id %}{% endif %} Guided Journaling Entries</h1>
+            {% endif %}
         {% else %}
-            <h2>{% if user.id %}My{% endif %} Posts</h2>
+            <h1>{% if user.id %}My{% endif %} Posts</h1>
         {% endif %}
-
     </div>
 
     <div>
@@ -49,29 +51,9 @@
 
     {% for post in posts %}
         <div class="card">
-            <div class="card-body">
-                <a href="{% url 'post-detail' post.id %}">
+            <div class="card feed-card" onclick='location.href="{% url 'post-detail' post.id %}"'>
+                <article>
                     <h2 class="card-title">{{ post.title }}</h2>
-                    {% if post.id in saved_posts %}   
-                        <div class="save-btn-group">
-                            <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
-                                <i class="fas fa-bookmark fa-3x"></i>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="save-btn-group">
-                            <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
-                                <i class="far fa-bookmark fa-3x"></i>
-                            </a>
-                        </div>
-                    {% endif %}
-
-                    <div class="hide-btn-group">
-                        <a name="hide-btn" class="btn btn-sm" href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}">
-                            <i class="far fa-eye-slash fa-3x"></i>
-                        </a>
-                    </div>
-
                     {# Django Date Documentation: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date #}
                     <p class="card-subtitle">
                         By
@@ -82,12 +64,32 @@
                             {{ rand_name|random }}  
                         {% endif %}
                             {{ post.date_posted|date:"D, M d, Y" }} 
-                    </h4>
+                    </p>
                     <p class="card-text">{{ post.content|truncatewords:50 }}</p>
-                </a>
+                </article>
+                <nav>
+                    {% if post.id in saved_posts %}   
+                        <div class="save-btn-group">
+                            <a name="unsave-btn" class="btn btn-sm" href="{% url 'post-option-edit' post.id save_str %}?next={{ request.path|urlencode }}">
+                                <i class="fas fa-bookmark"></i>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="save-btn-group">
+                            <a name="save-btn" class="btn btn-sm" href="{% url 'post-save' post.id user.username %}?next={{ request.path|urlencode }}">
+                                <i class="far fa-bookmark"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    <div class="hide-btn-group">
+                        <a name="hide-btn" class="btn btn-sm" href="{% url 'post-hide' post.id user.username %}?next={{ request.path|urlencode }}">
+                            <i class="far fa-eye-slash"></i>
+                        </a>
+                    </div>
+                </nav>
             </div>
         </div>
-
         <br>
     {% endfor %}
 

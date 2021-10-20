@@ -25,11 +25,6 @@ span.mandatory, span.asteriskField {
   margin-bottom: 20px;
 }
 
-.save-btn-group {
-  float: right;
-  margin-top: -3rem;
-}
-
 /* General styling */
 body {
   display: flex;
@@ -77,6 +72,7 @@ p {
   text-align: center;
   text-decoration: none;
   transition: box-shadow 0.15s;
+  transition: background-color 0.15s;
 }
 
 .button:visited {
@@ -91,9 +87,17 @@ p {
   background-color: #9FD19F !important;
 }
 
+.confirm-button:hover {
+  background-color: #75ad83 !important;
+}
+
 .delete-button {
   background-color: #EE6C4D !important;
   color: #f8f9fa !important;
+}
+
+.delete-button:hover {
+  background-color: #d64237 !important;
 }
 
 .container {
@@ -110,30 +114,54 @@ p {
 .navbar .navbar-brand {
   padding: 0;
 }
+.navbar #nav-padder {
+  flex-grow: 1;
+}
 .navbar .nav-link {
   color: black !important;
 }
 .navbar .nav-item .active {
   background-color: #f8f9fa;
-  border-radius: 12px;
+  border-radius: 5px;
   font-weight: 600;
   color: #2e5a3b;
 }
 .navbar .nav-item:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
+  border-radius: 5px;
 }
-.navbar .nav-item {
-  margin-right: 0.5em;
-  margin-top: 2%;
+.navbar .navbar-toggler {
   margin-left: 1em;
 }
 .navbar #profile_dropdown {
-  background-color: #58AE58;
+  background-color: white;
   border-color: transparent;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+.navbar #profile_dropdown p {
+  padding: 0 0.2em;
+  display: none;
+  margin: 0;
 }
 
+@media screen and (min-width: 600px) {
+  .navbar #nav-padder {
+    flex-grow: 0;
+  }
+  .navbar .dropdown {
+    margin-left: 2em;
+    order: 99;
+  }
+  .navbar #profile_dropdown p {
+    display: inline;
+  }
+}
 /* Landing Page Styling */
+.landing-link a {
+  text-decoration: none;
+}
 .landing-link .card {
   height: 100%;
 }
@@ -217,6 +245,36 @@ p {
   border-color: transparent;
 }
 
+.setting {
+  margin: 2.5em;
+  padding: 0.8em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+.setting h1 {
+  padding: 0.1em;
+}
+.setting h2 {
+  display: inline-flex;
+  text-align: right;
+  padding: 1.2em;
+}
+
+.save-button {
+  text-align: center;
+}
+
+input[type=submit] {
+  background-color: #9FD19F;
+  border-radius: 5px;
+  border-color: transparent;
+}
+
+input[type=submit]:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
 @media screen and (min-width: 600px) {
   #login {
     width: 100%;
@@ -262,9 +320,8 @@ p {
 }
 
 .card-body {
-  background-color: #9FD19F;
   color: #45342C;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .card-title {
@@ -284,6 +341,28 @@ p {
 .card-option {
   display: flex;
   flex-direction: column;
+}
+
+/* Post feed Styling */
+.feed-card {
+  padding: 0.8em;
+  flex-direction: row !important;
+}
+.feed-card article {
+  flex-grow: 1;
+}
+.feed-card nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.feed-card a {
+  padding: 0 0.2em;
+  font-size: 32px;
+}
+
+.feed-card:hover {
+  cursor: pointer;
 }
 
 /* Mood List Styling */
@@ -354,6 +433,11 @@ p {
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.mood-link {
+  background-color: #9fbbd0 !important;
+  border-color: #9fbbd0 !important;
 }
 
 /* Mood Form Styling */

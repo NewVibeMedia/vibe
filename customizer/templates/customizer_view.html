@@ -10,18 +10,22 @@
                 </div>
             {% endfor %}
         {% endif %}
-    </div>
+    </div> 
+    <div class="setting">
     <h1>My Account</h1>
     <div>
     <form action="/settings/save/" method="post">
         {% csrf_token %}
-        <h2>Nav Bar Colour</h2>
-        <input type="color" id="nav-colour" name="nav-color" value={{ nav_color }}>
-        <h2>Background Colour</h2>
-        <input type="color" id="bg-colour" name="bg-color" value={{ bg_color }}>
-        <h2>Font Size</h2>
-        <input type="range" min="12" max="24" value={{ font_size }} class="slider" id="font-size-selector" name="font-size-selector">
-        <h2>Font Style</h2>
+        <h2>Nav Bar Colour:</h2>
+        <input type="color" id="nav-colour" name="nav-color" value={{ nav_color }}> 
+        <br>
+        <h2>Background Colour:</h2>
+        <input type="color" id="bg-colour" name="bg-color" value={{ bg_color }}> 
+        <br>
+        <h2>Font Size:</h2>
+        <input type="range" min="12" max="24" value={{ font_size }} class="slider" id="font-size-selector" name="font-size-selector"> 
+        <br>
+        <h2>Font Style:</h2>
         <select name="font-style-selector" id="font-style-selector">
             <option {% if font_style == "Roboto" %}selected{% endif %}>Roboto</option>
             <option {% if font_style == "Oswald" %}selected{% endif %}>Oswald</option>
@@ -29,8 +33,11 @@
             <option {% if font_style == "Yanone Kaffeesatz" %}selected{% endif %}>Yanone Kaffeesatz</option>
             <option {% if font_style == "Crimson Text" %}selected{% endif %}>Crimson Text</option>
         </select>
-        <br><br>
-        <input type="submit" value="Save Changes">
-    </form>
+        <br><br> 
+        <div class="save-button">
+        <input type="submit" value="Save Changes"> 
+        </div>
+    </form> 
+</div>
     </div>
 {% endblock content %}

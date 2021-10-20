@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-                crossorigin="anonymous"></script>
-        {% block style %}
-            <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}"/>
-        {% endblock %} 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&display=swap" rel="stylesheet"> 
-
-        <title>Vibe</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}"/>
+    {% endblock %} 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patrick+Hand">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Crimson+Text">
+    <title>Vibe</title>
+</head>
 
     <body>
     <style>
@@ -36,12 +40,15 @@
             <a class="navbar-brand" href="/"><b style="color:#fff; font-size:32px; margin-left:10%; font-family: 'Abril Fatface', cursive;
                 font-family: 'Archivo Black', sans-serif;">vibe</b></a>
 
+            <!-- Use for padding hacks -->
+            <div id="nav-padder"></div>
+
             <!-- Account Specific Options -->
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle btn btn-info " href="#" id="profile_dropdown" role="button"
+                <a class="nav-link dropdown-toggle btn btn-info" href="#" id="profile_dropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-user"></i>
-                    {{ user.username }}
+                    <p>{{ user.username }}</p>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li class="nav-item">
@@ -119,7 +126,7 @@
                 <form id="search_form" class="d-flex" action="/search" accept-charset="UTF-8" method="post">
                     {% csrf_token %}
                     <input class="form-control me-2" type="search" name="search" placeholder="Search Posts" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn button confirm-button" type="submit">Search</button>
                 </form>
                 {% endif %}
             </div>
@@ -134,11 +141,10 @@
     </div>
     </body>
 
-    <div class="footer" class="container"
-        style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
-        <div class="">
-            Vibe v0.6.12 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
-        </div>
+<div class="footer" class="container"
+     style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
+    <div class="">
+        Vibe v0.7.1 (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6))
     </div>
 
 </html>
