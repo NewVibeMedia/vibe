@@ -281,6 +281,11 @@ p {
   border-color: transparent;
 }
 
+.card-option {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Mood List Styling */
 .graph-button {
   text-align: center;
