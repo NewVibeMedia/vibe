@@ -49,10 +49,16 @@
         {% endif %}
     </div>
 
-    {% if post_type == "Reflective Question" and posts.count == 0 %}
-        <p>There are no posts here yet. Answer a question to see what others have posted!</p>
-        {% else %}
-        <p>There are no posts here yet. Share your experiences with others!</p>
+    {% if posts.count == 0 %}
+        {% if post_type == "Reflective Question" %}
+            <p>There are no posts here yet. Answer a question to see what others have posted!</p>
+        {% elif post_type == "Gratitude" %}
+            <p>There are no posts here yet. Share your experiences with others!</p>
+        {% endif %}
+    {% else %}
+        {% if post_type == "Gratitude" %}
+            <p>Share your experiences with others!</p>
+        {% endif %}
     {% endif %}
 
     {% for post in posts %}
