@@ -38,7 +38,6 @@
                 <textarea id="id_content" name="content">{{ post.content }}</textarea>
             </fieldset>
 
-            {% if settings.DJANGO_ENV == "development" %}
                 <fieldset class="form-group">
                     <label class="">Post type <span class="mandatory">*</span></label>
                     <div id="id_post_type">
@@ -63,7 +62,6 @@
                         {% endif %}
                     </div>
                 </fieldset>
-            {% endif %}
 
             <fieldset class="form-group">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
