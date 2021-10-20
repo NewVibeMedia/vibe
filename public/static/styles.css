@@ -390,7 +390,7 @@ input[type=submit]:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 5px #9FD19F dashed;
+  border: 5px white dashed;
   transition: background-color 0.15s;
 }
 #new-mood-link i {
@@ -399,7 +399,7 @@ input[type=submit]:hover {
 
 #new-mood-link:hover {
   box-shadow: none;
-  background-color: #9FD19F;
+  background-color: white;
   border-style: solid;
 }
 

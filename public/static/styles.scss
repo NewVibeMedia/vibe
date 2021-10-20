@@ -121,7 +121,7 @@ p {
         font-weight: 600; 
         color:#2e5a3b;
     }
-    
+
     .nav-item:hover { 
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06); 
         border-radius: 5px;
@@ -427,7 +427,7 @@ input[type=submit]:hover{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 5px #9FD19F dashed;
+    border: 5px white dashed;
     transition: background-color 0.15s;
 
     i {
@@ -437,7 +437,7 @@ input[type=submit]:hover{
 
 #new-mood-link:hover {
     box-shadow: none;
-    background-color: #9FD19F;
+    background-color: white;
     border-style: solid;
 }
 
