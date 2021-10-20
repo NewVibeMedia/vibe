@@ -29,10 +29,10 @@
             {% csrf_token %}
 
             {# Date if editing only #}
-                <fieldset class="form-group">
+                <fieldset class="form-group" {% if settings.DJANGO_ENV != "development" %}style="display:none;"{% endif %}>
                     <label class="">Date <span class="mandatory">*</span></label>
                     <input id="id_date" value="{{ object.date_posted  | date:'Y-m-d' }}" type="date"
-                           name="date_posted"/>
+                           name="date_posted" />
                 </fieldset>
             {# Mood Selection #}
             <fieldset class="form-group">
