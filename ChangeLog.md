@@ -1,6 +1,9 @@
 TODO List:
 [TODO] Interface customisability - REM issues
-v 0.7.3
+
+v 0.7.4 21-Oct-2021
+* Auto refresh every 10 seconds on post feed pages
+v 0.7.3 21-Oct-2021
 * Fixed production show form fields
 
 v 0.7.1 19-Oct-2021
