@@ -1,8 +1,12 @@
 TODO List:
 [TODO] Interface customisability - REM issues
 
+v 0.7.5 21-Oct-2021
+* Free Entry should not have pre-filled title
+
 v 0.7.4 21-Oct-2021
 * Auto refresh every 10 seconds on post feed pages
+
 v 0.7.3 21-Oct-2021
 * Fixed production show form fields
 
