@@ -281,7 +281,6 @@ input[type=submit]:hover {
 }
 
 .card-body {
-  color: #45342C;
   border-radius: 3px;
 }
 
@@ -507,6 +506,9 @@ input[type=submit]:hover {
 #signup {
   display: flex;
   flex-direction: row;
+}
+#signup .signup-block {
+  flex-grow: 1;
 }
 #signup .help-block {
   display: none;
