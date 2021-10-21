@@ -38,8 +38,7 @@
                 <textarea id="id_content" name="content">{{ post.content }}</textarea>
             </fieldset>
 
-            {% if settings.DJANGO_ENV == "development" %}
-                <fieldset class="form-group">
+                <fieldset class="form-group" {% if settings.DJANGO_ENV != "development" %}style="display:none;"{% endif %}>
                     <label class="">Post type <span class="mandatory">*</span></label>
                     <div id="id_post_type">
                         {% if post.id %}
@@ -50,7 +49,7 @@
                     </div>
                 </fieldset>
 
-                <fieldset class="form-group">
+                <fieldset class="form-group" {% if settings.DJANGO_ENV != "development" %}style="display:none;"{% endif %}>
                     <label class="">Date <span class="mandatory">*</span></label>
                     <div id="id_date">
                         {% if post.id %}
@@ -63,7 +62,6 @@
                         {% endif %}
                     </div>
                 </fieldset>
-            {% endif %}
 
             <fieldset class="form-group">
                 <button class="btn btn-primary" id="save-btn" type="submit">Post</button>

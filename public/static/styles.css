@@ -179,20 +179,6 @@ p {
   font-weight: 400;
 }
 
-.reg-block {
-  padding: 0.8em;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
-}
-.reg-block h2 {
-  font-weight: 400;
-  text-align: center;
-}
-.reg-block .input-group {
-  margin-bottom: 1.2em;
-}
-
 .login-buttons {
   margin-top: 1em;
   display: flex;
@@ -237,26 +223,6 @@ p {
   padding-right: 47%;
   background-color: #9FD19F;
   border-color: transparent;
-}
-
-.setting {
-  margin: 2.5em;
-  padding: 0.8em;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
-}
-.setting h1 {
-  padding: 0.1em;
-}
-.setting h2 {
-  display: inline-flex;
-  text-align: right;
-  padding: 1.2em;
-}
-
-.save-button {
-  text-align: center;
 }
 
 input[type=submit] {
@@ -307,8 +273,7 @@ input[type=submit]:hover {
 
 .card {
   border: none !important;
-     box-shadow: 0 10px 20px rgba(0,0,0,.03), 0 4px 8px rgba(0,0,0,.03);
-
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03), 0 4px 8px rgba(0, 0, 0, 0.03);
 }
 
 .card:hover {
@@ -531,15 +496,20 @@ input[type=submit]:hover {
   }
 }
 /* Sign up */
-.sign-up-block {
-  background-color: white !important;
+#signup {
+  display: flex;
+  flex-direction: row;
 }
-
-.help-block {
+#signup .help-block {
+  display: none;
   padding: 0.8em;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+.sign-up-block {
+  background-color: white !important;
 }
 
 .sign-up-form-content {
@@ -547,6 +517,47 @@ input[type=submit]:hover {
 }
 .sign-up-form-content input {
   width: 100%;
+}
+
+.reg-block {
+  width: 100%;
+  padding: 0.8em;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+.reg-block h2 {
+  font-weight: 400;
+  text-align: center;
+}
+.reg-block .input-group {
+  margin-bottom: 1.2em;
+}
+
+@media screen and (min-width: 600px) {
+  #signup .help-block {
+    margin-left: 2em;
+    display: block;
+  }
+}
+/* Setting styling */
+.setting {
+  margin: 2.5em;
+  padding: 0.8em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+.setting h1 {
+  padding: 0.1em;
+}
+.setting h2 {
+  display: inline-flex;
+  padding: 0.8em 0;
+}
+
+.save-button {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

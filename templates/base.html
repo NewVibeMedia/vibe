@@ -45,6 +45,7 @@
             <div id="nav-padder"></div>
 
             <!-- Account Specific Options -->
+            {% if user.is_authenticated %}
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle btn btn-info" href="#" id="profile_dropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,6 +92,7 @@
                     </li>
                 </ul>
             </div>
+            {% endif %}
 
             <!-- Toggler for navbar -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -145,7 +147,7 @@
 <div class="footer" class="container"
      style="text-align: center; margin-top: 10px; margin-bottom: 15px; border-top: 1px solid #ddd; padding-top: 5px;">
     <div class="">
-        Vibe v0.7.1{% if settings.DJANGO_ENV == "development" %} (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6)) {% endif %}
+        Vibe v0.7.3{% if settings.DJANGO_ENV == "development" %} (Env: {{ settings.DJANGO_ENV }}, Powered by Django 3.2.5 (Python: 3.9.6)) {% endif %}
     </div>
 
 </html>
