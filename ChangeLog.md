@@ -1,6 +1,9 @@
 TODO List:
 [TODO] Interface customisability - REM issues
 
+v 0.7.6 21-Oct-2021
+* Auto refresh every 5 minutes
+
 v 0.7.5 21-Oct-2021
 * Free Entry should not have pre-filled title
 
