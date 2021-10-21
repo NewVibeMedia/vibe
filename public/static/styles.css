@@ -96,6 +96,7 @@ p {
 
 /* Navbar styling */
 .navbar {
+  margin-bottom: 1em;
   background-color: #9FD19F;
 }
 .navbar .navbar-brand {
@@ -105,10 +106,9 @@ p {
   flex-grow: 1;
 }
 .navbar .nav-link {
+  padding-left: 0.4em !important;
+  padding-right: 0.4em !important;
   color: black !important;
-}
-.navbar .nav-item {
-  margin-left: 0.6em;
 }
 .navbar .nav-item .active {
   background-color: #f8f9fa;
@@ -141,15 +141,20 @@ p {
 }
 
 @media screen and (min-width: 600px) {
+  .navbar #profile_dropdown p {
+    display: inline;
+  }
+}
+@media screen and (min-width: 1000px) {
   .navbar #nav-padder {
     flex-grow: 0;
+  }
+  .navbar .nav-item {
+    margin-left: 0.6em;
   }
   .navbar .dropdown {
     margin-left: 2em;
     order: 99;
-  }
-  .navbar #profile_dropdown p {
-    display: inline;
   }
 }
 /* Landing Page Styling */
@@ -212,15 +217,10 @@ p {
 }
 
 #post-cancel-btn {
-  margin-top: 1em;
   border-color: transparent;
-  padding-right: 45%;
-  padding-left: 45%;
 }
 
 #save-btn {
-  padding-left: 46%;
-  padding-right: 47%;
   background-color: #9FD19F;
   border-color: transparent;
 }
@@ -307,6 +307,14 @@ input[type=submit]:hover {
 /* Post feed Styling */
 #feed-header {
   margin-bottom: 0.8em;
+}
+
+.post-container {
+  margin-bottom: 0.8em;
+}
+
+.post-container:last-of-type {
+  margin-bottom: 0;
 }
 
 .feed-card {
@@ -520,7 +528,6 @@ input[type=submit]:hover {
 }
 
 .reg-block {
-  width: 100%;
   padding: 0.8em;
   background: #fff;
   border-radius: 5px;

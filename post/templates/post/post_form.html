@@ -63,14 +63,14 @@
                     </div>
                 </fieldset>
 
-            <fieldset class="form-group">
-                <button class="btn btn-primary" id="save-btn" type="submit">Post</button>
+            <nav class="edit-actions">
+                <button id="save-btn" class="btn btn-primary confirm-button" type="submit">Post</button>
                 {% if form.post_type.value == "Gratitude" %}
                     <a href="{% url 'post-free-journal' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% else %} {# Reflective Question #}
                     <a href="{% url 'post-guided-journal' %}" id="post-cancel-btn" class="btn btn-light">Cancel</a>
                 {% endif %}
-            </fieldset>
+            </nav>
 
         </form>
 
