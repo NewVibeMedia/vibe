@@ -42,6 +42,10 @@ p {
     color: #EE6C4D;
 }
 
+.row {
+    margin-bottom: 1em;
+}
+
 /* General form button styling */
 .edit-actions {
     display: flex;
@@ -77,6 +81,15 @@ p {
 
 .confirm-button:hover {
     background-color: #75ad83 !important;
+}
+
+.search-button {
+    color: white !important;
+    background-color: #3D5A80 !important; 
+}
+
+.search-button:hover {
+    background-color: #314375 !important; 
 }
 
 .delete-button {
@@ -313,6 +326,7 @@ input[type=submit]:hover{
 } 
 
 .card-body {    
+    color: #212529;
     border-radius: 3px; 
 }  
 .card-title { 
