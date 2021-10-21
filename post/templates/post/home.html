@@ -24,14 +24,14 @@
             {# All Posts Page #}
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="float:right;">
                 <div class="btn-group" role="group">
-                    <button id="btnGroup" type="button" class="btn btn-success dropdown-toggle"
+                    <button id="new-post-btn" type="button" class="btn btn-success dropdown-toggle"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">
                         <i class="fas fa-plus"></i> New Entry
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" href="{% url 'post-create' %}?title=0">Gratitude Entry</a></li>
-                        <li><a class="dropdown-item" href="{% url 'post-create' %}?title=1">Question Entry</a></li>
+                        <li><a class="dropdown-item" href="{% url 'post-create' %}?title=1">Guided Entry</a></li>
+                        <li><a class="dropdown-item" href="{% url 'post-create' %}?title=0">Free Entry</a></li>
                     </ul>
                 </div>
             </div>
