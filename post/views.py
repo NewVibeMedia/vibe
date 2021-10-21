@@ -269,7 +269,7 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView, CustomizerLoader):
     model = Post
     fields = ['title', 'content', 'post_type', 'date_posted']
 
-    gratitude_question = "What are you grateful for today?"
+    gratitude_question = ""
     reflection_questions = [
         "What would you do if you knew you could not fail?",
         "What did you do today that you are most proud of?",
