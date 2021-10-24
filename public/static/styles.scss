@@ -577,7 +577,8 @@ input[type=submit]:hover{
 /* Sign up */
 #signup {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
+   
 
     .signup-block {
         flex-grow: 1;
@@ -593,14 +594,41 @@ input[type=submit]:hover{
 }
 
 .sign-up-block {
-  background-color: white !important;
+  background-color: white !important; 
 }
 
 .sign-up-form-content {
   width: 100%;
   input {
-    width: 100%;
+    width: 100%; 
   }
+} 
+
+.sign-up-form{  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Full-width input fields */
+input {
+    width: 20em;
+    padding: 0.4em;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border:none;
+    background: #f1f1f1;
+  }
+  input:focus {
+    background-color: #ddd;
+    outline: none;
+  }   
+  
+  button{ 
+      margin-left: 6em; 
+  }
+
+
+
+ 
 }
 
 .reg-block {

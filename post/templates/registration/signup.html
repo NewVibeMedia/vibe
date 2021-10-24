@@ -19,20 +19,26 @@
                                     {% endfor %}
                             {% endfor %}
 
-                            <p>
+                            <p> 
+                                <div class="inputContainer">
                                 <label for="id_username">Username:</label><br>
-                                <input type="text" name="username" maxlength="150" autofocus required id="id_username">
+                                <input type="text" name="username" maxlength="150" autofocus required id="id_username" placeholder="Enter Username"> 
+                                </div>
                             </p>
 
                             <p>
+                                <div class="inputContainer">
                                 <label for="id_password1">Password:</label><br>
                                 <input type="password" name="password1" autocomplete="new-password" required
-                                       id="id_password1">
+                                       id="id_password1" placeholder="Enter Password"> 
+                                </div>
                             </p>
-                            <p>
+                            <p> 
+                                <div class="inputContainer">
                                 <label for="id_password2">Password confirmation:</label><br>
                                 <input type="password" name="password2" autocomplete="new-password" required
-                                       id="id_password2">
+                                       id="id_password2" placeholder="Confirm Password"> 
+                                </div>
                             </p>
 
                             <button type="submit" class="button confirm-button create-account-btn">Create Account</button>
